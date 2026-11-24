@@ -1,15 +1,17 @@
 import asyncio
+import os
 import random
 from contextlib import asynccontextmanager, suppress
 from fastapi import FastAPI, Depends, Header, HTTPException, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select, func, and_, or_
 from sqlalchemy.exc import IntegrityError, OperationalError
 from . import models as m, schemas as s, services as svc
 from .database import transaction
 from .seed import initialize
-from .config import DOMAINS, SLOT
+from .config import DOMAINS, SLOT, ALLOWED_ORIGINS, FRONTEND_DIST_DIR
 from .algorithms import benchmark
 
 # Centralized Dispatch Coordinator (P0.4)
@@ -62,7 +64,8 @@ async def lifespan(app):
 app = FastAPI(title='Triage15', version='1.0.0', lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:5173', 'http://127.0.0.1:5173'],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
     allow_methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allow_headers=['Content-Type', 'X-Demo-Student-ID', 'X-Auto-Dispatch']
 )
@@ -87,8 +90,18 @@ def own(student, id):
     svc.require(student.id == id, 'This action belongs to another demo student', 403)
 
 @app.get('/api/health')
-def health():
-    return {'status': 'ok', 'mode': 'local demo; synthetic profiles; authoritative server clock'}
+def health(db=Depends(database)):
+    db_status = 'connected'
+    try:
+        db.execute(select(1)).scalar()
+    except Exception as e:
+        db_status = f'unhealthy: {str(e)}'
+    return {
+        'status': 'ok' if db_status == 'connected' else 'degraded',
+        'mode': 'demonstration prototype; synthetic profiles; authoritative server clock',
+        'auth_notice': 'X-Demo-Student-ID is a prototype identity switcher for demonstration, not secure authentication',
+        'database': db_status
+    }
 
 @app.get('/api/server-time')
 def server_time():
@@ -576,3 +589,31 @@ def run_benchmark(actor=Depends(identity), db=Depends(database)):
 @app.get('/api/benchmarks/{id}')
 def benchmark_result(id: str, db=Depends(database)):
     return svc.serialize(svc.get(db, m.BenchmarkRun, id))
+
+# SPA Static Asset and Client-side Routing Mounting
+assets_dir = os.path.join(FRONTEND_DIST_DIR, 'assets')
+if os.path.isdir(assets_dir):
+    app.mount('/assets', StaticFiles(directory=assets_dir), name='assets')
+
+@app.get('/', include_in_schema=False)
+async def serve_root():
+    if os.path.isdir(FRONTEND_DIST_DIR):
+        index_file = os.path.join(FRONTEND_DIST_DIR, 'index.html')
+        if os.path.isfile(index_file):
+            return FileResponse(index_file)
+    return {'message': 'Triage15 API is running; frontend build not found.'}
+
+@app.get('/{full_path:path}', include_in_schema=False)
+async def serve_spa(full_path: str):
+    # Never intercept API routes, OpenAPI docs, or schema
+    if full_path.startswith(('api/', 'api', 'docs', 'redoc', 'openapi.json')):
+        raise HTTPException(status_code=404, detail='Endpoint not found')
+    if os.path.isdir(FRONTEND_DIST_DIR):
+        target = os.path.join(FRONTEND_DIST_DIR, full_path)
+        if os.path.isfile(target):
+            return FileResponse(target)
+        index_file = os.path.join(FRONTEND_DIST_DIR, 'index.html')
+        if os.path.isfile(index_file):
+            return FileResponse(index_file)
+    raise HTTPException(status_code=404, detail='Frontend asset or route not found')
+

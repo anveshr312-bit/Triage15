@@ -5,7 +5,7 @@ import argparse
 from sqlalchemy import select
 from .database import Base, engine, transaction
 from . import models as m
-from .config import DOMAINS, SLOT
+from .config import DOMAINS, SLOT, ALLOW_DATABASE_RESET
 
 BANKS = {
  'Python': [
@@ -188,6 +188,11 @@ if __name__ == '__main__':
     parser.add_argument('--reset', action='store_true')
     args = parser.parse_args()
     if args.reset:
+        if not ALLOW_DATABASE_RESET:
+            raise RuntimeError(
+                'Database reset is disabled (ALLOW_DATABASE_RESET=false). '
+                'Set ALLOW_DATABASE_RESET=true if this destructive operation is intentional.'
+            )
         with engine.connect() as connection:
             connection.exec_driver_sql('PRAGMA foreign_keys=OFF')
             Base.metadata.drop_all(connection)

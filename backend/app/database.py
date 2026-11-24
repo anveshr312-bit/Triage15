@@ -1,10 +1,12 @@
 from contextlib import contextmanager
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
-from .config import DATABASE_URL
+from .config import DATABASE_URL, ensure_database_directory
 
 class Base(DeclarativeBase):
     pass
+
+ensure_database_directory(DATABASE_URL)
 
 engine = create_engine(DATABASE_URL, connect_args={'check_same_thread': False, 'timeout': 15})
 
