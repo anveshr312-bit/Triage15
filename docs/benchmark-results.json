@@ -1,0 +1,1092 @@
+{
+  "seed": 15015,
+  "scenario_count": 50,
+  "scenarios": [
+    {
+      "scenario": 0,
+      "optimized": {
+        "assignment_count": 6,
+        "total_utility": 676.3119,
+        "average_suitability": 90.7147,
+        "urgent_assignment_rate": 0.8,
+        "unassigned_requests": 15,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.156799989985302
+      },
+      "greedy": {
+        "assignment_count": 6,
+        "total_utility": 667.5107,
+        "average_suitability": 92.7289,
+        "urgent_assignment_rate": 0.6,
+        "unassigned_requests": 15,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.04710000939667225
+      }
+    },
+    {
+      "scenario": 1,
+      "optimized": {
+        "assignment_count": 7,
+        "total_utility": 771.5892,
+        "average_suitability": 97.0806,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08329999400302768
+      },
+      "greedy": {
+        "assignment_count": 7,
+        "total_utility": 771.5892,
+        "average_suitability": 97.0806,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.038300000596791506
+      }
+    },
+    {
+      "scenario": 2,
+      "optimized": {
+        "assignment_count": 3,
+        "total_utility": 318.6352,
+        "average_suitability": 94.3686,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.032499985536560416
+      },
+      "greedy": {
+        "assignment_count": 3,
+        "total_utility": 318.6352,
+        "average_suitability": 94.3686,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.015400000847876072
+      }
+    },
+    {
+      "scenario": 3,
+      "optimized": {
+        "assignment_count": 17,
+        "total_utility": 1824.9617,
+        "average_suitability": 94.5532,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.29850000282749534
+      },
+      "greedy": {
+        "assignment_count": 17,
+        "total_utility": 1796.8163,
+        "average_suitability": 92.6418,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.07460001506842673
+      }
+    },
+    {
+      "scenario": 4,
+      "optimized": {
+        "assignment_count": 17,
+        "total_utility": 1703.1818,
+        "average_suitability": 93.5841,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.2809000143315643
+      },
+      "greedy": {
+        "assignment_count": 17,
+        "total_utility": 1683.3343,
+        "average_suitability": 92.1034,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08990001515485346
+      }
+    },
+    {
+      "scenario": 5,
+      "optimized": {
+        "assignment_count": 8,
+        "total_utility": 742.5824,
+        "average_suitability": 91.4636,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08379999781027436
+      },
+      "greedy": {
+        "assignment_count": 8,
+        "total_utility": 706.5952,
+        "average_suitability": 86.0549,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.025100016500800848
+      }
+    },
+    {
+      "scenario": 6,
+      "optimized": {
+        "assignment_count": 21,
+        "total_utility": 2120.5031,
+        "average_suitability": 93.0354,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.6409999914467335
+      },
+      "greedy": {
+        "assignment_count": 21,
+        "total_utility": 2096.5801,
+        "average_suitability": 91.7691,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.10510001447983086
+      }
+    },
+    {
+      "scenario": 7,
+      "optimized": {
+        "assignment_count": 9,
+        "total_utility": 914.8406,
+        "average_suitability": 90.5529,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08430000161752105
+      },
+      "greedy": {
+        "assignment_count": 9,
+        "total_utility": 914.8406,
+        "average_suitability": 90.5529,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.021299987565726042
+      }
+    },
+    {
+      "scenario": 8,
+      "optimized": {
+        "assignment_count": 2,
+        "total_utility": 197.6315,
+        "average_suitability": 98.9766,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.01930000144056976
+      },
+      "greedy": {
+        "assignment_count": 2,
+        "total_utility": 197.6315,
+        "average_suitability": 98.9766,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.008799979696050286
+      }
+    },
+    {
+      "scenario": 9,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 398.9036,
+        "average_suitability": 96.7169,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.041799998143687844
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 398.9036,
+        "average_suitability": 96.7169,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.01920000067912042
+      }
+    },
+    {
+      "scenario": 10,
+      "optimized": {
+        "assignment_count": 11,
+        "total_utility": 1211.3889,
+        "average_suitability": 91.5559,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 9,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.0299999848939478
+      },
+      "greedy": {
+        "assignment_count": 11,
+        "total_utility": 1155.5275,
+        "average_suitability": 90.5022,
+        "urgent_assignment_rate": 0.7142857142857143,
+        "unassigned_requests": 9,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.05219999002292752
+      }
+    },
+    {
+      "scenario": 11,
+      "optimized": {
+        "assignment_count": 19,
+        "total_utility": 2000.1114,
+        "average_suitability": 93.1419,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.3865000035148114
+      },
+      "greedy": {
+        "assignment_count": 19,
+        "total_utility": 1977.7808,
+        "average_suitability": 92.3457,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08860000525601208
+      }
+    },
+    {
+      "scenario": 12,
+      "optimized": {
+        "assignment_count": 19,
+        "total_utility": 1888.5695,
+        "average_suitability": 92.8354,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 3,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.8354000058025122
+      },
+      "greedy": {
+        "assignment_count": 19,
+        "total_utility": 1837.6709,
+        "average_suitability": 89.5187,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 3,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.22069999249652028
+      }
+    },
+    {
+      "scenario": 13,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 362.22,
+        "average_suitability": 96.7391,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.053800002206116915
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 362.22,
+        "average_suitability": 96.7391,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.0261999957729131
+      }
+    },
+    {
+      "scenario": 14,
+      "optimized": {
+        "assignment_count": 8,
+        "total_utility": 809.5098,
+        "average_suitability": 95.8731,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.14669998199678957
+      },
+      "greedy": {
+        "assignment_count": 8,
+        "total_utility": 809.5098,
+        "average_suitability": 95.8731,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.06279998342506588
+      }
+    },
+    {
+      "scenario": 15,
+      "optimized": {
+        "assignment_count": 1,
+        "total_utility": 105.4234,
+        "average_suitability": 98.5278,
+        "urgent_assignment_rate": 0.0,
+        "unassigned_requests": 17,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.9111999825108796
+      },
+      "greedy": {
+        "assignment_count": 1,
+        "total_utility": 105.4234,
+        "average_suitability": 98.5278,
+        "urgent_assignment_rate": 0.0,
+        "unassigned_requests": 17,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.011800002539530396
+      }
+    },
+    {
+      "scenario": 16,
+      "optimized": {
+        "assignment_count": 16,
+        "total_utility": 1502.1747,
+        "average_suitability": 90.1617,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.3767999878618866
+      },
+      "greedy": {
+        "assignment_count": 16,
+        "total_utility": 1443.0608,
+        "average_suitability": 86.1613,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08749999688006938
+      }
+    },
+    {
+      "scenario": 17,
+      "optimized": {
+        "assignment_count": 7,
+        "total_utility": 731.8381,
+        "average_suitability": 89.4591,
+        "urgent_assignment_rate": 0.6,
+        "unassigned_requests": 6,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.3343000134918839
+      },
+      "greedy": {
+        "assignment_count": 7,
+        "total_utility": 726.6626,
+        "average_suitability": 86.7388,
+        "urgent_assignment_rate": 0.8,
+        "unassigned_requests": 6,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02680000034160912
+      }
+    },
+    {
+      "scenario": 18,
+      "optimized": {
+        "assignment_count": 9,
+        "total_utility": 954.9199,
+        "average_suitability": 93.5615,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.07829998503439128
+      },
+      "greedy": {
+        "assignment_count": 9,
+        "total_utility": 954.9199,
+        "average_suitability": 93.5615,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02750000567175448
+      }
+    },
+    {
+      "scenario": 19,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 365.009,
+        "average_suitability": 84.028,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.034900003811344504
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 359.8554,
+        "average_suitability": 81.2284,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.01270000939257443
+      }
+    },
+    {
+      "scenario": 20,
+      "optimized": {
+        "assignment_count": 7,
+        "total_utility": 754.427,
+        "average_suitability": 97.4371,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.086499989265576
+      },
+      "greedy": {
+        "assignment_count": 7,
+        "total_utility": 744.0369,
+        "average_suitability": 95.6884,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.030700000934302807
+      }
+    },
+    {
+      "scenario": 21,
+      "optimized": {
+        "assignment_count": 9,
+        "total_utility": 922.0367,
+        "average_suitability": 94.055,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.12299997615627944
+      },
+      "greedy": {
+        "assignment_count": 9,
+        "total_utility": 895.4916,
+        "average_suitability": 91.1055,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.04060001811012626
+      }
+    },
+    {
+      "scenario": 22,
+      "optimized": {
+        "assignment_count": 5,
+        "total_utility": 583.3403,
+        "average_suitability": 92.9127,
+        "urgent_assignment_rate": 0.5,
+        "unassigned_requests": 17,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.258800009964034
+      },
+      "greedy": {
+        "assignment_count": 5,
+        "total_utility": 583.3403,
+        "average_suitability": 92.9127,
+        "urgent_assignment_rate": 0.5,
+        "unassigned_requests": 17,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02680000034160912
+      }
+    },
+    {
+      "scenario": 23,
+      "optimized": {
+        "assignment_count": 7,
+        "total_utility": 832.6612,
+        "average_suitability": 93.8432,
+        "urgent_assignment_rate": 0.8571428571428571,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.9828999754972756
+      },
+      "greedy": {
+        "assignment_count": 7,
+        "total_utility": 802.463,
+        "average_suitability": 93.8834,
+        "urgent_assignment_rate": 0.7142857142857143,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.03369999467395246
+      }
+    },
+    {
+      "scenario": 24,
+      "optimized": {
+        "assignment_count": 6,
+        "total_utility": 624.5737,
+        "average_suitability": 97.0515,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.040399987483397126
+      },
+      "greedy": {
+        "assignment_count": 6,
+        "total_utility": 624.5737,
+        "average_suitability": 97.0515,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.016699981642886996
+      }
+    },
+    {
+      "scenario": 25,
+      "optimized": {
+        "assignment_count": 3,
+        "total_utility": 305.879,
+        "average_suitability": 89.1725,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.023500004317611456
+      },
+      "greedy": {
+        "assignment_count": 3,
+        "total_utility": 301.2745,
+        "average_suitability": 87.3916,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.007199996616691351
+      }
+    },
+    {
+      "scenario": 26,
+      "optimized": {
+        "assignment_count": 3,
+        "total_utility": 328.106,
+        "average_suitability": 93.5641,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02030000905506313
+      },
+      "greedy": {
+        "assignment_count": 3,
+        "total_utility": 328.106,
+        "average_suitability": 93.5641,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.008100003469735384
+      }
+    },
+    {
+      "scenario": 27,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 476.3688,
+        "average_suitability": 90.6438,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.5706999800167978
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 476.3688,
+        "average_suitability": 90.6438,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.017699989257380366
+      }
+    },
+    {
+      "scenario": 28,
+      "optimized": {
+        "assignment_count": 15,
+        "total_utility": 1572.4376,
+        "average_suitability": 91.6187,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 3,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.745400000596419
+      },
+      "greedy": {
+        "assignment_count": 15,
+        "total_utility": 1530.3548,
+        "average_suitability": 88.9715,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 3,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.061400001868605614
+      }
+    },
+    {
+      "scenario": 29,
+      "optimized": {
+        "assignment_count": 3,
+        "total_utility": 330.4941,
+        "average_suitability": 91.8195,
+        "urgent_assignment_rate": 0.4,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.5227999936323613
+      },
+      "greedy": {
+        "assignment_count": 3,
+        "total_utility": 330.4941,
+        "average_suitability": 91.8195,
+        "urgent_assignment_rate": 0.4,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02449998282827437
+      }
+    },
+    {
+      "scenario": 30,
+      "optimized": {
+        "assignment_count": 17,
+        "total_utility": 1871.4406,
+        "average_suitability": 93.2527,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 5,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.1703000054694712
+      },
+      "greedy": {
+        "assignment_count": 17,
+        "total_utility": 1817.9943,
+        "average_suitability": 90.451,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 5,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.09099999442696571
+      }
+    },
+    {
+      "scenario": 31,
+      "optimized": {
+        "assignment_count": 8,
+        "total_utility": 691.6336,
+        "average_suitability": 87.9938,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.06439999560825527
+      },
+      "greedy": {
+        "assignment_count": 8,
+        "total_utility": 687.9373,
+        "average_suitability": 87.3816,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.01930000144056976
+      }
+    },
+    {
+      "scenario": 32,
+      "optimized": {
+        "assignment_count": 1,
+        "total_utility": 123.6424,
+        "average_suitability": 95.8038,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 1,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.009200011845678091
+      },
+      "greedy": {
+        "assignment_count": 1,
+        "total_utility": 123.6424,
+        "average_suitability": 95.8038,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 1,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.0025999906938523054
+      }
+    },
+    {
+      "scenario": 33,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 397.0412,
+        "average_suitability": 86.5368,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.6385000015143305
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 390.1346,
+        "average_suitability": 85.3023,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "unassigned_requests": 13,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.018799997633323073
+      }
+    },
+    {
+      "scenario": 34,
+      "optimized": {
+        "assignment_count": 5,
+        "total_utility": 595.453,
+        "average_suitability": 98.0522,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.04420001641847193
+      },
+      "greedy": {
+        "assignment_count": 5,
+        "total_utility": 595.453,
+        "average_suitability": 98.0522,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.021700019715353847
+      }
+    },
+    {
+      "scenario": 35,
+      "optimized": {
+        "assignment_count": 5,
+        "total_utility": 461.3872,
+        "average_suitability": 88.6189,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.035500008380040526
+      },
+      "greedy": {
+        "assignment_count": 5,
+        "total_utility": 437.6731,
+        "average_suitability": 83.8761,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.012400007108226418
+      }
+    },
+    {
+      "scenario": 36,
+      "optimized": {
+        "assignment_count": 3,
+        "total_utility": 327.262,
+        "average_suitability": 94.8974,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.027300004148855805
+      },
+      "greedy": {
+        "assignment_count": 3,
+        "total_utility": 327.262,
+        "average_suitability": 94.8974,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.012600008631125093
+      }
+    },
+    {
+      "scenario": 37,
+      "optimized": {
+        "assignment_count": 2,
+        "total_utility": 207.752,
+        "average_suitability": 92.6972,
+        "urgent_assignment_rate": 0.16666666666666666,
+        "unassigned_requests": 20,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.1149999918416142
+      },
+      "greedy": {
+        "assignment_count": 2,
+        "total_utility": 207.752,
+        "average_suitability": 92.6972,
+        "urgent_assignment_rate": 0.16666666666666666,
+        "unassigned_requests": 20,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.0137000170070678
+      }
+    },
+    {
+      "scenario": 38,
+      "optimized": {
+        "assignment_count": 15,
+        "total_utility": 1557.9954,
+        "average_suitability": 94.6623,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.307999987853691
+      },
+      "greedy": {
+        "assignment_count": 15,
+        "total_utility": 1530.1153,
+        "average_suitability": 92.5331,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.0782000133767724
+      }
+    },
+    {
+      "scenario": 39,
+      "optimized": {
+        "assignment_count": 6,
+        "total_utility": 561.2448,
+        "average_suitability": 85.9147,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 1,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.07559999357908964
+      },
+      "greedy": {
+        "assignment_count": 6,
+        "total_utility": 556.397,
+        "average_suitability": 82.6378,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 1,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.011299998732283711
+      }
+    },
+    {
+      "scenario": 40,
+      "optimized": {
+        "assignment_count": 4,
+        "total_utility": 424.1715,
+        "average_suitability": 99.4283,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.04119999357499182
+      },
+      "greedy": {
+        "assignment_count": 4,
+        "total_utility": 424.1715,
+        "average_suitability": 99.4283,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.016400008462369442
+      }
+    },
+    {
+      "scenario": 41,
+      "optimized": {
+        "assignment_count": 11,
+        "total_utility": 1200.9331,
+        "average_suitability": 94.6932,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.1475999888498336
+      },
+      "greedy": {
+        "assignment_count": 11,
+        "total_utility": 1172.3281,
+        "average_suitability": 92.0815,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.051300012273713946
+      }
+    },
+    {
+      "scenario": 42,
+      "optimized": {
+        "assignment_count": 13,
+        "total_utility": 1390.595,
+        "average_suitability": 93.3997,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 7,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.3925999810453504
+      },
+      "greedy": {
+        "assignment_count": 13,
+        "total_utility": 1377.2018,
+        "average_suitability": 92.2044,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 7,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.12889999197795987
+      }
+    },
+    {
+      "scenario": 43,
+      "optimized": {
+        "assignment_count": 5,
+        "total_utility": 506.4691,
+        "average_suitability": 90.6305,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "unassigned_requests": 16,
+        "invalid_assignments": 0,
+        "runtime_ms": 1.4102999994065613
+      },
+      "greedy": {
+        "assignment_count": 5,
+        "total_utility": 506.4691,
+        "average_suitability": 90.6305,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "unassigned_requests": 16,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.032800016924738884
+      }
+    },
+    {
+      "scenario": 44,
+      "optimized": {
+        "assignment_count": 2,
+        "total_utility": 227.3834,
+        "average_suitability": 99.7669,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02020000829361379
+      },
+      "greedy": {
+        "assignment_count": 2,
+        "total_utility": 227.3834,
+        "average_suitability": 99.7669,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.00790000194683671
+      }
+    },
+    {
+      "scenario": 45,
+      "optimized": {
+        "assignment_count": 15,
+        "total_utility": 1512.0837,
+        "average_suitability": 90.0955,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.30980000155977905
+      },
+      "greedy": {
+        "assignment_count": 15,
+        "total_utility": 1484.5896,
+        "average_suitability": 88.2497,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.07489998824894428
+      }
+    },
+    {
+      "scenario": 46,
+      "optimized": {
+        "assignment_count": 17,
+        "total_utility": 1722.5412,
+        "average_suitability": 92.2265,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.34410000080242753
+      },
+      "greedy": {
+        "assignment_count": 16,
+        "total_utility": 1617.8109,
+        "average_suitability": 90.415,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 1,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.08179998258128762
+      }
+    },
+    {
+      "scenario": 47,
+      "optimized": {
+        "assignment_count": 6,
+        "total_utility": 620.4497,
+        "average_suitability": 84.377,
+        "urgent_assignment_rate": 0.8333333333333334,
+        "unassigned_requests": 11,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.7138999935705215
+      },
+      "greedy": {
+        "assignment_count": 6,
+        "total_utility": 619.8111,
+        "average_suitability": 88.9775,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "unassigned_requests": 11,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.02780000795610249
+      }
+    },
+    {
+      "scenario": 48,
+      "optimized": {
+        "assignment_count": 2,
+        "total_utility": 156.6514,
+        "average_suitability": 85.0671,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.0185999961104244
+      },
+      "greedy": {
+        "assignment_count": 2,
+        "total_utility": 156.6514,
+        "average_suitability": 85.0671,
+        "urgent_assignment_rate": null,
+        "unassigned_requests": 0,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.007399998139590025
+      }
+    },
+    {
+      "scenario": 49,
+      "optimized": {
+        "assignment_count": 9,
+        "total_utility": 956.1195,
+        "average_suitability": 90.6631,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 7,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.5832999886479229
+      },
+      "greedy": {
+        "assignment_count": 9,
+        "total_utility": 947.9888,
+        "average_suitability": 91.0339,
+        "urgent_assignment_rate": 1.0,
+        "unassigned_requests": 7,
+        "invalid_assignments": 0,
+        "runtime_ms": 0.033800024539232254
+      }
+    }
+  ],
+  "optimized_wins": 28,
+  "equal": 22,
+  "illustration": {
+    "matrix": [
+      [
+        9,
+        8
+      ],
+      [
+        8,
+        1
+      ]
+    ],
+    "optimized": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "greedy": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "optimized_utility": 16,
+    "greedy_utility": 10
+  }
+}
