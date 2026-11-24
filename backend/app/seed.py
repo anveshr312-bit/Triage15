@@ -233,10 +233,188 @@ def seed(db):
             ))
 
 
+DEMO_PROFILES = [
+    {
+        'email': 'requester@example.com',
+        'display_name': 'Demo Student / Requester',
+        'student_id': 'student-12',
+        'mentoring': False,
+        'points_balance': 300,
+        'domain': 'Python',
+        'skills': [],
+        'assessment_score': None
+    },
+    {
+        'email': 'guest.product@example.com',
+        'display_name': 'Demo 01 — Product & Frontend Mentor',
+        'student_id': 'student-02',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'JavaScript',
+        'skills': [
+            ('JavaScript', 'javascript', 4),
+            ('JavaScript', 'react', 4),
+            ('JavaScript', 'debugging', 4)
+        ],
+        'assessment_score': 80
+    },
+    {
+        'email': 'guest.software@example.com',
+        'display_name': 'Demo 02 — Software & Database Mentor',
+        'student_id': 'student-01',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'SQL',
+        'skills': [
+            ('SQL', 'sql', 5),
+            ('SQL', 'joins', 5),
+            ('SQL', 'schema', 4)
+        ],
+        'assessment_score': 85
+    },
+    {
+        'email': 'guest.backend@example.com',
+        'display_name': 'Demo 03 — Backend Engineering Mentor',
+        'student_id': 'student-04',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'SQL',
+        'skills': [
+            ('SQL', 'sql', 5),
+            ('SQL', 'aggregation', 5),
+            ('SQL', 'joins', 4)
+        ],
+        'assessment_score': 90
+    },
+    {
+        'email': 'guest.ai@example.com',
+        'display_name': 'Demo 04 — Applied AI Mentor',
+        'student_id': 'student-08',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'Python',
+        'skills': [
+            ('Python', 'python', 4),
+            ('Python', 'pandas', 4),
+            ('Python', 'debugging', 4)
+        ],
+        'assessment_score': 85
+    },
+    {
+        'email': 'guest.ml@example.com',
+        'display_name': 'Demo 05 — Machine Learning Mentor',
+        'student_id': 'student-03',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'Python',
+        'skills': [
+            ('Python', 'python', 4),
+            ('Python', 'pandas', 4),
+            ('Python', 'loops', 4)
+        ],
+        'assessment_score': 85
+    },
+    {
+        'email': 'guest.infra@example.com',
+        'display_name': 'Demo 06 — Applied ML & Infrastructure Mentor',
+        'student_id': 'student-06',
+        'mentoring': True,
+        'points_balance': 150,
+        'domain': 'Python',
+        'skills': [
+            ('Python', 'python', 5),
+            ('Python', 'debugging', 4),
+            ('Python', 'loops', 4)
+        ],
+        'assessment_score': 90
+    }
+]
+
+def sync_demo_profiles(db):
+    """Ensure all demonstration accounts have their configured skills, active availability, and assessment evidence."""
+    now_ts = m.now()
+    window_start = ((now_ts - 3600) // SLOT) * SLOT
+    window_end = window_start + 7 * 86400  # 7-day rolling availability
+
+    for p in DEMO_PROFILES:
+        target_ids = [p['student_id']]
+        # Also check if any auto-provisioned student-usr-* matches this demo account's display name
+        usr_student = db.scalar(select(m.Student).where(m.Student.name == p['display_name']))
+        if usr_student and usr_student.id not in target_ids:
+            target_ids.append(usr_student.id)
+
+        for s_id in target_ids:
+            student = db.get(m.Student, s_id)
+            if not student:
+                student = m.Student(
+                    id=s_id,
+                    name=p['display_name'],
+                    mentoring=p['mentoring'],
+                    points_balance=p['points_balance']
+                )
+                db.add(student)
+                db.flush()
+            else:
+                student.name = p['display_name']
+                student.mentoring = p['mentoring']
+                if student.points_balance < p['points_balance']:
+                    student.points_balance = p['points_balance']
+
+            if p['skills']:
+                existing_skills = {(s.domain, s.tag) for s in student.skills}
+                for domain, tag, level in p['skills']:
+                    if (domain, tag) not in existing_skills:
+                        db.add(m.StudentSkill(
+                            id=m.uid(),
+                            student_id=s_id,
+                            domain=domain,
+                            tag=tag,
+                            level=level
+                        ))
+
+            if p['mentoring']:
+                has_active_window = db.scalar(
+                    select(m.AvailabilityWindow).where(
+                        m.AvailabilityWindow.student_id == s_id,
+                        m.AvailabilityWindow.end > now_ts
+                    ).limit(1)
+                )
+                if not has_active_window:
+                    db.add(m.AvailabilityWindow(
+                        id=m.uid(),
+                        student_id=s_id,
+                        start=window_start,
+                        end=window_end
+                    ))
+
+            # Only seed default assessment evidence for auto-provisioned student-usr-* accounts that lack it
+            if p['mentoring'] and p['assessment_score'] is not None and s_id.startswith('student-usr-'):
+                domain = p['domain']
+                existing_attempt = db.scalar(
+                    select(m.AssessmentAttempt).where(
+                        m.AssessmentAttempt.student_id == s_id,
+                        m.AssessmentAttempt.domain == domain
+                    )
+                )
+                if not existing_attempt:
+                    attempt = m.AssessmentAttempt(
+                        id=m.uid(),
+                        student_id=s_id,
+                        domain=domain,
+                        score=p['assessment_score'],
+                        question_count=5,
+                        correct_count=int(5 * (p['assessment_score'] / 100)),
+                        created_at=now_ts - 86400,
+                        version=1
+                    )
+                    db.add(attempt)
+    db.flush()
+
 def initialize():
     Base.metadata.create_all(engine)
     with transaction() as db:
         seed(db)
+        sync_demo_profiles(db)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -4,6 +4,25 @@ export function setTokenProvider(provider: () => string | null) {
   tokenProvider = provider;
 }
 
+export function formatErrorDetail(detail: any): string {
+  if (!detail) return 'An unexpected error occurred';
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail)) {
+    return detail
+      .map((item) => {
+        if (typeof item === 'string') return item;
+        const loc = Array.isArray(item.loc) ? item.loc.filter((x: any) => x !== 'body').join('.') : '';
+        const msg = item.msg || JSON.stringify(item);
+        return loc ? `${loc}: ${msg}` : msg;
+      })
+      .join('; ');
+  }
+  if (typeof detail === 'object' && detail.message) {
+    return String(detail.message);
+  }
+  return JSON.stringify(detail);
+}
+
 export async function api<T = any>(
   path: string,
   student?: string,
@@ -26,7 +45,7 @@ export async function api<T = any>(
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail));
+    throw new Error(formatErrorDetail(data.detail));
   }
   return data;
 }

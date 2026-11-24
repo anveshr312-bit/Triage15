@@ -367,6 +367,17 @@ export function DoubtBoard({
                     )
                   )}
 
+                  {/* Contextual navigation for matched/active sessions */}
+                  {(d.status === 'MATCHED' || d.status === 'IN_SESSION' || d.status === 'AWAITING_CONFIRMATION') && onNavigateToSessions && (
+                    <button
+                      className="primary"
+                      onClick={() => onNavigateToSessions()}
+                      title="Open the active mentoring session workspace"
+                    >
+                      🚀 Open Session Workspace →
+                    </button>
+                  )}
+
                   {isOwner && isWaiting && (
                     <>
                       <button onClick={() => setEditingDoubt(d)}>Edit Doubt</button>

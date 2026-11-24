@@ -129,12 +129,17 @@ export function Profile({
 
               <button
                 className="primary"
-                onClick={() =>
+                onClick={() => {
+                  const sanitizedSkills = skills.map((s) => ({
+                    domain: s.domain,
+                    tag: s.tag,
+                    level: s.level
+                  }));
                   run(
-                    () => api('/students/' + student.id + '/profile', student.id, 'PUT', { mentoring, skills }),
+                    () => api('/students/' + student.id + '/profile', student.id, 'PUT', { mentoring, skills: sanitizedSkills }),
                     'Profile and skills updated'
-                  )
-                }
+                  );
+                }}
               >
                 Save Profile
               </button>

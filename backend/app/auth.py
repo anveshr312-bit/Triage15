@@ -112,6 +112,16 @@ class SupabaseJWTVerifier:
 # Global verifier instance
 verifier = SupabaseJWTVerifier()
 
+DEMO_EMAIL_TO_STUDENT_ID = {
+    'requester@example.com': 'student-12',
+    'guest.product@example.com': 'student-02',
+    'guest.software@example.com': 'student-01',
+    'guest.backend@example.com': 'student-04',
+    'guest.ai@example.com': 'student-08',
+    'guest.ml@example.com': 'student-03',
+    'guest.infra@example.com': 'student-06',
+}
+
 def get_or_create_student_mapping(db: Session, sub: str, payload: dict) -> m.Student:
     """Safely map a Supabase user UUID to an existing or newly provisioned SQLite student."""
     mapping = db.scalar(
@@ -120,11 +130,26 @@ def get_or_create_student_mapping(db: Session, sub: str, payload: dict) -> m.Stu
     if mapping:
         return svc.get(db, m.Student, mapping.student_id)
 
-    # First-login for a regular registered Supabase user
     meta = payload.get('user_metadata') or {}
-    email = payload.get('email', '')
+    email = (payload.get('email') or '').lower()
     name = meta.get('name') or meta.get('full_name') or (email.split('@')[0].capitalize() if email else 'Student')
-    
+
+    # If this is one of the recognized HackDay demonstration accounts, bind to its intended student ID
+    target_demo_id = DEMO_EMAIL_TO_STUDENT_ID.get(email)
+    if target_demo_id:
+        student = db.get(m.Student, target_demo_id)
+        if student:
+            new_mapping = m.AuthIdentityMapping(
+                id=m.uid(),
+                supabase_user_id=sub,
+                student_id=student.id,
+                created_at=m.now()
+            )
+            db.add(new_mapping)
+            db.flush()
+            return student
+
+    # First-login for a regular registered Supabase user
     clean_sub = sub.replace('-', '')[:8]
     student_id = f"student-usr-{clean_sub}"
     
@@ -143,6 +168,7 @@ def get_or_create_student_mapping(db: Session, sub: str, payload: dict) -> m.Stu
     db.flush()
 
     new_mapping = m.AuthIdentityMapping(
+        id=m.uid(),
         supabase_user_id=sub,
         student_id=student_id,
         created_at=m.now()
