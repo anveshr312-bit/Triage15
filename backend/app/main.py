@@ -418,6 +418,17 @@ def session_data(db, session):
 
     feedback = db.scalar(select(m.SessionFeedback).where(m.SessionFeedback.session_id == session.id))
     data['feedback'] = svc.serialize(feedback) if feedback else None
+
+    meeting = db.scalar(select(m.SessionMeeting).where(m.SessionMeeting.session_id == session.id))
+    data['has_meeting'] = meeting is not None
+    data['meeting_url'] = meeting.meeting_url if meeting else None
+    
+    snippet_count = db.scalar(select(func.count()).select_from(m.SessionCodeSnippet).where(m.SessionCodeSnippet.session_id == session.id)) or 0
+    data['snippet_count'] = snippet_count
+    
+    resolution = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == session.id))
+    data['has_resolution'] = resolution is not None
+    data['resolution_status'] = resolution.requester_status if resolution else None
     return data
 
 @app.get('/api/sessions')
@@ -479,6 +490,224 @@ def accelerate_session(id: str, actor=Depends(identity), db=Depends(database)):
     db.flush()
     return session_data(db, sess)
 
+# ==========================================
+# MENTORING WORKSPACE ENDPOINTS (P0 & P1)
+# ==========================================
+
+# 1. Google Meet Integration (P0)
+@app.get('/api/sessions/{id}/meeting')
+def get_session_meeting(id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can access meeting links', 403)
+    meeting = db.scalar(select(m.SessionMeeting).where(m.SessionMeeting.session_id == id))
+    if not meeting:
+        raise HTTPException(404, 'No meeting link attached to this session')
+    return svc.serialize(meeting)
+
+@app.put('/api/sessions/{id}/meeting')
+def attach_session_meeting(id: str, body: s.MeetingInput, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    svc.require(actor.id == sess.mentor_id, 'Only the assigned mentor can attach or update the meeting link', 403)
+    svc.require(sess.state in ('ACCEPTED', 'ACTIVE', 'AWAITING_CONFIRMATION'), 'Meeting link can only be attached to active or accepted sessions', 409)
+    meeting = db.scalar(select(m.SessionMeeting).where(m.SessionMeeting.session_id == id))
+    if meeting:
+        meeting.meeting_url = body.meeting_url
+        meeting.updated_at = m.now()
+    else:
+        meeting = m.SessionMeeting(
+            session_id=id,
+            meeting_url=body.meeting_url,
+            attached_by_id=actor.id,
+            attached_at=m.now(),
+            updated_at=m.now()
+        )
+        db.add(meeting)
+    db.flush()
+    return svc.serialize(meeting)
+
+@app.delete('/api/sessions/{id}/meeting')
+def remove_session_meeting(id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    svc.require(actor.id == sess.mentor_id, 'Only the assigned mentor can remove the meeting link', 403)
+    svc.require(sess.state in ('ACCEPTED', 'ACTIVE', 'AWAITING_CONFIRMATION'), 'Meeting link can only be removed during active or accepted sessions', 409)
+    meeting = db.scalar(select(m.SessionMeeting).where(m.SessionMeeting.session_id == id))
+    if meeting:
+        db.delete(meeting)
+        db.flush()
+    return {'detail': 'Meeting link removed'}
+
+# 2. Code Snippet Exchange (P0)
+@app.get('/api/sessions/{id}/snippets')
+def get_session_snippets(id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can access code snippets', 403)
+    snippets = db.scalars(
+        select(m.SessionCodeSnippet)
+        .where(m.SessionCodeSnippet.session_id == id)
+        .order_by(m.SessionCodeSnippet.created_at.asc())
+    ).all()
+    res = []
+    for snip in snippets:
+        s_data = svc.serialize(snip)
+        author = svc.get(db, m.Student, snip.author_id)
+        s_data['author_name'] = author.name
+        res.append(s_data)
+    return res
+
+@app.post('/api/sessions/{id}/snippets', status_code=201)
+def create_session_snippet(id: str, body: s.SnippetInput, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can post code snippets', 403)
+    svc.require(sess.state in ('ACCEPTED', 'ACTIVE', 'AWAITING_CONFIRMATION'), 'Cannot add snippets to a closed session', 409)
+    
+    if body.parent_snippet_id:
+        parent = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == body.parent_snippet_id))
+        svc.require(parent is not None, 'Parent snippet does not exist', 404)
+        svc.require(parent.session_id == id, 'Parent snippet must belong to the same session', 400)
+    
+    snippet = m.SessionCodeSnippet(
+        session_id=id,
+        author_id=actor.id,
+        title=body.title,
+        filename=body.filename,
+        language=body.language.lower(),
+        content=body.content,
+        snippet_type=body.snippet_type,
+        parent_snippet_id=body.parent_snippet_id,
+        created_at=m.now()
+    )
+    db.add(snippet)
+    db.flush()
+    s_data = svc.serialize(snippet)
+    s_data['author_name'] = actor.name
+    return s_data
+
+@app.get('/api/sessions/{id}/snippets/{snippet_id}')
+def get_session_snippet(id: str, snippet_id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can access snippets', 403)
+    snip = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == snippet_id, m.SessionCodeSnippet.session_id == id))
+    if not snip:
+        raise HTTPException(404, 'Snippet not found in this session')
+    s_data = svc.serialize(snip)
+    s_data['author_name'] = svc.get(db, m.Student, snip.author_id).name
+    return s_data
+
+# 3. Before-and-After Code Comparison (P1)
+@app.get('/api/sessions/{id}/snippets-diff')
+def get_snippet_diff(id: str, original_id: str = Query(...), proposed_id: str = Query(...),
+                     actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can compare snippets', 403)
+    
+    orig = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == original_id, m.SessionCodeSnippet.session_id == id))
+    prop = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == proposed_id, m.SessionCodeSnippet.session_id == id))
+    svc.require(orig is not None and prop is not None, 'Both snippets must exist in this session', 404)
+    
+    diff_data = svc.compute_snippet_diff(orig.content, prop.content)
+    diff_data['original'] = {
+        'id': orig.id,
+        'title': orig.title,
+        'language': orig.language,
+        'author_id': orig.author_id
+    }
+    diff_data['proposed'] = {
+        'id': prop.id,
+        'title': prop.title,
+        'language': prop.language,
+        'author_id': prop.author_id
+    }
+    return diff_data
+
+# 4. Structured Resolution Records (P0)
+@app.get('/api/sessions/{id}/resolution')
+def get_session_resolution(id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    svc.require(actor.id in (sess.mentor_id, doubt.requester_id), 'Only session participants can access resolution records', 403)
+    res = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == id))
+    if not res:
+        raise HTTPException(404, 'No resolution record created yet')
+    r_data = svc.serialize(res)
+    if res.original_snippet_id:
+        orig = db.get(m.SessionCodeSnippet, res.original_snippet_id)
+        r_data['original_snippet'] = svc.serialize(orig) if orig else None
+    if res.corrected_snippet_id:
+        corr = db.get(m.SessionCodeSnippet, res.corrected_snippet_id)
+        r_data['corrected_snippet'] = svc.serialize(corr) if corr else None
+    return r_data
+
+@app.put('/api/sessions/{id}/resolution')
+def update_session_resolution(id: str, body: s.ResolutionRecordInput, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    svc.require(actor.id == sess.mentor_id, 'Only the assigned mentor can draft or update the resolution', 403)
+    svc.require(sess.state in ('ACTIVE', 'AWAITING_CONFIRMATION'), 'Resolution can only be updated for active or awaiting sessions', 409)
+    
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    
+    if body.original_snippet_id:
+        s1 = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == body.original_snippet_id, m.SessionCodeSnippet.session_id == id))
+        svc.require(s1 is not None, 'Original snippet not found in this session', 400)
+    if body.corrected_snippet_id:
+        s2 = db.scalar(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.id == body.corrected_snippet_id, m.SessionCodeSnippet.session_id == id))
+        svc.require(s2 is not None, 'Corrected snippet not found in this session', 400)
+        
+    res = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == id))
+    if res:
+        res.root_cause = body.root_cause
+        res.solution_explanation = body.solution_explanation
+        res.follow_up_steps = body.follow_up_steps
+        res.original_snippet_id = body.original_snippet_id
+        res.corrected_snippet_id = body.corrected_snippet_id
+        res.reference_urls = body.reference_urls
+        res.updated_at = m.now()
+    else:
+        res = m.SessionResolution(
+            session_id=id,
+            doubt_id=doubt.id,
+            mentor_id=sess.mentor_id,
+            requester_id=doubt.requester_id,
+            root_cause=body.root_cause,
+            solution_explanation=body.solution_explanation,
+            follow_up_steps=body.follow_up_steps,
+            original_snippet_id=body.original_snippet_id,
+            corrected_snippet_id=body.corrected_snippet_id,
+            reference_urls=body.reference_urls,
+            created_at=m.now(),
+            updated_at=m.now()
+        )
+        db.add(res)
+    db.flush()
+    return svc.serialize(res)
+
+@app.post('/api/sessions/{id}/resolution/submit')
+def submit_session_resolution(id: str, actor=Depends(identity), db=Depends(database)):
+    sess = svc.get(db, m.Session, id)
+    svc.require(actor.id == sess.mentor_id, 'Only the assigned mentor can submit the resolution', 403)
+    svc.require(sess.state in ('ACTIVE', 'AWAITING_CONFIRMATION'), 'Resolution can only be submitted from ACTIVE state', 409)
+    
+    res = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == id))
+    svc.require(res is not None, 'Cannot submit: please fill out root cause and solution explanation first', 422)
+    
+    res.submitted_at = m.now()
+    res.updated_at = m.now()
+    
+    # Transition session to awaiting confirmation
+    sess.mentor_completed = True
+    sess.mentor_completed_at = m.now()
+    sess.state = 'AWAITING_CONFIRMATION'
+    sess.outcome_deadline = m.now() + 86400
+    doubt = svc.get(db, m.DoubtRequest, sess.doubt_id)
+    doubt.status = 'AWAITING_CONFIRMATION'
+    
+    db.flush()
+    return svc.serialize(res)
+
 # Session Lifecycle Transitions (P0.3, P0.5, P1.7)
 @app.post('/api/sessions/{id}/{action}')
 def transition(id: str, action: str, body: s.ResolutionInput | None = None,
@@ -539,6 +768,13 @@ def transition(id: str, action: str, body: s.ResolutionInput | None = None,
                     svc.dispatch(db, m.now())
                 except Exception:
                     pass
+
+        # Update SessionResolution if present
+        resolution = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == session.id))
+        if resolution:
+            resolution.requester_status = 'CONFIRMED_RESOLVED' if body.resolved else 'CONFIRMED_UNRESOLVED'
+            resolution.confirmed_at = m.now()
+            resolution.updated_at = m.now()
     elif action == 'cancel':
         svc.require(actor.id in (session.mentor_id, doubt.requester_id), 'Only participants can cancel', 403)
         svc.require(session.state in svc.LIVE, 'Session already closed')
@@ -589,6 +825,58 @@ def run_benchmark(actor=Depends(identity), db=Depends(database)):
 @app.get('/api/benchmarks/{id}')
 def benchmark_result(id: str, db=Depends(database)):
     return svc.serialize(svc.get(db, m.BenchmarkRun, id))
+
+# 5. Persistent Solution History (P0)
+@app.get('/api/students/{id}/solution-history')
+def get_solution_history(id: str, actor=Depends(identity), db=Depends(database)):
+    own(actor, id)
+    sessions = db.scalars(
+        select(m.Session)
+        .join(m.DoubtRequest, m.Session.doubt_id == m.DoubtRequest.id)
+        .where(
+            or_(
+                m.Session.mentor_id == id,
+                m.DoubtRequest.requester_id == id
+            ),
+            m.Session.state.in_(('RESOLVED', 'AWAITING_CONFIRMATION', 'ACTIVE'))
+        )
+        .order_by(m.Session.start.desc())
+    ).all()
+    
+    history = []
+    for s in sessions:
+        doubt = svc.get(db, m.DoubtRequest, s.doubt_id)
+        role = 'mentor' if s.mentor_id == id else 'requester'
+        other_id = doubt.requester_id if role == 'mentor' else s.mentor_id
+        other_student = svc.get(db, m.Student, other_id)
+        
+        resolution = db.scalar(select(m.SessionResolution).where(m.SessionResolution.session_id == s.id))
+        feedback = db.scalar(select(m.SessionFeedback).where(m.SessionFeedback.session_id == s.id))
+        snippets = db.scalars(select(m.SessionCodeSnippet).where(m.SessionCodeSnippet.session_id == s.id)).all()
+        
+        record = {
+            'session_id': s.id,
+            'doubt_id': doubt.id,
+            'doubt_title': doubt.title,
+            'doubt_description': doubt.description,
+            'domain': doubt.domain,
+            'skills': [sk.tag for sk in doubt.skills],
+            'bounty': doubt.bounty,
+            'role': role,
+            'other_student_id': other_id,
+            'other_student_name': other_student.name,
+            'session_state': s.state,
+            'resolved': s.resolved,
+            'date': svc.iso(s.completed_at or s.start),
+            'rating': feedback.rating if feedback else None,
+            'feedback_notes': feedback.notes if feedback else None,
+            'resolution': svc.serialize(resolution) if resolution else None,
+            'snippet_count': len(snippets),
+            'snippets': [svc.serialize(sn) for sn in snippets]
+        }
+        history.append(record)
+    return history
+
 
 # SPA Static Asset and Client-side Routing Mounting
 assets_dir = os.path.join(FRONTEND_DIST_DIR, 'assets')

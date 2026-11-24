@@ -182,3 +182,96 @@ export interface MentorProfile {
 }
 
 export type Domains = Record<string, string[]>;
+
+// ==========================================
+// MENTORING WORKSPACE TYPES (P0 & P1)
+// ==========================================
+
+export interface SessionMeeting {
+  session_id: string;
+  meeting_url: string;
+  attached_by_id: string;
+  attached_at: string;
+  updated_at: string;
+}
+
+export interface SessionCodeSnippet {
+  id: string;
+  session_id: string;
+  author_id: string;
+  author_name?: string;
+  title: string;
+  filename?: string | null;
+  language: string;
+  content: string;
+  snippet_type: 'ORIGINAL' | 'PROPOSED_FIX' | 'EXAMPLE' | 'ERROR_LOG' | 'OTHER';
+  parent_snippet_id?: string | null;
+  created_at: string;
+}
+
+export interface DiffLine {
+  type: 'added' | 'removed' | 'unchanged';
+  text: string;
+}
+
+export interface SnippetDiff {
+  lines: DiffLine[];
+  added_count: number;
+  removed_count: number;
+  unchanged_count: number;
+  original: {
+    id: string;
+    title: string;
+    language: string;
+    author_id: string;
+  };
+  proposed: {
+    id: string;
+    title: string;
+    language: string;
+    author_id: string;
+  };
+}
+
+export interface SessionResolution {
+  id: string;
+  session_id: string;
+  doubt_id: string;
+  mentor_id: string;
+  requester_id: string;
+  root_cause: string;
+  solution_explanation: string;
+  follow_up_steps?: string | null;
+  original_snippet_id?: string | null;
+  corrected_snippet_id?: string | null;
+  original_snippet?: SessionCodeSnippet | null;
+  corrected_snippet?: SessionCodeSnippet | null;
+  reference_urls?: string[];
+  created_at: string;
+  updated_at: string;
+  submitted_at?: string | null;
+  confirmed_at?: string | null;
+  requester_status: 'PENDING' | 'CONFIRMED_RESOLVED' | 'CONFIRMED_UNRESOLVED';
+}
+
+export interface SolutionHistoryItem {
+  session_id: string;
+  doubt_id: string;
+  doubt_title: string;
+  doubt_description: string;
+  domain: string;
+  skills: string[];
+  bounty: number;
+  role: 'mentor' | 'requester';
+  other_student_id: string;
+  other_student_name: string;
+  session_state: string;
+  resolved?: boolean | null;
+  date: string;
+  rating?: number | null;
+  feedback_notes?: string | null;
+  resolution?: SessionResolution | null;
+  snippet_count: number;
+  snippets: SessionCodeSnippet[];
+}
+
