@@ -1,17 +1,27 @@
+let tokenProvider: (() => string | null) = () => null;
+
+export function setTokenProvider(provider: () => string | null) {
+  tokenProvider = provider;
+}
+
 export async function api<T = any>(
   path: string,
-  student: string,
+  student?: string,
   method = 'GET',
   body?: unknown,
   extraHeaders: Record<string, string> = {}
 ): Promise<T> {
+  const token = tokenProvider();
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    ...(student ? { 'X-Demo-Student-ID': student } : {}),
+    ...extraHeaders
+  };
+
   const response = await fetch('/api' + path, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(student ? { 'X-Demo-Student-ID': student } : {}),
-      ...extraHeaders
-    },
+    headers,
     body: body === undefined ? undefined : JSON.stringify(body)
   });
   const data = await response.json();

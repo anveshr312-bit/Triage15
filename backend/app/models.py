@@ -221,3 +221,11 @@ class SessionResolution(Base):
         CheckConstraint("requester_status IN ('PENDING', 'CONFIRMED_RESOLVED', 'CONFIRMED_UNRESOLVED')"),
     )
 
+class AuthIdentityMapping(Base):
+    __tablename__ = 'auth_identity_mappings'
+    id: Mapped[str] = mapped_column(primary_key=True, default=uid)
+    supabase_user_id: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    student_id: Mapped[str] = mapped_column(ForeignKey('students.id', ondelete='CASCADE'), unique=True, index=True, nullable=False)
+    created_at: Mapped[int] = mapped_column(default=now)
+
+

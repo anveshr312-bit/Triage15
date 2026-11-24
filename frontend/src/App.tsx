@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, Student, Domains } from './api';
+import { api, Student, Domains, setTokenProvider } from './api';
+import { supabase } from './supabase';
+import { Auth } from './components/Auth';
 import { Profile } from './components/Profile';
 import { DoubtBoard } from './components/DoubtBoard';
 import { Sessions } from './components/Sessions';
@@ -9,9 +11,11 @@ import { ModelEvaluation } from './components/ModelEvaluation';
 import { SolutionHistory } from './components/SolutionHistory';
 
 export default function App() {
+  const [session, setSession] = useState<any>(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [students, setStudents] = useState<Student[]>([]);
   const [domains, setDomains] = useState<Domains>({});
-  const [actor, setActor] = useState('student-08');
+  const [actor, setActor] = useState('');
   const [tab, setTab] = useState('Doubt board');
   const [revision, setRevision] = useState(0);
   const [error, setError] = useState('');
@@ -22,8 +26,51 @@ export default function App() {
 
   const refresh = useCallback(() => setRevision((x) => x + 1), []);
 
+  // Initialize and track Supabase authentication state
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setTokenProvider(() => session?.access_token || null);
+      setAuthLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, currentSession) => {
+      setSession(currentSession);
+      setTokenProvider(() => currentSession?.access_token || null);
+      setAuthLoading(false);
+      if (currentSession) {
+        setRevision((x) => x + 1);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Synchronize authenticated student profile from /api/me
+  useEffect(() => {
+    if (!session) return;
+    let alive = true;
+    const loadCurrentUser = async () => {
+      try {
+        const me = await api<Student>('/me');
+        if (alive && me) {
+          setActor(me.id);
+        }
+      } catch (e: any) {
+        if (alive) setError(e.message);
+      }
+    };
+    void loadCurrentUser();
+    return () => {
+      alive = false;
+    };
+  }, [session, revision]);
+
   // Initial load and periodic polling (every 4s) for live updates (P1.2)
   useEffect(() => {
+    if (!session || !actor) return;
     let alive = true;
     const loadState = async () => {
       try {
@@ -48,7 +95,7 @@ export default function App() {
       alive = false;
       clearInterval(interval);
     };
-  }, [actor, revision]);
+  }, [session, actor, revision]);
 
   const run = async (task: () => Promise<unknown>, message = 'Saved') => {
     setBusy(true);
@@ -67,6 +114,37 @@ export default function App() {
 
   const student = students.find((s) => s.id === actor);
 
+  if (authLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+        <strong>TRIAGE<span>15</span></strong>
+        <p style={{ color: 'var(--text-muted, #666)', marginTop: '8px' }}>Verifying Supabase authentication…</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <>
+        <header>
+          <div className="branding">
+            <strong>TRIAGE<span>15</span></strong>
+            <p>Peer-to-Peer Micro-Skill & Doubt Bounty Board · 15-Minute Sessions</p>
+          </div>
+        </header>
+        <main>
+          <p className="banner">
+            Supabase ES256 Asymmetric Authentication Active · Verified SQLite Student Identity
+          </p>
+          <Auth onAuthSuccess={() => refresh()} />
+        </main>
+        <footer>
+          Deterministic Kuhn-Munkres Rectangular Matching · Exact Integer Point Ledger · Authoritative 15-Minute Timer · Triage15
+        </footer>
+      </>
+    );
+  }
+
   return (
     <>
       <header>
@@ -81,29 +159,30 @@ export default function App() {
               <span className="badge bounty">★ {student.points_balance} pts</span>
             </div>
           )}
-          <label>
-            Demo identity
-            <select
-              value={actor}
-              onChange={(e) => {
-                setActor(e.target.value);
-                setNotice('');
-                setError('');
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #666)' }}>
+              {session.user.email}
+            </span>
+            <button
+              type="button"
+              className="secondary"
+              style={{ padding: '4px 10px', fontSize: '0.8rem' }}
+              onClick={async () => {
+                await supabase.auth.signOut();
+                setSession(null);
+                setActor('');
+                setTokenProvider(() => null);
               }}
             >
-              {students.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name} ({s.points_balance} pts) {s.mentoring ? '· Mentor' : ''}
-                </option>
-              ))}
-            </select>
-          </label>
+              Sign Out
+            </button>
+          </div>
         </div>
       </header>
 
       <main>
         <p className="banner">
-          HackDay Demonstration · Authoritative Server Timestamps (IST) · Deterministic Hungarian Matching Engine · Identity selection is not production auth.
+          Supabase ES256 Authenticated · Authoritative Server Timestamps (IST) · Deterministic Hungarian Matching Engine
         </p>
 
         {metrics && (

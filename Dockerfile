@@ -6,6 +6,12 @@
 FROM node:22-bookworm-slim AS frontend-builder
 WORKDIR /build/frontend
 
+# Build-time arguments for Vite public environment variables (secrets never exposed here)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_PUBLISHABLE_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL \
+    VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
+
 # Install dependencies using clean install
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci

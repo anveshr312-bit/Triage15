@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select, func, and_, or_
 from sqlalchemy.exc import IntegrityError, OperationalError
-from . import models as m, schemas as s, services as svc
+from . import models as m, schemas as s, services as svc, config as cfg, auth
 from .database import transaction
 from .seed import initialize
 from .config import DOMAINS, SLOT, ALLOWED_ORIGINS, FRONTEND_DIST_DIR
@@ -87,11 +87,35 @@ def database():
         svc.expire(db, m.now())
         yield db
 
-def identity(x_demo_student_id: str = Header(...), db=Depends(database)):
-    return svc.get(db, m.Student, x_demo_student_id)
+def identity(
+    authorization: str | None = Header(None),
+    x_demo_student_id: str | None = Header(None),
+    db=Depends(database)
+):
+    if authorization:
+        if not authorization.startswith('Bearer '):
+            raise HTTPException(status_code=401, detail="Invalid Authorization header format: must be Bearer token")
+        token = authorization[7:].strip()
+        payload = auth.verifier.verify_token(token)
+        sub = payload.get('sub')
+        if not sub:
+            raise HTTPException(status_code=401, detail="Token missing required 'sub' claim")
+        return auth.get_or_create_student_mapping(db, sub, payload)
+
+    # In test mode, if demo auth is allowed:
+    if cfg.is_demo_auth_allowed():
+        if x_demo_student_id:
+            return svc.get(db, m.Student, x_demo_student_id)
+        raise HTTPException(status_code=422, detail="Missing required header: X-Demo-Student-ID")
+
+    raise HTTPException(status_code=401, detail="Authentication required: missing or invalid Bearer token")
 
 def own(student, id):
-    svc.require(student.id == id, 'This action belongs to another demo student', 403)
+    svc.require(student.id == id, 'This action belongs to another student', 403)
+
+@app.get('/api/me')
+def get_current_student(actor=Depends(identity)):
+    return svc.serialize(actor)
 
 @app.get('/api/health')
 def health(db=Depends(database)):
@@ -103,7 +127,8 @@ def health(db=Depends(database)):
     return {
         'status': 'ok' if db_status == 'connected' else 'degraded',
         'mode': 'demonstration prototype; synthetic profiles; authoritative server clock',
-        'auth_notice': 'X-Demo-Student-ID is a prototype identity switcher for demonstration, not secure authentication',
+        'auth_notice': 'Supabase ES256 JWT authentication active. X-Demo-Student-ID is restricted to isolated test fixtures.',
+        'auth_mode': 'supabase_jwt_es256' if not cfg.ALLOW_DEMO_AUTH else 'hybrid_test',
         'database': db_status
     }
 

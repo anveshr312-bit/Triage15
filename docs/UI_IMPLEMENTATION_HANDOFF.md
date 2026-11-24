@@ -42,14 +42,28 @@ const TABS = [
 
 ### Global Header Controls
 - **Branding:** `TRIAGE15` logo and tagline.
-- **Identity Selector:** Select dropdown switching the `X-Demo-Student-ID` header across 12 synthetic student accounts (`student-01` through `student-12`).
-- **Student Balance Badge:** Real-time display of current student's points balance (e.g., `★ 100 pts`).
-- **Global System Banner:** Authoritative server notice indicating IST server time, deterministic matching engine status, and demo authentication label.
+- **Identity & Session Controls (Authenticated Mode):**
+  - Displays authenticated student name and points balance pill (e.g. `★ 100 pts`).
+  - Displays signed-in Supabase email address.
+  - "Sign Out" button calling `supabase.auth.signOut()`.
+  - **Security Update:** The unrestricted `X-Demo-Student-ID` dropdown is completely removed in authenticated mode. Identity is derived strictly from the verified JWT.
+- **Global System Banner:** Authoritative notice indicating Supabase ES256 authentication status, server IST time, and deterministic Hungarian matching engine.
 - **System Metrics Bar:** Real-time system stats (waiting requests, active offers, resolved sessions, average rating, bounties awarded).
 
 ---
 
 ## 3. Comprehensive Component Inventory
+
+### 3.0. Authentication Screen
+- **File:** `frontend/src/components/Auth.tsx`
+- **Purpose:** Provide secure email/password sign-in and account registration powered by Supabase Auth and ES256 JWT tokens.
+- **Features & Key Elements:**
+  - Toggle between **Sign In** and **Create Account**.
+  - Form fields: Email input, Password input (min 6 chars), and optional Full Name on registration.
+  - Supported Supabase Auth calls: `supabase.auth.signInWithPassword` and `supabase.auth.signUp`.
+  - Email confirmation instructions banner for new signups.
+  - Interactive validation and error messages (`role="alert"`).
+  - Clean card container (`.card`, `.auth-wrapper`) ready for visual restyling.
 
 ### 3.1. Doubt Board & ML Skill Suggestions
 - **File:** `frontend/src/components/DoubtBoard.tsx` & `frontend/src/components/SkillSuggestions.tsx`
