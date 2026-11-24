@@ -178,6 +178,61 @@ def seed(db):
         db.add(m.SessionMessage(session_id=session.id, sender_id='student-12', content='Hi Asha! Could you check my loop structure?'))
         db.add(m.SessionMessage(session_id=session.id, sender_id='student-01', content='Sure, you are modifying the list in-place while iterating.'))
 
+        # Seed sample meeting, snippets and resolution for history-0
+        if i == 0:
+            db.add(m.SessionMeeting(
+                session_id=session.id,
+                meeting_url='https://meet.google.com/abc-defg-hij',
+                attached_by_id='student-01',
+                attached_at=start - 8 * SLOT,
+                updated_at=start - 8 * SLOT
+            ))
+            snip_orig = m.SessionCodeSnippet(
+                id=f'snip-orig-{i}',
+                session_id=session.id,
+                author_id='student-12',
+                title='Mutating list during iteration',
+                filename='filter_items.py',
+                language='python',
+                content='def remove_evens(nums):\n    for n in nums:\n        if n % 2 == 0:\n            nums.remove(n)\n    return nums',
+                snippet_type='ORIGINAL',
+                created_at=start - 8 * SLOT
+            )
+            db.add(snip_orig)
+            db.flush()
+            snip_fix = m.SessionCodeSnippet(
+                id=f'snip-fix-{i}',
+                session_id=session.id,
+                author_id='student-01',
+                title='List comprehension fix',
+                filename='filter_items.py',
+                language='python',
+                content='def remove_evens(nums):\n    # Do not mutate list in-place while iterating\n    return [n for n in nums if n % 2 != 0]',
+                snippet_type='PROPOSED_FIX',
+                parent_snippet_id=snip_orig.id,
+                created_at=start - 7 * SLOT
+            )
+            db.add(snip_fix)
+            db.flush()
+            db.add(m.SessionResolution(
+                session_id=session.id,
+                doubt_id=doubt.id,
+                mentor_id='student-01',
+                requester_id='student-12',
+                root_cause='Modifying a Python list with .remove() during active for-loop iteration skips elements because the internal iteration index advances while the list shrinks.',
+                solution_explanation='Replaced the mutating for-loop with a clean list comprehension [n for n in nums if n % 2 != 0], creating a filtered copy without index skipping.',
+                follow_up_steps='For large collections where memory is constrained, consider using itertools.filterfalse or generator expressions.',
+                original_snippet_id=snip_orig.id,
+                corrected_snippet_id=snip_fix.id,
+                reference_urls=['https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions'],
+                created_at=start - 7 * SLOT,
+                updated_at=start - 7 * SLOT,
+                submitted_at=start - 7 * SLOT,
+                confirmed_at=start - 7 * SLOT,
+                requester_status='CONFIRMED_RESOLVED'
+            ))
+
+
 def initialize():
     Base.metadata.create_all(engine)
     with transaction() as db:

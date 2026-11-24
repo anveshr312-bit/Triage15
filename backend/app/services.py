@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import difflib
 from time import perf_counter
 from fastapi import HTTPException
 from sqlalchemy import select, and_, or_
@@ -24,7 +25,8 @@ def iso(value):
 def serialize(obj):
     data = {c.name: getattr(obj, c.name) for c in obj.__table__.columns}
     for key in ('start','end','created_at','preferred_start','deadline','offer_expires_at',
-                'accepted_at','actual_started_at','mentor_completed_at','outcome_deadline','completed_at'):
+                'accepted_at','actual_started_at','mentor_completed_at','outcome_deadline','completed_at',
+                'attached_at','updated_at','submitted_at','confirmed_at'):
         if key in data:
             data[key] = iso(data[key])
     if isinstance(obj, m.DoubtRequest):
@@ -33,6 +35,45 @@ def serialize(obj):
         data['skills'] = [serialize(s) for s in obj.skills]
         data['availability'] = [serialize(a) for a in obj.availability]
     return data
+
+def compute_snippet_diff(original_text: str, proposed_text: str) -> dict:
+    orig_lines = original_text.splitlines()
+    prop_lines = proposed_text.splitlines()
+    matcher = difflib.SequenceMatcher(None, orig_lines, prop_lines)
+    
+    diff_lines = []
+    added_count = 0
+    removed_count = 0
+    unchanged_count = 0
+    
+    for opcode, a0, a1, b0, b1 in matcher.get_opcodes():
+        if opcode == 'equal':
+            for line in orig_lines[a0:a1]:
+                diff_lines.append({'type': 'unchanged', 'text': line})
+                unchanged_count += 1
+        elif opcode == 'insert':
+            for line in prop_lines[b0:b1]:
+                diff_lines.append({'type': 'added', 'text': line})
+                added_count += 1
+        elif opcode == 'delete':
+            for line in orig_lines[a0:a1]:
+                diff_lines.append({'type': 'removed', 'text': line})
+                removed_count += 1
+        elif opcode == 'replace':
+            for line in orig_lines[a0:a1]:
+                diff_lines.append({'type': 'removed', 'text': line})
+                removed_count += 1
+            for line in prop_lines[b0:b1]:
+                diff_lines.append({'type': 'added', 'text': line})
+                added_count += 1
+                
+    return {
+        'lines': diff_lines,
+        'added_count': added_count,
+        'removed_count': removed_count,
+        'unchanged_count': unchanged_count,
+    }
+
 
 # --- BOUNTY & REWARD LEDGER SERVICES ---
 

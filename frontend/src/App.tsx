@@ -6,6 +6,7 @@ import { Sessions } from './components/Sessions';
 import { Assessment } from './components/Assessment';
 import { Benchmark } from './components/Benchmark';
 import { ModelEvaluation } from './components/ModelEvaluation';
+import { SolutionHistory } from './components/SolutionHistory';
 
 export default function App() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -126,7 +127,7 @@ export default function App() {
         )}
 
         <nav>
-          {['Doubt board', 'My sessions', 'Profile & availability', 'Assessments', 'Benchmark', 'ML evaluation'].map((t) => (
+          {['Doubt board', 'My sessions', 'Profile & availability', 'Assessments', 'Benchmark', 'ML evaluation', 'Solution history'].map((t) => (
             <button aria-pressed={tab === t} key={t} onClick={() => setTab(t)}>
               {t}
             </button>
@@ -207,6 +208,10 @@ export default function App() {
               <Benchmark actor={actor} run={run} />
             )}
             {tab === 'ML evaluation' && <ModelEvaluation />}
+
+            {tab === 'Solution history' && (
+              <SolutionHistory actor={actor} studentName={student.name} />
+            )}
           </fieldset>
         )}
       </main>

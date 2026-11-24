@@ -171,3 +171,53 @@ class BenchmarkRun(Base):
     id: Mapped[str] = mapped_column(primary_key=True, default=uid)
     created_at: Mapped[int] = mapped_column(default=now)
     result: Mapped[dict] = mapped_column(JSON)
+
+# Mentoring Workspace Entities (P0 & P1)
+
+class SessionMeeting(Base):
+    __tablename__ = 'session_meetings'
+    session_id: Mapped[str] = mapped_column(ForeignKey('sessions.id', ondelete='CASCADE'), primary_key=True)
+    meeting_url: Mapped[str] = mapped_column(String, nullable=False)
+    attached_by_id: Mapped[str] = mapped_column(ForeignKey('students.id'), nullable=False)
+    attached_at: Mapped[int] = mapped_column(default=now)
+    updated_at: Mapped[int] = mapped_column(default=now)
+
+class SessionCodeSnippet(Base):
+    __tablename__ = 'session_code_snippets'
+    id: Mapped[str] = mapped_column(primary_key=True, default=uid)
+    session_id: Mapped[str] = mapped_column(ForeignKey('sessions.id', ondelete='CASCADE'), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey('students.id'), index=True)
+    title: Mapped[str] = mapped_column(String, nullable=False)
+    filename: Mapped[str | None] = mapped_column(String, nullable=True)
+    language: Mapped[str] = mapped_column(String, default='text')
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    snippet_type: Mapped[str] = mapped_column(String, default='ORIGINAL')  # ORIGINAL, PROPOSED_FIX, EXAMPLE, ERROR_LOG, OTHER
+    parent_snippet_id: Mapped[str | None] = mapped_column(ForeignKey('session_code_snippets.id'), nullable=True)
+    created_at: Mapped[int] = mapped_column(default=now, index=True)
+    __table_args__ = (
+        CheckConstraint('length(content) > 0 AND length(content) <= 65536'),
+        CheckConstraint("snippet_type IN ('ORIGINAL', 'PROPOSED_FIX', 'EXAMPLE', 'ERROR_LOG', 'OTHER')"),
+    )
+
+class SessionResolution(Base):
+    __tablename__ = 'session_resolutions'
+    id: Mapped[str] = mapped_column(primary_key=True, default=uid)
+    session_id: Mapped[str] = mapped_column(ForeignKey('sessions.id', ondelete='CASCADE'), unique=True, index=True)
+    doubt_id: Mapped[str] = mapped_column(ForeignKey('doubts.id'), index=True)
+    mentor_id: Mapped[str] = mapped_column(ForeignKey('students.id'))
+    requester_id: Mapped[str] = mapped_column(ForeignKey('students.id'))
+    root_cause: Mapped[str] = mapped_column(Text, nullable=False)
+    solution_explanation: Mapped[str] = mapped_column(Text, nullable=False)
+    follow_up_steps: Mapped[str | None] = mapped_column(Text, nullable=True)
+    original_snippet_id: Mapped[str | None] = mapped_column(ForeignKey('session_code_snippets.id'), nullable=True)
+    corrected_snippet_id: Mapped[str | None] = mapped_column(ForeignKey('session_code_snippets.id'), nullable=True)
+    reference_urls: Mapped[list] = mapped_column(JSON, default=list)
+    created_at: Mapped[int] = mapped_column(default=now)
+    updated_at: Mapped[int] = mapped_column(default=now)
+    submitted_at: Mapped[int | None] = mapped_column(nullable=True)
+    confirmed_at: Mapped[int | None] = mapped_column(nullable=True)
+    requester_status: Mapped[str] = mapped_column(String, default='PENDING')  # PENDING, CONFIRMED_RESOLVED, CONFIRMED_UNRESOLVED
+    __table_args__ = (
+        CheckConstraint("requester_status IN ('PENDING', 'CONFIRMED_RESOLVED', 'CONFIRMED_UNRESOLVED')"),
+    )
+

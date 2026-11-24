@@ -87,3 +87,62 @@ class MessageInput(Input):
 class ClaimInput(Input):
     slot_start: datetime | None = None
     _times = field_validator('slot_start')(utc_time)
+
+# Mentoring Workspace Schemas (P0 & P1)
+
+import re
+from urllib.parse import urlparse
+
+GOOGLE_MEET_REGEX = re.compile(r'^[a-z]{3}-[a-z]{4}-[a-z]{3}$')
+
+class MeetingInput(Input):
+    meeting_url: str = Field(min_length=10, max_length=200)
+
+    @field_validator('meeting_url')
+    @classmethod
+    def validate_meeting_url(cls, v: str) -> str:
+        v = v.strip()
+        parsed = urlparse(v)
+        if parsed.scheme != 'https':
+            raise ValueError('Google Meet URL must use https scheme')
+        if parsed.netloc.lower() != 'meet.google.com':
+            raise ValueError('Hostname must be exactly meet.google.com')
+        if parsed.username or parsed.password:
+            raise ValueError('Credentials not permitted in meeting URL')
+        if parsed.query or parsed.fragment:
+            raise ValueError('Query parameters and fragments not permitted in meeting URL')
+        path = parsed.path.strip('/')
+        if not GOOGLE_MEET_REGEX.match(path):
+            raise ValueError('Invalid Google Meet meeting code format (expected xxx-yyyy-zzz)')
+        return f'https://meet.google.com/{path}'
+
+class SnippetInput(Input):
+    title: str = Field(min_length=1, max_length=120)
+    filename: str | None = Field(default=None, max_length=120)
+    language: str = Field(default='text', max_length=30)
+    content: str = Field(min_length=1, max_length=65536)
+    snippet_type: Literal['ORIGINAL', 'PROPOSED_FIX', 'EXAMPLE', 'ERROR_LOG', 'OTHER'] = 'ORIGINAL'
+    parent_snippet_id: str | None = None
+
+class ResolutionRecordInput(Input):
+    root_cause: str = Field(min_length=5, max_length=5000)
+    solution_explanation: str = Field(min_length=5, max_length=5000)
+    follow_up_steps: str | None = Field(default=None, max_length=3000)
+    original_snippet_id: str | None = None
+    corrected_snippet_id: str | None = None
+    reference_urls: list[str] = Field(default_factory=list, max_length=10)
+
+    @field_validator('reference_urls')
+    @classmethod
+    def validate_urls(cls, urls: list[str]) -> list[str]:
+        cleaned = []
+        for u in urls:
+            u = u.strip()
+            if not u:
+                continue
+            parsed = urlparse(u)
+            if parsed.scheme not in ('http', 'https') or not parsed.netloc:
+                raise ValueError(f'Invalid reference URL: {u}')
+            cleaned.append(u)
+        return cleaned
+
