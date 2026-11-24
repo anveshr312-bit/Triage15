@@ -1,108 +1,197 @@
-# REST API
+# TRIAGE15 — REST API CONTRACTS & SPECIFICATION
 
-Base URL: `http://127.0.0.1:8000`. React uses a Vite `/api` proxy. `/docs` serves interactive Swagger UI; `openapi.json` is a generated schema snapshot. Inputs reject unknown fields. All public records are synthetic and readable without identity. Mutation routes require a valid `X-Demo-Student-ID`, except demo profile registration. No passwords or real authentication exist.
+All endpoints use JSON payloads and return UTC ISO strings for timestamps (`YYYY-MM-DDTHH:MM:SS+00:00`). The client formats them in Asia/Kolkata (`en-IN`).
 
-## Shared contracts
+Authentication uses the `X-Demo-Student-ID` header. This is a local demo convention, not production authentication.
 
-- Missing/invalid shape, unknown domains/tags, invalid enum, naive timestamps, short titles/descriptions or impossible windows: 422.
-- Unknown record/student: 404. Acting on another student's resource: 403.
-- Invalid transition, booking constraint or repeated operation: 409.
-- SQLite availability/lock error: 503 with a safe message.
-- Lists may be empty. Timestamps in responses are UTC ISO strings; null denotes an omitted optional value.
-- GET routes with DB access also expire stale offers; every database-backed route executes in one transaction.
+---
 
-`DoubtInput`: title 3–150 chars, description 5–3000, domain in catalog, 1–10 unique skill tags belonging to that domain, urgency Urgent/Normal/Flexible, optional preferred_start and deadline as ISO timestamps **with timezone**. A complete window must span at least 15 minutes and deadline must allow a future 15-minute interval.
+## 1. System & Time Endpoints
 
-`SessionOutput`: id, doubt_id, mentor_id, dispatch_run_id, start/end, state, offer_expires_at, mentor_completed, resolved, notes and explanation. Session GET/action results also include requester_id and feedback. A dispatch snapshot contains the offer fields without those enriched fields.
-
-## General and profile routes
-
-| Method / route | Input | Output / rules |
-|---|---|---|
-| GET `/api/health` | None | status and local-demo mode; no DB liveness probe |
-| GET `/api/domains` | None | Domain → valid tags mapping |
-| GET `/api/students` | None | All profiles, skill declarations, availability |
-| POST `/api/students` | `{name}` 2–80 chars | 201 new synthetic profile, initially not mentoring; no header required |
-| GET `/api/students/{id}` | Student ID | Profile plus completed/resolved counts and smoothed reliability; 404 unknown |
-| PUT `/api/students/{id}/profile` | `{mentoring, skills:[{domain,tag,level}]}` | Replaces declared skills; owner only; level 1–5, max 40, no duplicates; 403/422 |
-| POST `/api/students/{id}/availability` | `{start,end}` timezone-qualified | 201 window; owner only; ≥15 minutes, ≤24 hours long, ending within next seven days; max 30 windows; 422 invalid |
-| DELETE `/api/students/{id}/availability/{window_id}` | IDs | `{deleted:true}`; owner only; 409 if live sessions overlap the removed window |
-| GET `/api/metrics` | None | Counts by doubt/session status, actual successful resolutions, feedback count/mean |
-
-## Assessments
-
-| Method / route | Input | Output / rules |
-|---|---|---|
-| GET `/api/assessments/{domain}/questions` | Python, JavaScript or SQL | Five question IDs/prompts/options/version; **never correct answers**; 404 for other banks |
-| POST `/api/assessments/submit` | `{domain,answers:{question_id:zero_based_option}}` | 201 attempt ID, student, domain, score, counts, timestamp/version; identity required; exact question set and valid answer indices required (422) |
-| GET `/api/students/{id}/assessments` | Student ID | Attempt history, newest timestamp first; no response/answer-key exposure; 404 unknown student |
-
-Scoring is performed on the backend from seeded answer keys. Optional assessment results do not automatically add declared profile skills. Other domains use provisional evidence. Repeated attempts are permitted; no test-integrity or anti-cheat guarantee exists.
-
-## Doubts
-
-| Method / route | Input | Output / rules |
-|---|---|---|
-| POST `/api/doubts` | DoubtInput | 201 request, requester from header, OPEN status, normalized skills |
-| GET `/api/doubts` | Optional domain, skill, urgency, status, search query | Matching list, newest first; search checks title/description (max 150 chars); all filters combine with AND |
-| GET `/api/doubts/{id}` | Request ID | Request detail or 404 |
-| PATCH `/api/doubts/{id}` | Complete DoubtInput | Owner only; replace editable fields/skills on OPEN/UNMATCHED request; resets status OPEN; 409 if already assigned/closed. This MVP PATCH requires the full editable object, not a sparse patch. |
-| POST `/api/doubts/{id}/cancel` | No body | Owner only; cancels its live session if present and marks doubt CANCELLED; 409 if already closed |
-
-## Dispatch
-
-| Method / route | Input | Output / rules |
-|---|---|---|
-| POST `/api/dispatch/run` | No body; any valid demo identity | Run ID, timestamp, assignments with score breakdown, same-matrix optimized/greedy comparison, candidate/resource counts, unassigned reasons, final-validation rejections; 422 batch too large, 409 integrity conflict, 503 DB unavailable |
-| GET `/api/dispatch/runs/{id}` | Run ID | Stored immutable report with initial assignment snapshots; 404 unknown |
-| GET `/api/dispatch/runs/{id}/assignments` | Run ID | Current persisted sessions from that run; 404 unknown |
-
-Comparison reports describe solver output before final participant validation. `assignments` lists only successfully reserved offers. A response with zero assignments is not a successful match claim.
-
-## Sessions
-
-| Method / route | Input | Authorized actor / transition |
-|---|---|---|
-| GET `/api/sessions` | None | All demo sessions, newest slot first, including outcomes/feedback |
-| GET `/api/sessions/{id}` | ID | Detail or 404 |
-| POST `/api/sessions/{id}/accept` | No body | Assigned mentor; OFFERED → ACCEPTED; must not have expired |
-| POST `/api/sessions/{id}/decline` | No body | Assigned mentor; OFFERED → DECLINED; doubt reopens |
-| POST `/api/sessions/{id}/start` | No body | Assigned mentor; ACCEPTED → ACTIVE; doubt IN_SESSION; early demo start allowed |
-| POST `/api/sessions/{id}/complete` | No body | Assigned mentor; ACTIVE, sets mentor_completed once |
-| POST `/api/sessions/{id}/resolve` | `{resolved:boolean,rating:1..5,notes?:string}` | Requester; ACTIVE and mentor complete required; finalizes session and stores unique feedback; notes max 2000 chars; unresolved result reopens doubt |
-| POST `/api/sessions/{id}/cancel` | No body | Either participant; OFFERED/ACCEPTED/ACTIVE → CANCELLED; doubt reopens |
-
-Action routes share one implementation with an explicit allowlist and per-action transition checks. An unknown action returns 404. Every successful action returns enriched SessionOutput. Repeated acceptance/completion/resolution returns 409. Expiration is performed by the 10-second sweep and by database routes; expired offers cannot be accepted even before the next sweep. Declined/cancelled/unsuccessfully finalized mentor-request pairs are excluded from reassignment.
-
-## Benchmark
-
-| Method / route | Input | Output / rules |
-|---|---|---|
-| POST `/api/benchmarks/run` | No body; valid demo identity | Actual fixed-seed 50-scenario run, stored with ID and timestamp; both algorithm metrics per scenario and 9/8/8/1 illustration |
-| GET `/api/benchmarks/{id}` | Run ID | Persisted result or 404 |
-
-## Examples
-
-```http
-POST /api/doubts
-Content-Type: application/json
-X-Demo-Student-ID: student-08
-
-{"title":"Python loop skips values","description":"I need help understanding my loop counter.","domain":"Python","skills":["python","loops"],"urgency":"Urgent"}
-```
-
-Response shape (IDs/time are illustrative):
-
+### `GET /api/health`
+System operational status and environment mode.
+- **Response `200 OK`:**
 ```json
-{"id":"generated-id","requester_id":"student-08","title":"Python loop skips values","description":"I need help understanding my loop counter.","domain":"Python","urgency":"Urgent","skills":["python","loops"],"status":"OPEN","assigned_session_id":null,"preferred_start":null,"deadline":null,"created_at":"2026-11-24T00:00:00+00:00"}
+{
+  "status": "ok",
+  "mode": "local demo; synthetic profiles; authoritative server clock"
+}
 ```
 
-```powershell
-$h = @{'X-Demo-Student-ID'='student-08'}
-$run = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/dispatch/run -Headers $h
-$offer = $run.result.assignments[0]
-$mentor = @{'X-Demo-Student-ID'=$offer.mentor_id}
-Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/api/sessions/$($offer.id)/accept" -Headers $mentor
+### `GET /api/server-time`
+Authoritative server clock for countdown timer synchronization without client clock skew.
+- **Response `200 OK`:**
+```json
+{
+  "now": 1795500000,
+  "iso": "2026-11-24T05:30:00+00:00",
+  "timezone": "Asia/Kolkata (IST)"
+}
 ```
 
-A duplicate call returns HTTP 409, `{"detail":"accept requires OFFERED; current state is ACCEPTED"}`. A caller who is not that mentor receives 403 instead. Demo users can impersonate another identity by changing the header: these checks demonstrate ownership logic, not authentication.
+### `GET /api/domains`
+Allowed academic domains and valid skill tags.
+- **Response `200 OK`:**
+```json
+{
+  "Python": ["python", "loops", "pandas", "debugging"],
+  "JavaScript": ["javascript", "react", "async", "debugging"],
+  "SQL": ["sql", "joins", "aggregation", "schema"],
+  "CAD": ["cad", "sketching", "constraints"],
+  "Design": ["design", "typography", "layout"],
+  "Mathematics": ["algebra", "calculus", "probability"]
+}
+```
+
+---
+
+## 2. Students, Profiles & Reputation Ledger
+
+### `GET /api/students`
+List all demo students with declared skills, availability, and reputation point balances.
+
+### `POST /api/students`
+Register a synthetic demo student. Automatically creates an `INITIAL_GRANT` transaction for 100 points.
+- **Body:** `{"name": "Priya Sharma (demo)"}`
+- **Response `201 Created`:** Serialized Student object.
+
+### `GET /api/students/{id}`
+Get individual student details, availability windows, and historical reliability heuristic.
+
+### `GET /api/students/{id}/ledger`
+Retrieve the complete immutable double-entry transaction history of reputation points for this student.
+- **Response `200 OK`:**
+```json
+[
+  {
+    "id": "ledger-uuid",
+    "student_id": "student-08",
+    "amount": -40,
+    "transaction_type": "BOUNTY_RESERVED",
+    "doubt_id": "doubt-uuid",
+    "session_id": null,
+    "reference_id": "reserve:doubt-uuid",
+    "balance_after": 110,
+    "created_at": "2026-11-24T05:32:00+00:00",
+    "notes": "Reserved 40 points for doubt bounty"
+  }
+]
+```
+
+### `GET /api/mentors/{id}/profile`
+Mentor Credibility Profile (P1.4) providing transparent outcome statistics.
+- **Response `200 OK`:**
+```json
+{
+  "id": "student-01",
+  "name": "Asha (demo)",
+  "mentoring": true,
+  "points_balance": 175,
+  "completed_sessions": 3,
+  "resolved_sessions": 2,
+  "resolution_rate": 66.7,
+  "resolution_history_label": "66.7% (2/3 sessions)",
+  "feedback_count": 3,
+  "average_rating": 3.67,
+  "bounties_earned": 50,
+  "smoothed_reliability_heuristic": 8.57
+}
+```
+
+---
+
+## 3. Doubt Requests & Bounties
+
+### `GET /api/doubts`
+Query doubts with filtering and searching.
+- **Query Params:** `domain`, `skill`, `urgency`, `status`, `search` (max 150 chars).
+
+### `POST /api/doubts`
+Create a technical doubt request with an optional reputation bounty.
+- **Headers:** `X-Demo-Student-ID: <id>`, optional `X-Auto-Dispatch: true`.
+- **Body:**
+```json
+{
+  "title": "Python: recursion base case",
+  "description": "Infinite recursion in DFS tree traversal",
+  "domain": "Python",
+  "skills": ["python", "debugging"],
+  "urgency": "Urgent",
+  "bounty": 40,
+  "preferred_start": "2026-11-24T06:00:00+00:00",
+  "deadline": "2026-11-24T09:00:00+00:00"
+}
+```
+- **Response `201 Created`:** Serialized Doubt with reserved bounty.
+- **Errors:** `422 Unprocessable Entity` if bounty exceeds available points balance or skills invalid.
+
+### `PATCH /api/doubts/{id}`
+Edit an open or unmatched doubt. Re-evaluates bounty delta safely transactionally.
+- **Body:** Same schema as `POST /api/doubts`.
+- **Response `200 OK`:** Updated Doubt.
+
+### `POST /api/doubts/{id}/cancel`
+Cancels the request. If an unawarded bounty was reserved, immediately creates a `BOUNTY_REFUNDED` transaction and restores points to requester.
+- **Response `200 OK`:** Doubt with status `CANCELLED`.
+
+### `POST /api/doubts/{id}/claim` (P0.6 Manual Claiming)
+Enables an eligible mentor to directly claim an open doubt without waiting for dispatch.
+- **Headers:** `X-Demo-Student-ID: <mentor_id>`.
+- **Body:** Optional `{"slot_start": "2026-11-24T06:00:00+00:00"}`.
+- **Response `200 OK`:** Created Session in `ACCEPTED` state.
+- **Errors:**
+  - `409 Conflict`: If doubt is already claimed/matched or mentor is double-booked.
+  - `422 Unprocessable Entity`: If mentor lacks matching skills, is not mentoring, or attempts self-claim.
+
+---
+
+## 4. Sessions & Live Workspace
+
+### `GET /api/sessions`
+List sessions. Returns full context: requester/mentor names, doubt title, bounty, scheduled times, and server time.
+
+### `GET /api/sessions/{id}`
+Detailed session status and timer metadata.
+
+### `GET /api/sessions/{id}/messages`
+Retrieve message thread for the live workspace.
+- **Query Params:** Optional `since_id` or `since_time`.
+- **Headers:** `X-Demo-Student-ID: <participant_id>`.
+- **Errors:** `403 Forbidden` if caller is not the assigned mentor or requester.
+
+### `POST /api/sessions/{id}/messages`
+Post a message or code snippet to the live session room.
+- **Body:** `{"content": "def fix(): return True"}` (1–4000 chars).
+- **Response `201 Created`:** Persisted `SessionMessage`.
+
+### `POST /api/sessions/{id}/accelerate` (P0.3 Demo Clock)
+Switches session to 30-second accelerated evaluation clock for judge demonstration.
+- **Response `200 OK`:** Updated Session with `is_demo_accelerated: true`.
+
+### `POST /api/sessions/{id}/{action}`
+State lifecycle transitions:
+- `accept` (Mentor): Moves `OFFERED` -> `ACCEPTED`.
+- `decline` (Mentor): Releases reservation, marks `DECLINED`, returns doubt to `OPEN` for reassignment.
+- `start` (Mentor): Validates start window, moves `ACCEPTED` -> `ACTIVE`.
+- `complete` (Mentor): Flags assistance concluded, moves to `AWAITING_CONFIRMATION`.
+- `resolve` (Requester): Final outcome confirmation.
+  - Body: `{"resolved": true, "rating": 5, "notes": "Resolved quickly"}`.
+  - Awards bounty to mentor if `resolved == true`.
+- `cancel` (Either participant): Closes live session. Refunds bounty if cancelled by seeker.
+
+---
+
+## 5. Assessments, Dispatch & Benchmarks
+
+### `GET /api/assessments/{domain}/questions`
+Get 5 domain questions. Question order and option ordering are stable; correct answer is never exposed.
+
+### `POST /api/assessments/submit`
+Submit answers. Scored strictly on the backend. Enforces daily attempt cooldown (max 10 attempts/day).
+
+### `POST /api/dispatch/run`
+Execute manual dispatch across all `OPEN` and `UNMATCHED` doubts using rectangular Hungarian matching with iterative conflict recovery.
+- **Response `200 OK`:** Dispatch run summary with comparisons, rejections, and assignments.
+
+### `POST /api/benchmarks/run`
+Run reproducible 50-scenario benchmark comparing Hungarian matching vs Greedy allocation.

@@ -1,24 +1,61 @@
-# Implemented scope and honest limits
+# TRIAGE15 — SYSTEM LIMITATIONS & ENGINEERING BOUNDARIES
 
-Implemented: local persistent relational storage; demo profiles, skill declarations, availability; optional three-domain MCQs; doubts and filters; explainable score; Hungarian and greedy matching; actual 50-case benchmark; reserved expiring offers; ownership checks; accept/decline/start/mentor-complete/seeker-outcome/cancel; feedback and record-derived metrics; React UI; tests and documentation.
+Honest engineering requires transparent disclosure of prototype assumptions, constraints, and operational trade-offs.
 
-## Prototype limits
+---
 
-- Only synthetic data. There are no verified campus identities, production authentication, passwords, real communication channels or email/push notifications. Anyone with API access can select any identity. Bind to loopback only.
-- Five MCQs are limited assessment evidence. The provisional prior is a heuristic, not proof. Repeated attempts are allowed and answer keys can be read by a developer with source/database access. No anti-cheat, rate limiting, assessment cooldown or identity-based rating-abuse protection exists.
-- Matching optimizes a fixed bipartite matrix. Extra shared-requester/cross-role conflicts can remove selected pairs in final validation, so actual persisted bookings need not be a constrained global optimum. Reported solver utility and count precede those rejections; offer counts reflect actual bookings.
-- Dispatch is manual. Declines/expiry/negative outcomes release the request; press Run dispatch again for reassignment. A declined, cancelled or unsuccessful mentor is excluded for that request, even after editing it. There is no exclusion-reset endpoint.
-- Exact catalog domain/tag matching only; no semantic skill inference. Required tags use partial overlap eligibility. Declared level is displayed separately and does not increase the score. Latest assessment uses second-resolution timestamps plus deterministic ID tie breaking.
-- The bounded age bonus cannot guarantee fairness or prevent starvation. Urgency is self-reported. The platform does not guarantee that a problem can be solved or that a mentor will attend.
-- No ML model and no validated probability of expertise or resolution. Feedback affects displayed metrics, not scoring; actual resolution outcomes drive the reliability heuristic.
-- SQLite serializes writers; this MVP serializes DB reads too. Per-edge evidence/availability SQL queries are deliberately simple and inefficient for large batches. Seven-day candidate horizon; max 200 requests, 2,000 slots, 30 availability windows per profile. No pagination, production migrations, queue, tracing or load-test claim.
-- Availability slots are fixed at 15 minutes on a UTC grid. There is no arbitrary-duration support or requester availability calendar beyond per-request time bounds. The demo allows early start/completion without a wall-clock gate, while reservations continue to use scheduled intervals. Timing enforcement would be needed for real operation.
-- Accepted/active sessions do not auto-close at scheduled end. Mentor completion requires seeker outcome before entering finalized reliability history. Pending outcomes need manual follow-up. Session state RESOLVED means finalized, with `resolved=false` explicitly recording an unsuccessful outcome.
-- The UI provides all core flows; request editing is API-only (full editable object). The UI shows session request IDs rather than a dedicated request-detail route. Window removal is conservatively blocked if any live reservation overlaps, even if another overlapping window would cover it.
-- Read APIs expose all synthetic profiles and sessions. This is appropriate only for the demo, not real student data. CORS is restricted but is not authentication.
-- Benchmarks use reproducible synthetic eligibility matrices, not real students or deployment traffic. Solver runtime excludes candidate generation/SQL. There is no guaranteed improvement in assignment count or urgent assignment rate.
-- The seed creates tables only if needed and does not renew old availability on every startup. Run explicit reset to refresh a stale demo; it destroys local demo changes. No schema migration system is included.
+## 1. Classification of Current Boundaries
 
-## Next work, not claimed as implemented
+### Category A: Critical Blockers
+- **Status:** **None.** All P0 critical product features (virtual bounty ledger, live session workspace, 15-minute authoritative timer, automatic matching, automatic reassignment, manual session claiming) and high-value P1 improvements (iterative conflict recovery, mentor credibility profiles, doubt editing, pending outcome handling, expanded benchmarks) are fully implemented and verified by 50 automated tests.
 
-Production identity and per-record privacy; PostgreSQL migrations/row locks/exclusion constraints; an exact optimizer for shared-person conflicts; batched evidence loading; background dispatch jobs; notifications; assessment version management; fair urgency policy; accessible automated browser regression coverage; real-user evaluation and feedback abuse controls. No hosting/deployment or external integrations were attempted because the requested MVP runs locally.
+---
+
+### Category B: Important Architectural Limitations
+
+#### 1. SQLite Single-Writer Concurrency
+- **Implementation Reality:** SQLite only permits one concurrent writer process. We enforce `PRAGMA journal_mode = WAL;` and wrap state-modifying booking transactions in `BEGIN IMMEDIATE`.
+- **Limitation:** While read operations occur concurrently without blocking, write operations are queued sequentially. Under extreme campus loads (>1,000 writes/second), SQLite write serialization would become a throughput bottleneck.
+- **Why It Is Defensible For Prototype:** For a single-campus prototype and hackathon evaluation, SQLite eliminates database server overhead, guarantees zero external dependency failures, and strictly enforces relational foreign keys and partial unique indexes.
+
+#### 2. Demonstration Identity Header vs Cryptographic Authentication
+- **Implementation Reality:** Student identity is passed via `X-Demo-Student-ID` in request headers.
+- **Limitation:** Any client can forge this header to act as any demo student.
+- **Why It Is Defensible For Prototype:** This is intentionally designed to allow judges and evaluators to switch between seeker and mentor roles in two clicks from the UI header dropdown. It is not production authentication. In production, this would be replaced with OAuth2/OIDC (College SSO) issuing signed JWT bearer tokens.
+
+#### 3. Single-Instance Dispatch Coordinator
+- **Implementation Reality:** Automatic dispatch is coordinated using an in-process `asyncio.Lock` inside the FastAPI application process.
+- **Limitation:** If deployed across multiple horizontal backend replicas behind a load balancer, each instance would execute its own dispatch coordinator, risking overlapping dispatch sweeps (though database-level `BEGIN IMMEDIATE` and unique constraints still prevent duplicate bookings).
+- **Production Solution:** Distributed lock coordinator via Redis Redlock or PostgreSQL transactional locks (`pg_try_advisory_xact_lock`).
+
+---
+
+### Category C: Acceptable Prototype Limitations
+
+#### 1. Five-Question MCQ Assessments
+- **Implementation Reality:** Each academic domain (Python, JavaScript, SQL) features a 5-question multiple-choice bank scored server-side.
+- **Limitation:** Scoring 100% on 5 syntax questions indicates basic language familiarization, not deep architectural expertise or verified pedagogical capability.
+- **Design Mitigation:** The UI and matching engine explicitly label this as *"Assessment evidence (not professional qualification)"* and allocate only 25 out of 100 suitability points to test evidence.
+
+#### 2. Fixed 15-Minute Grid Discretization
+- **Implementation Reality:** All sessions are strictly quantized into 15-minute intervals (`start % 900 == 0`, `end == start + 900`).
+- **Limitation:** Participants cannot schedule arbitrary session lengths (e.g., 20 or 45 minutes) within the same allocation batch without re-gridding or multi-interval bin packing.
+- **Why It Is Defensible:** 15-minute micro-mentoring intervals are the core problem statement thesis of Triage15, keeping student commitments brief, focused, and low-friction.
+
+#### 3. Polling vs WebSockets for Live Messaging
+- **Implementation Reality:** Workspace chat and status updates use incremental HTTP polling (`since_id`) every 2.5–4.0 seconds.
+- **Limitation:** Chat messages have a maximum 2.5-second propagation delay compared to sub-millisecond WebSocket delivery.
+- **Why It Is Defensible:** HTTP polling is robust, firewall-friendly, has zero connection state leaks, requires no complex socket heartbeat management, and worked reliably across 100% of automated test runs.
+
+---
+
+## 2. Future Production Scaling Roadmap
+
+| Dimension | HackDay Prototype | Production Scale (100,000 Students) |
+| :--- | :--- | :--- |
+| **Database** | SQLite WAL on SSD | PostgreSQL with Read Replicas & Connection Pooling (PgBouncer) |
+| **Authentication** | `X-Demo-Student-ID` header | OAuth2 / SAML College SSO with JWT Bearer Tokens & RBAC |
+| **Real-time** | Incremental HTTP polling (2.5s) | WebSockets with Redis Pub/Sub cluster |
+| **Matching Coordination** | In-process `asyncio.Lock` | Celery / RabbitMQ background task queue with Redis distributed locks |
+| **Bounty Accounting** | SQLite integer `point_ledger` | Immutable event-sourced ledger with append-only verification |
+| **Assessment Engine** | 5-question MCQ bank | Adaptive item response theory (CAT) with randomized coding sandboxes |

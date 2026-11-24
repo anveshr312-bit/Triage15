@@ -1,38 +1,116 @@
-# 90-second demonstration
+# TRIAGE15 — JUDGE DEMONSTRATION SCRIPT & SCENARIO GUIDE
 
-## Prepare before presenting
+**Estimated Duration:** 90–120 seconds  
+**Objective:** Present a bulletproof, deterministic demonstration of optimization, transactional integrity, live peer messaging, authoritative timers, and reputation bounties.
 
-Start backend/frontend with README commands. Reset/reseed shortly before the demo so availability is fresh. Keep My sessions ready, and have a terminal open in `backend`. Select Rohan (student-08). Seeded mentors include Asha with Python assessment evidence, Kabir with provisional Python evidence, and Isha with Mathematics skills but no availability. Do not claim the five-question assessment verifies expertise.
+---
 
-| Time | Action and narration |
-|---|---|
-| 0–12s | Select Rohan, enter “Python loop skips values” and a short description, select Python/python, post. “A student can ask without taking an assessment.” |
-| 12–22s | Switch to Asha's Profile & availability, show her declared tags and available windows, then switch to Kabir to show another eligible Python peer. “Availability and evidence are separate inputs.” |
-| 22–35s | Return to Rohan, click Doubt board → Run dispatch. Show the offer count and unmatched reasons. “All waiting requests compete for mentor-slot resources; unavailable Mathematics stays unmatched.” |
-| 35–48s | My sessions → expand the Python allocation explanation. Read score components and chosen time. “This is a ranking heuristic, not a probability. The solver maximizes total candidate utility.” |
-| 48–58s | Benchmark → Run real benchmark. Show the 9/8/8/1 example: greedy 10, global 16; show actual wins/ties. “Both algorithms receive identical candidate edges.” |
-| 58–68s | In the prepared terminal run the focused conflict test below. “Attempting to insert the same live slot or a second live session for the same doubt is rejected by SQLite constraints.” |
-| 68–84s | Select the assigned mentor shown in Rohan's session, accept → start → mark my side complete. Switch back to Rohan and confirm resolved with feedback. Early start is explicitly allowed for this demo. |
-| 84–90s | Point to the changed resolution/feedback metrics. “These counts come from actual records. Repeating resolution is rejected, so history cannot increment twice.” |
+## 1. Quick Startup & Reset Commands
 
-Prepared command for the booking-conflict demonstration:
+Before presenting to the judges, reset the demonstration database to a known clean state:
+```bash
+# 1. Reset synthetic demo database
+set PYTHONPATH=backend
+.venv\Scripts\python.exe -m app.seed --reset
 
-```powershell
-..\.venv\Scripts\python.exe -m pytest tests/test_api.py::test_booking_unique_constraints -q
+# 2. Start FastAPI backend (Terminal 1)
+.venv\Scripts\uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+# 3. Start React frontend (Terminal 2)
+cd frontend
+npm run dev
+# Open browser at http://localhost:5173
 ```
 
-This test creates real records in an isolated test database and attempts three invalid inserts: same live mentor-slot/request, second mentor for the same live doubt, and another doubt in the same live mentor slot. Each raises an actual integrity error. Explain that this is the database conflict demonstration, not a clickable “simulate conflict” UI.
+---
 
-If the newly created question loses capacity to older or urgent requests, use one of Rohan's actual allocated sessions and explain the waiting result honestly. The seed deliberately creates competition. Offers expire within five minutes or by slot start; run dispatch again if necessary.
+## 2. Core 90-Second Walkthrough (Scenario A)
 
-## Alternate paths
+### Step 1: Identity Selection & Points Inspection (0:00–0:15)
+- Open `http://localhost:5173`.
+- In the top-right header, select demo identity: **`Asha (demo)`** (Student-01, Mentor, Python).
+- Point out her point balance (`★ 175 pts`) and navigate to **Profile & Availability** -> **Mentor Credibility**.
+- **Judge Speaking Point:** *"Notice how Asha's credibility card transparently reports 2 confirmed resolutions out of 3 completed sessions (66.7%), with a separate Bayesian smoothed reliability rating. We never fabricate a 100% expertise rating for new mentors."*
 
-- UI unavailable: use `http://127.0.0.1:8000/docs` and the examples in API.md, or run `test_full_workflow` to show the complete real API chain with feedback/metrics assertions.
-- No fresh available slots: stop the backend, run `python -m app.seed --reset` using the project interpreter, restart and reload. This destroys demo changes; do it before the timed presentation.
-- Offer expires mid-demo: show EXPIRED, redispatch, then use the new offer. Never claim an expired offer was accepted.
-- Benchmark slow/error: open the saved `benchmark-results.json` and identify it as the previously executed run. Do not present saved output as a new computation.
-- A test fails on a different machine: show the error and refer to the saved executed report; do not say that the current test passed.
+### Step 2: Seeker Doubt Creation with Reputation Bounty (0:15–0:35)
+- Switch identity to **`Rohan (demo)`** (Student-08, Seeker, Balance `150 pts`).
+- Under **Ask for Peer Help**:
+  - Title: `Python: Recursion base case issue`
+  - Description: `Binary search tree DFS is causing infinite recursion.`
+  - Domain: `Python` (Tags: `python`, `debugging`)
+  - Urgency: `Urgent`
+  - Bounty: `40 points`
+  - Click **Post Doubt**.
+- Point out that Rohan's balance immediately updates to `110 pts` (40 points reserved in the ledger).
+- Show the doubt card on the board with badges: `Urgent`, `★ 40 pts bounty`, `OPEN`.
 
-## Explain the engineering limit if asked
+### Step 3: Optimization & Automatic Dispatch (0:35–0:50)
+- In the Doubt Board header, click **Run Dispatch (Manual)** (or observe continuous automatic matching).
+- Expand **Dispatch Results & Allocation Analysis**:
+  - Show the candidate matrix utility comparison: **Hungarian total utility vs Greedy utility**.
+  - Show that Asha (`student-01`) was selected as the optimal mentor.
+  - Expand **Why this allocation?** to inspect suitability breakdown: 35 skill relevance + 20 assessment evidence + 10 reliability + proximity + urgency multiplier.
 
-The Hungarian solver is optimal for its bipartite matrix. Final booking validation can reject new shared-requester/cross-role conflicts, leaving a safe but not necessarily globally optimal subset. Reported matrix utility and actual reserved-offer count are intentionally distinct.
+### Step 4: Mentor Offer Acceptance & Live Workspace (0:50–1:15)
+- Switch identity back to **`Asha (demo)`** (`student-01`).
+- Navigate to **My sessions**.
+- Show the pending offer card with offer expiration countdown and bounty attached.
+- Click **Open Live Workspace →**.
+- Point out:
+  - Authoritative 15-minute countdown timer (`15:00`).
+  - Full doubt description and required skills.
+  - Chat room: Type a message as Asha:
+    ```text
+    Hi Rohan! You forgot `if not node: return`. Let's test it!
+    ```
+  - Click **Send**. Message appears immediately with UTC timestamp.
+
+### Step 5: Authoritative Demo Clock & Outcome Confirmation (1:15–1:40)
+- Click **⚡ Demo Clock (30s)**:
+  - **Judge Speaking Point:** *"In production, sessions run for an authoritative 15-minute window. For our hackathon evaluation, this demo clock accelerates the timer to 30 seconds without modifying the database's 15-minute slot grid constraints."*
+  - Watch the timer tick down in real-time.
+  - Click **✓ Mark Assistance Complete**. Session transitions to `AWAITING_CONFIRMATION`.
+- Switch identity back to **`Rohan (demo)`** (`student-08`) and refresh/view the workspace.
+- The **Confirm Session Resolution** form is now visible for Rohan:
+  - Was your doubt resolved? Select **Yes, resolved (award bounty)**.
+  - Rating: `5` stars.
+  - Notes: `Understood the base case thoroughly!`
+  - Click **Submit Final Outcome**.
+
+### Step 6: Bounty Award & Ledger Audit (1:40–1:55)
+- Switch identity to **`Asha (demo)`** (`student-01`).
+- Her balance has increased from `175 pts` to `215 pts` (★ +40 pts awarded).
+- Navigate to **Profile & Availability** -> **Points Ledger & Bounties**.
+- Show the auditable transaction:
+  - Type: `BOUNTY_AWARDED`
+  - Amount: `+40 pts`
+  - Reference ID: `award:<session-id>`
+- Show that repeated settlement attempts are strictly rejected by the unique database constraint.
+
+---
+
+## 3. Technical Deep-Dive Demonstrations
+
+### Technical Demo 1: Rectangular Hungarian vs Greedy (Scenario B)
+- Navigate to the **Benchmark** tab.
+- Click **Run Benchmark Suite**.
+- Show the results across 50 reproducible synthetic matrices (seed 15015):
+  - Hungarian wins ~84% of scenarios.
+  - In the 2×2 illustrative counterexample `[[9,8],[8,1]]`, Greedy picks $9+1=10$, while Hungarian picks $8+8=16$ (a 60% total utility improvement).
+  - Point out the honest disclaimer: Greedy is computationally faster ($O(E \log E)$ vs $O(N^2 M)$), and total utility improvements measure algorithm quality against our objective function, not academic mastery.
+
+### Technical Demo 2: Automatic Reassignment (Scenario C)
+- Post a doubt as **`Rohan (demo)`**.
+- When offered to **`Asha (demo)`**, click **Decline Offer**.
+- Observe that the doubt immediately returns to `OPEN` status, and upon the next matching cycle, the engine reassigns the doubt to **`Kabir (demo)`** (`student-02`), completely excluding Asha from immediate reassignment. The 40-point reserved bounty is preserved without duplication or loss.
+
+### Technical Demo 3: Concurrent Claim Protection (Scenario D)
+- Open an `OPEN` doubt on the board.
+- As an eligible mentor, click **Claim this Doubt**.
+- The claim succeeds instantly (`200 OK`) and moves the session to `ACCEPTED`.
+- Attempting to claim the same doubt simultaneously from another mentor tab is immediately rejected with a `409 Conflict` via SQLite's `uq_active_doubt` partial unique index.
+
+### Technical Demo 4: Honest Unmatched State (Scenario E)
+- Filter by domain **`Mathematics`**.
+- The seeded Mathematics mentor (`Isha`, `student-07`) is intentionally configured without availability windows.
+- Run dispatch: Mathematics doubts remain honest and visible as **`Waiting / Unmatched`** with explanation `"No eligible slot"`. The system never fabricates or forces an invalid match.

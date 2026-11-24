@@ -1,6 +1,6 @@
 import time
 import uuid
-from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Index, Integer, JSON, String, UniqueConstraint, text
+from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .database import Base
 
@@ -15,8 +15,28 @@ class Student(Base):
     id: Mapped[str] = mapped_column(String, primary_key=True, default=uid)
     name: Mapped[str] = mapped_column(String(80))
     mentoring: Mapped[bool] = mapped_column(Boolean, default=False)
+    points_balance: Mapped[int] = mapped_column(Integer, default=100)
     skills: Mapped[list['StudentSkill']] = relationship(cascade='all, delete-orphan')
     availability: Mapped[list['AvailabilityWindow']] = relationship(cascade='all, delete-orphan')
+    __table_args__ = (
+        CheckConstraint('points_balance >= 0'),
+    )
+
+class PointLedger(Base):
+    __tablename__ = 'point_ledger'
+    id: Mapped[str] = mapped_column(primary_key=True, default=uid)
+    student_id: Mapped[str] = mapped_column(ForeignKey('students.id'), index=True)
+    amount: Mapped[int]
+    transaction_type: Mapped[str]
+    doubt_id: Mapped[str | None] = mapped_column(ForeignKey('doubts.id'), index=True, nullable=True)
+    session_id: Mapped[str | None] = mapped_column(ForeignKey('sessions.id'), index=True, nullable=True)
+    reference_id: Mapped[str] = mapped_column(String, unique=True, index=True)
+    balance_after: Mapped[int]
+    created_at: Mapped[int] = mapped_column(default=now)
+    notes: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    __table_args__ = (
+        CheckConstraint("transaction_type IN ('INITIAL_GRANT','BOUNTY_RESERVED','BOUNTY_AWARDED','BOUNTY_REFUNDED','BOUNTY_ADJUSTED')"),
+    )
 
 class StudentSkill(Base):
     __tablename__ = 'student_skills'
@@ -43,6 +63,7 @@ class DoubtRequest(Base):
     description: Mapped[str]
     domain: Mapped[str] = mapped_column(index=True)
     urgency: Mapped[str]
+    bounty: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[int] = mapped_column(default=now)
     preferred_start: Mapped[int | None]
     deadline: Mapped[int | None]
@@ -50,8 +71,9 @@ class DoubtRequest(Base):
     assigned_session_id: Mapped[str | None] = mapped_column(ForeignKey('sessions.id', use_alter=True))
     skills: Mapped[list['DoubtSkill']] = relationship(cascade='all, delete-orphan')
     __table_args__ = (
-        CheckConstraint("status IN ('OPEN','MATCHED','IN_SESSION','RESOLVED','UNMATCHED','CANCELLED')"),
+        CheckConstraint("status IN ('OPEN','MATCHED','IN_SESSION','AWAITING_CONFIRMATION','RESOLVED','UNMATCHED','CANCELLED')"),
         CheckConstraint("urgency IN ('Urgent','Normal','Flexible')"),
+        CheckConstraint('bounty >= 0'),
         CheckConstraint('deadline IS NULL OR preferred_start IS NULL OR deadline > preferred_start'),
     )
 
@@ -107,15 +129,32 @@ class Session(Base):
     end: Mapped[int]
     state: Mapped[str] = mapped_column(default='OFFERED')
     offer_expires_at: Mapped[int]
+    accepted_at: Mapped[int | None] = mapped_column(nullable=True)
+    actual_started_at: Mapped[int | None] = mapped_column(nullable=True)
+    mentor_completed_at: Mapped[int | None] = mapped_column(nullable=True)
+    outcome_deadline: Mapped[int | None] = mapped_column(nullable=True)
+    completed_at: Mapped[int | None] = mapped_column(nullable=True)
+    is_demo_accelerated: Mapped[bool] = mapped_column(Boolean, default=False)
     mentor_completed: Mapped[bool] = mapped_column(default=False)
-    resolved: Mapped[bool | None]
-    notes: Mapped[str | None]
+    resolved: Mapped[bool | None] = mapped_column(nullable=True)
+    notes: Mapped[str | None] = mapped_column(nullable=True)
     explanation: Mapped[dict] = mapped_column(JSON, default=dict)
     __table_args__ = (
         CheckConstraint('start % 900 = 0 AND end = start + 900'),
-        CheckConstraint("state IN ('OFFERED','ACCEPTED','ACTIVE','RESOLVED','DECLINED','EXPIRED','CANCELLED')"),
-        Index('uq_active_doubt', 'doubt_id', unique=True, sqlite_where=text("state IN ('OFFERED','ACCEPTED','ACTIVE')")),
-        Index('uq_active_mentor_slot', 'mentor_id', 'start', unique=True, sqlite_where=text("state IN ('OFFERED','ACCEPTED','ACTIVE')")),
+        CheckConstraint("state IN ('OFFERED','ACCEPTED','ACTIVE','AWAITING_CONFIRMATION','RESOLVED','DECLINED','EXPIRED','CANCELLED')"),
+        Index('uq_active_doubt', 'doubt_id', unique=True, sqlite_where=text("state IN ('OFFERED','ACCEPTED','ACTIVE','AWAITING_CONFIRMATION')")),
+        Index('uq_active_mentor_slot', 'mentor_id', 'start', unique=True, sqlite_where=text("state IN ('OFFERED','ACCEPTED','ACTIVE','AWAITING_CONFIRMATION')")),
+    )
+
+class SessionMessage(Base):
+    __tablename__ = 'session_messages'
+    id: Mapped[str] = mapped_column(primary_key=True, default=uid)
+    session_id: Mapped[str] = mapped_column(ForeignKey('sessions.id'), index=True)
+    sender_id: Mapped[str] = mapped_column(ForeignKey('students.id'), index=True)
+    content: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[int] = mapped_column(default=now, index=True)
+    __table_args__ = (
+        CheckConstraint('length(content) > 0 AND length(content) <= 4000'),
     )
 
 class SessionFeedback(Base):

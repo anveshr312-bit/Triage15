@@ -22,6 +22,7 @@ class DoubtInput(Input):
     domain: str
     skills: list[str] = Field(min_length=1, max_length=10)
     urgency: Literal['Urgent','Normal','Flexible'] = 'Normal'
+    bounty: int = Field(default=0, ge=0, le=1000)
     preferred_start: datetime | None = None
     deadline: datetime | None = None
     _domain = field_validator('domain')(valid_domain)
@@ -79,3 +80,10 @@ class ResolutionInput(Input):
     resolved: bool
     rating: int = Field(ge=1, le=5)
     notes: str = Field(default='', max_length=2000)
+
+class MessageInput(Input):
+    content: str = Field(min_length=1, max_length=4000)
+
+class ClaimInput(Input):
+    slot_start: datetime | None = None
+    _times = field_validator('slot_start')(utc_time)
