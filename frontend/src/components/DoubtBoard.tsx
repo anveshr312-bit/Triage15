@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api, Domains, Student, Doubt, time, fromIST } from '../api';
 import { Run } from '../App';
+import { SkillSuggestions } from './SkillSuggestions';
 
 export function DoubtBoard({
   actor,
@@ -19,6 +20,8 @@ export function DoubtBoard({
   const [domain, setDomain] = useState('Python');
   const [tags, setTags] = useState<string[]>(['python']);
   const [bounty, setBounty] = useState<number>(0);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [filters, setFilters] = useState({
     domain: '',
     skill: '',
@@ -92,6 +95,8 @@ export function DoubtBoard({
         { 'X-Auto-Dispatch': 'true' }
       );
       f.reset();
+      setTitle('');
+      setDescription('');
       setBounty(0);
     }, 'Doubt posted and submitted to automatic matching');
   };
@@ -139,12 +144,14 @@ export function DoubtBoard({
         <form onSubmit={handlePostDoubt}>
           <label>
             Title
-            <input name="title" required minLength={3} maxLength={150} placeholder="What do you need help with?" />
+            <input name="title" value={title} onChange={e => setTitle(e.target.value)} required minLength={3} maxLength={150} placeholder="What do you need help with?" />
           </label>
           <label>
             Description
             <textarea
               name="description"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
               required
               minLength={5}
               maxLength={3000}
@@ -168,6 +175,12 @@ export function DoubtBoard({
           </label>
 
           <div className="tags-label">Relevant skill tags:</div>
+          <SkillSuggestions title={title} description={description} domain={domain} tags={tags}
+            onRemove={label => setTags(current => current.filter(tag => tag !== label))}
+            onAccept={(label, suggestedDomain) => {
+              if (suggestedDomain !== domain) { setDomain(suggestedDomain); setTags([label]); }
+              else setTags(current => current.includes(label) ? current : [...current, label]);
+            }} />
           <div className="tags">
             {domains[domain]?.map((tag) => (
               <label key={tag} className="check">

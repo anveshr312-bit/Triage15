@@ -13,3 +13,6 @@ dist/
 .npm-cache/
 .test-data/
 *.tsbuildinfo
+data/raw/
+data/processed/
+.kaggle/

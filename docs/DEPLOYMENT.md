@@ -152,3 +152,9 @@ pytest backend/tests -v
 | 404 on API requests | URL prefix mismatch | All backend routes are prefixed with `/api`. Frontend uses relative `/api/...`. |
 | Healthcheck fails during startup | Seed or table creation takes longer than timeout | Increase Healthcheck timeout to 30s. Verify SQLite permissions on `/data`. |
 | Cross-origin errors | CORS origins misconfigured | Verify `CORS_ORIGINS` matches the exact deployed domain (including `https://`). |
+
+## Optional ML runtime
+
+The Dockerfile includes `ml/` (trained artifact, metadata and reports), keeps the existing `/data` SQLite volume and one Uvicorn worker, and sets `PYTHONPATH=/app/backend:/app`. Runtime requirements pin scikit-learn 1.9.0, joblib 1.5.3, NumPy 2.5.5 and SciPy 1.18.1; all support Python 3.12. Kaggle and iterative-stratification are training-only. Raw and processed data are excluded by `.dockerignore`.
+
+No dataset download or training occurs on startup. `ML_ENABLED=false` disables suggestions; missing or incompatible artifacts also preserve manual tags. After installing/replacing a controlled artifact, restart the process. Verify `/api/ml/status` reports `loaded` and `/api/health` remains `ok`; with ML disabled it should report `disabled` and health should remain `ok`. Read [ML verification](ML_VERIFICATION.md) for what was actually executed; a Docker build was not run because Docker is unavailable on this host.

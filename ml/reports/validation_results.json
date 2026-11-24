@@ -1,0 +1,532 @@
+{
+  "keyword": {
+    "micro_precision": 0.6053268765133172,
+    "micro_recall": 0.8445945945945946,
+    "micro_f1": 0.7052186177715092,
+    "macro_precision": 0.647139236167663,
+    "macro_recall": 0.8797308326891676,
+    "macro_f1": 0.6922729591483041,
+    "samples_precision": 0.6455304928989138,
+    "samples_recall": 0.8471177944862155,
+    "samples_f1": 0.6976369495166489,
+    "hamming_loss": 0.13095238095238096,
+    "exact_match_accuracy": 0.3157894736842105,
+    "precision_at_3": 0.4193817878028404,
+    "coverage": 0.9598997493734336,
+    "abstention_count": 16,
+    "covered_micro_f1": 0.7137758743754461,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.49382716049382713,
+        "recall": 0.851063829787234,
+        "f1": 0.625,
+        "support": 47
+      },
+      "async": {
+        "precision": 0.10317460317460317,
+        "recall": 1.0,
+        "f1": 0.18705035971223022,
+        "support": 13
+      },
+      "javascript": {
+        "precision": 0.6752136752136753,
+        "recall": 0.8494623655913979,
+        "f1": 0.7523809523809524,
+        "support": 93
+      },
+      "joins": {
+        "precision": 0.4583333333333333,
+        "recall": 0.9166666666666666,
+        "f1": 0.6111111111111112,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.875,
+        "recall": 0.9692307692307692,
+        "f1": 0.9197080291970803,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.9772727272727273,
+        "recall": 0.6417910447761194,
+        "f1": 0.7747747747747747,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.9821428571428571,
+        "recall": 0.8870967741935484,
+        "f1": 0.9322033898305084,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.6121495327102804,
+        "recall": 0.9225352112676056,
+        "f1": 0.7359550561797753,
+        "support": 142
+      }
+    },
+    "training_seconds": 0,
+    "model_size_bytes": 0,
+    "explainability": "Predefined lexical rules; no learned weights",
+    "deployment": "No ML dependencies",
+    "median_inference_ms": 4.687499999818101
+  },
+  "naive_bayes": {
+    "micro_precision": 0.8675213675213675,
+    "micro_recall": 0.6858108108108109,
+    "micro_f1": 0.7660377358490567,
+    "macro_precision": 0.7742116652747494,
+    "macro_recall": 0.4858373794100985,
+    "macro_f1": 0.5235073849044437,
+    "samples_precision": 0.8329156223893065,
+    "samples_recall": 0.7268170426065163,
+    "samples_f1": 0.7467836257309942,
+    "hamming_loss": 0.07769423558897243,
+    "exact_match_accuracy": 0.47619047619047616,
+    "precision_at_3": 0.4553049289891395,
+    "coverage": 0.9273182957393483,
+    "abstention_count": 29,
+    "covered_micro_f1": 0.7945205479452054,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.75,
+        "recall": 0.06382978723404255,
+        "f1": 0.11764705882352941,
+        "support": 47
+      },
+      "async": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 13
+      },
+      "javascript": {
+        "precision": 0.7009345794392523,
+        "recall": 0.8064516129032258,
+        "f1": 0.75,
+        "support": 93
+      },
+      "joins": {
+        "precision": 1.0,
+        "recall": 0.027777777777777776,
+        "f1": 0.05405405405405406,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.9487179487179487,
+        "recall": 0.5692307692307692,
+        "f1": 0.7115384615384616,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.9444444444444444,
+        "recall": 0.8880597014925373,
+        "f1": 0.9153846153846154,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.972972972972973,
+        "recall": 0.5806451612903226,
+        "f1": 0.7272727272727273,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.8766233766233766,
+        "recall": 0.9507042253521126,
+        "f1": 0.9121621621621622,
+        "support": 142
+      }
+    },
+    "brier_score": 0.09170100752701872,
+    "probability_notice": "Uncalibrated estimates; Brier score measured, no calibration fitted.",
+    "default_threshold_metrics": {
+      "micro_precision": 0.9169811320754717,
+      "micro_recall": 0.41047297297297297,
+      "micro_f1": 0.5670945157526255,
+      "macro_precision": 0.5823474126492703,
+      "macro_recall": 0.2545523418277153,
+      "macro_f1": 0.3227798371794435,
+      "samples_precision": 0.576858813700919,
+      "samples_recall": 0.4323308270676692,
+      "samples_f1": 0.47694235588972433,
+      "hamming_loss": 0.1162280701754386,
+      "exact_match_accuracy": 0.2606516290726817,
+      "precision_at_3": 0.4553049289891395,
+      "coverage": 0.6215538847117794,
+      "abstention_count": 151,
+      "covered_micro_f1": 0.7408536585365854,
+      "per_label": {
+        "aggregation": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 47
+        },
+        "async": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 13
+        },
+        "javascript": {
+          "precision": 0.7941176470588235,
+          "recall": 0.2903225806451613,
+          "f1": 0.4251968503937008,
+          "support": 93
+        },
+        "joins": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 36
+        },
+        "pandas": {
+          "precision": 1.0,
+          "recall": 0.1076923076923077,
+          "f1": 0.19444444444444445,
+          "support": 65
+        },
+        "python": {
+          "precision": 0.9473684210526315,
+          "recall": 0.5373134328358209,
+          "f1": 0.6857142857142857,
+          "support": 134
+        },
+        "react": {
+          "precision": 1.0,
+          "recall": 0.24193548387096775,
+          "f1": 0.38961038961038963,
+          "support": 62
+        },
+        "sql": {
+          "precision": 0.9172932330827067,
+          "recall": 0.8591549295774648,
+          "f1": 0.8872727272727273,
+          "support": 142
+        }
+      },
+      "brier_score": 0.09170100752701872,
+      "probability_notice": "Uncalibrated estimates; Brier score measured, no calibration fitted."
+    },
+    "training_seconds": 6.011739799999759,
+    "vectorizer_seconds": 5.911185099999784,
+    "median_inference_ms": 12.061399999993228,
+    "model_size_bytes": 5267389,
+    "thresholds": [
+      0.1,
+      0.8000000000000002,
+      0.1,
+      0.1,
+      0.1,
+      0.15000000000000002,
+      0.1,
+      0.25000000000000006
+    ],
+    "explainability": "Log likelihood ratios",
+    "deployment": "CPU scikit-learn + joblib; offline sparse inference"
+  },
+  "logistic_regression": {
+    "micro_precision": 0.8392036753445635,
+    "micro_recall": 0.9256756756756757,
+    "micro_f1": 0.8803212851405623,
+    "macro_precision": 0.8263614006933389,
+    "macro_recall": 0.8989355744241745,
+    "macro_f1": 0.8529817576925481,
+    "samples_precision": 0.8554720133667502,
+    "samples_recall": 0.9289891395154553,
+    "samples_f1": 0.8714285714285714,
+    "hamming_loss": 0.046679197994987466,
+    "exact_match_accuracy": 0.6741854636591479,
+    "precision_at_3": 0.48203842940685043,
+    "coverage": 0.974937343358396,
+    "abstention_count": 10,
+    "covered_micro_f1": 0.8881685575364667,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.639344262295082,
+        "recall": 0.8297872340425532,
+        "f1": 0.7222222222222222,
+        "support": 47
+      },
+      "async": {
+        "precision": 0.9090909090909091,
+        "recall": 0.7692307692307693,
+        "f1": 0.8333333333333334,
+        "support": 13
+      },
+      "javascript": {
+        "precision": 0.7586206896551724,
+        "recall": 0.946236559139785,
+        "f1": 0.8421052631578947,
+        "support": 93
+      },
+      "joins": {
+        "precision": 0.5666666666666667,
+        "recall": 0.9444444444444444,
+        "f1": 0.7083333333333334,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.9344262295081968,
+        "recall": 0.8769230769230769,
+        "f1": 0.9047619047619048,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.9338235294117647,
+        "recall": 0.9477611940298507,
+        "f1": 0.9407407407407408,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.95,
+        "recall": 0.9193548387096774,
+        "f1": 0.9344262295081968,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.918918918918919,
+        "recall": 0.9577464788732394,
+        "f1": 0.9379310344827586,
+        "support": 142
+      }
+    },
+    "brier_score": 0.06265954969278294,
+    "probability_notice": "Uncalibrated estimates; Brier score measured, no calibration fitted.",
+    "default_threshold_metrics": {
+      "micro_precision": 0.9534883720930233,
+      "micro_recall": 0.5540540540540541,
+      "micro_f1": 0.7008547008547008,
+      "macro_precision": 0.8424231872478414,
+      "macro_recall": 0.3873511919763586,
+      "macro_f1": 0.47730288423396655,
+      "samples_precision": 0.7042606516290727,
+      "samples_recall": 0.5785296574770259,
+      "samples_f1": 0.61687552213868,
+      "hamming_loss": 0.08771929824561403,
+      "exact_match_accuracy": 0.42355889724310775,
+      "precision_at_3": 0.48203842940685043,
+      "coverage": 0.7343358395989975,
+      "abstention_count": 106,
+      "covered_micro_f1": 0.8272383354350568,
+      "per_label": {
+        "aggregation": {
+          "precision": 1.0,
+          "recall": 0.10638297872340426,
+          "f1": 0.19230769230769232,
+          "support": 47
+        },
+        "async": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 13
+        },
+        "javascript": {
+          "precision": 0.8666666666666667,
+          "recall": 0.41935483870967744,
+          "f1": 0.5652173913043478,
+          "support": 93
+        },
+        "joins": {
+          "precision": 1.0,
+          "recall": 0.027777777777777776,
+          "f1": 0.05405405405405406,
+          "support": 36
+        },
+        "pandas": {
+          "precision": 0.9428571428571428,
+          "recall": 0.5076923076923077,
+          "f1": 0.66,
+          "support": 65
+        },
+        "python": {
+          "precision": 0.9603960396039604,
+          "recall": 0.7238805970149254,
+          "f1": 0.825531914893617,
+          "support": 134
+        },
+        "react": {
+          "precision": 1.0,
+          "recall": 0.41935483870967744,
+          "f1": 0.5909090909090909,
+          "support": 62
+        },
+        "sql": {
+          "precision": 0.9694656488549618,
+          "recall": 0.8943661971830986,
+          "f1": 0.9304029304029304,
+          "support": 142
+        }
+      },
+      "brier_score": 0.06265954969278294,
+      "probability_notice": "Uncalibrated estimates; Brier score measured, no calibration fitted."
+    },
+    "training_seconds": 7.5078136000001905,
+    "vectorizer_seconds": 5.911185099999784,
+    "median_inference_ms": 6.025449999924604,
+    "model_size_bytes": 2114950,
+    "thresholds": [
+      0.20000000000000004,
+      0.1,
+      0.30000000000000004,
+      0.15000000000000002,
+      0.25000000000000006,
+      0.3500000000000001,
+      0.25000000000000006,
+      0.40000000000000013
+    ],
+    "explainability": "Exact additive linear weights",
+    "deployment": "CPU scikit-learn + joblib; offline sparse inference"
+  },
+  "linear_svm": {
+    "micro_precision": 0.8711180124223602,
+    "micro_recall": 0.9476351351351351,
+    "micro_f1": 0.9077669902912622,
+    "macro_precision": 0.85981289115669,
+    "macro_recall": 0.9386126449133549,
+    "macro_f1": 0.8932301551187867,
+    "samples_precision": 0.8834586466165414,
+    "samples_recall": 0.9482038429406852,
+    "samples_f1": 0.899749373433584,
+    "hamming_loss": 0.03571428571428571,
+    "exact_match_accuracy": 0.7393483709273183,
+    "precision_at_3": 0.49122807017543857,
+    "coverage": 0.9774436090225563,
+    "abstention_count": 9,
+    "covered_micro_f1": 0.9144254278728606,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.7636363636363637,
+        "recall": 0.8936170212765957,
+        "f1": 0.8235294117647058,
+        "support": 47
+      },
+      "async": {
+        "precision": 1.0,
+        "recall": 0.9230769230769231,
+        "f1": 0.96,
+        "support": 13
+      },
+      "javascript": {
+        "precision": 0.8018867924528302,
+        "recall": 0.9139784946236559,
+        "f1": 0.8542713567839196,
+        "support": 93
+      },
+      "joins": {
+        "precision": 0.5714285714285714,
+        "recall": 0.8888888888888888,
+        "f1": 0.6956521739130435,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.8888888888888888,
+        "recall": 0.9846153846153847,
+        "f1": 0.9343065693430657,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.935251798561151,
+        "recall": 0.9701492537313433,
+        "f1": 0.9523809523809523,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.953125,
+        "recall": 0.9838709677419355,
+        "f1": 0.9682539682539683,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.9642857142857143,
+        "recall": 0.9507042253521126,
+        "f1": 0.9574468085106383,
+        "support": 142
+      }
+    },
+    "default_threshold_metrics": {
+      "micro_precision": 0.9320388349514563,
+      "micro_recall": 0.8108108108108109,
+      "micro_f1": 0.8672086720867209,
+      "macro_precision": 0.9222202137342224,
+      "macro_recall": 0.7427875088948396,
+      "macro_f1": 0.8167989405222427,
+      "samples_precision": 0.871345029239766,
+      "samples_recall": 0.8274853801169589,
+      "samples_f1": 0.8309106098579784,
+      "hamming_loss": 0.046052631578947366,
+      "exact_match_accuracy": 0.6766917293233082,
+      "precision_at_3": 0.49122807017543857,
+      "coverage": 0.9197994987468672,
+      "abstention_count": 32,
+      "covered_micro_f1": 0.8980355472404116,
+      "per_label": {
+        "aggregation": {
+          "precision": 0.84375,
+          "recall": 0.574468085106383,
+          "f1": 0.6835443037974683,
+          "support": 47
+        },
+        "async": {
+          "precision": 1.0,
+          "recall": 0.6153846153846154,
+          "f1": 0.7619047619047619,
+          "support": 13
+        },
+        "javascript": {
+          "precision": 0.8409090909090909,
+          "recall": 0.7956989247311828,
+          "f1": 0.8176795580110497,
+          "support": 93
+        },
+        "joins": {
+          "precision": 0.8181818181818182,
+          "recall": 0.5,
+          "f1": 0.6206896551724138,
+          "support": 36
+        },
+        "pandas": {
+          "precision": 0.9636363636363636,
+          "recall": 0.8153846153846154,
+          "f1": 0.8833333333333333,
+          "support": 65
+        },
+        "python": {
+          "precision": 0.9655172413793104,
+          "recall": 0.835820895522388,
+          "f1": 0.896,
+          "support": 134
+        },
+        "react": {
+          "precision": 0.9814814814814815,
+          "recall": 0.8548387096774194,
+          "f1": 0.9137931034482759,
+          "support": 62
+        },
+        "sql": {
+          "precision": 0.9642857142857143,
+          "recall": 0.9507042253521126,
+          "f1": 0.9574468085106383,
+          "support": 142
+        }
+      }
+    },
+    "training_seconds": 6.321703399999478,
+    "vectorizer_seconds": 5.911185099999784,
+    "median_inference_ms": 5.837050000081945,
+    "model_size_bytes": 1945048,
+    "thresholds": [
+      -0.30000000000000016,
+      -0.30000000000000016,
+      -0.20000000000000018,
+      -0.5000000000000001,
+      -0.40000000000000013,
+      -0.30000000000000016,
+      -0.40000000000000013,
+      -2.220446049250313e-16
+    ],
+    "explainability": "Exact additive margin weights",
+    "deployment": "CPU scikit-learn + joblib; offline sparse inference"
+  }
+}

@@ -1,0 +1,873 @@
+{
+  "model_version": "20261124T070322Z",
+  "selected_model": "linear_svm",
+  "selection_reason": "Best validation micro F1; Logistic Regression fell more than 0.02 behind. Mathematical explanations use selected model parameters.",
+  "best_validation_model": "linear_svm",
+  "dataset": {
+    "source": {
+      "source": "Stack Exchange API",
+      "url": "https://api.stackexchange.com/docs/questions",
+      "method": "GET /2.3/questions; cached pages; sort=creation; fixed cutoff",
+      "acquired_at": "2026-11-24T06:56:26.695741+00:00",
+      "fallback_reason": "Kaggle download failed or no Questions.csv found",
+      "downloaded_questions": 3123,
+      "requests": [
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "python",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 299
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "pandas",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 298
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "javascript",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 297
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "reactjs",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 296
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "sql",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 295
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "join",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 294
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "aggregate-functions",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 293
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "async-await",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 1,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 292
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "python",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 291
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "pandas",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 290
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "javascript",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 289
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "reactjs",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 288
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "sql",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 287
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "join",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 286
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "aggregate-functions",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 285
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "async-await",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 2,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 284
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "python",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 283
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "pandas",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 282
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "javascript",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 281
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "reactjs",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 280
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "sql",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 279
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "join",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 278
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "aggregate-functions",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 277
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "async-await",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 3,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 276
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "python",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 275
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "pandas",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 274
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "javascript",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 273
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "reactjs",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 272
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "sql",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 271
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "join",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 270
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "aggregate-functions",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 269
+        },
+        {
+          "params": {
+            "site": "stackoverflow",
+            "tagged": "async-await",
+            "pagesize": 100,
+            "sort": "creation",
+            "order": "desc",
+            "page": 4,
+            "filter": "withbody",
+            "todate": 1795392000
+          },
+          "items": 100,
+          "quota_remaining": 268
+        }
+      ]
+    },
+    "source_records_scanned": 3123,
+    "downloaded_questions": 3123,
+    "usable_questions": 2675,
+    "duplicates_removed": 2,
+    "labels": [
+      "aggregation",
+      "async",
+      "javascript",
+      "joins",
+      "pandas",
+      "python",
+      "react",
+      "sql"
+    ],
+    "split_sizes": {
+      "train": 1872,
+      "validation": 399,
+      "test": 404
+    },
+    "label_distribution": {
+      "train": {
+        "python": 625,
+        "sql": 661,
+        "javascript": 436,
+        "pandas": 302,
+        "react": 290,
+        "aggregation": 220,
+        "joins": 169,
+        "async": 63
+      },
+      "validation": {
+        "python": 134,
+        "javascript": 93,
+        "pandas": 65,
+        "react": 62,
+        "async": 13,
+        "sql": 142,
+        "joins": 36,
+        "aggregation": 47
+      },
+      "test": {
+        "pandas": 65,
+        "python": 134,
+        "sql": 142,
+        "javascript": 94,
+        "async": 14,
+        "react": 62,
+        "joins": 36,
+        "aggregation": 48
+      }
+    },
+    "seed": 42,
+    "licenses": {
+      "CC BY-SA 4.0": 2267,
+      "see post timeline": 408
+    }
+  },
+  "labels": [
+    "aggregation",
+    "async",
+    "javascript",
+    "joins",
+    "pandas",
+    "python",
+    "react",
+    "sql"
+  ],
+  "thresholds": [
+    -0.30000000000000016,
+    -0.30000000000000016,
+    -0.20000000000000018,
+    -0.5000000000000001,
+    -0.40000000000000013,
+    -0.30000000000000016,
+    -0.40000000000000013,
+    -2.220446049250313e-16
+  ],
+  "seed": 42,
+  "feature_extraction": "Training-only TF-IDF; word 1-2 grams; technical token pattern; min_df=2; max_df=.98; max_features=30000; sublinear_tf",
+  "feature_count": 30000,
+  "training_configuration": {
+    "naive_bayes": "MultinomialNB(alpha=0.5)",
+    "logistic_regression": "LogisticRegression(C=1, max_iter=1000, random_state=42)",
+    "linear_svm": "LinearSVC(C=1, random_state=42)"
+  },
+  "trained_at": "2026-11-24T07:03:26.695036+00:00",
+  "python_version": "3.14.5",
+  "dependencies": {
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "iterative-stratification": "0.1.9"
+  },
+  "artifact_sha256": "4811b35cc0afa57e0a03bcb77670865b02696ab64377df4db15084990a3327a2",
+  "artifact_size_bytes": 1945076,
+  "split_ids_sha256": "fc42cc8a6967f88fb1952dc6139ea383de7a2a37f74a90f7a4b05b3fc35bd012",
+  "validation": {
+    "micro_precision": 0.8711180124223602,
+    "micro_recall": 0.9476351351351351,
+    "micro_f1": 0.9077669902912622,
+    "macro_precision": 0.85981289115669,
+    "macro_recall": 0.9386126449133549,
+    "macro_f1": 0.8932301551187867,
+    "samples_precision": 0.8834586466165414,
+    "samples_recall": 0.9482038429406852,
+    "samples_f1": 0.899749373433584,
+    "hamming_loss": 0.03571428571428571,
+    "exact_match_accuracy": 0.7393483709273183,
+    "precision_at_3": 0.49122807017543857,
+    "coverage": 0.9774436090225563,
+    "abstention_count": 9,
+    "covered_micro_f1": 0.9144254278728606,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.7636363636363637,
+        "recall": 0.8936170212765957,
+        "f1": 0.8235294117647058,
+        "support": 47
+      },
+      "async": {
+        "precision": 1.0,
+        "recall": 0.9230769230769231,
+        "f1": 0.96,
+        "support": 13
+      },
+      "javascript": {
+        "precision": 0.8018867924528302,
+        "recall": 0.9139784946236559,
+        "f1": 0.8542713567839196,
+        "support": 93
+      },
+      "joins": {
+        "precision": 0.5714285714285714,
+        "recall": 0.8888888888888888,
+        "f1": 0.6956521739130435,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.8888888888888888,
+        "recall": 0.9846153846153847,
+        "f1": 0.9343065693430657,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.935251798561151,
+        "recall": 0.9701492537313433,
+        "f1": 0.9523809523809523,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.953125,
+        "recall": 0.9838709677419355,
+        "f1": 0.9682539682539683,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.9642857142857143,
+        "recall": 0.9507042253521126,
+        "f1": 0.9574468085106383,
+        "support": 142
+      }
+    },
+    "default_threshold_metrics": {
+      "micro_precision": 0.9320388349514563,
+      "micro_recall": 0.8108108108108109,
+      "micro_f1": 0.8672086720867209,
+      "macro_precision": 0.9222202137342224,
+      "macro_recall": 0.7427875088948396,
+      "macro_f1": 0.8167989405222427,
+      "samples_precision": 0.871345029239766,
+      "samples_recall": 0.8274853801169589,
+      "samples_f1": 0.8309106098579784,
+      "hamming_loss": 0.046052631578947366,
+      "exact_match_accuracy": 0.6766917293233082,
+      "precision_at_3": 0.49122807017543857,
+      "coverage": 0.9197994987468672,
+      "abstention_count": 32,
+      "covered_micro_f1": 0.8980355472404116,
+      "per_label": {
+        "aggregation": {
+          "precision": 0.84375,
+          "recall": 0.574468085106383,
+          "f1": 0.6835443037974683,
+          "support": 47
+        },
+        "async": {
+          "precision": 1.0,
+          "recall": 0.6153846153846154,
+          "f1": 0.7619047619047619,
+          "support": 13
+        },
+        "javascript": {
+          "precision": 0.8409090909090909,
+          "recall": 0.7956989247311828,
+          "f1": 0.8176795580110497,
+          "support": 93
+        },
+        "joins": {
+          "precision": 0.8181818181818182,
+          "recall": 0.5,
+          "f1": 0.6206896551724138,
+          "support": 36
+        },
+        "pandas": {
+          "precision": 0.9636363636363636,
+          "recall": 0.8153846153846154,
+          "f1": 0.8833333333333333,
+          "support": 65
+        },
+        "python": {
+          "precision": 0.9655172413793104,
+          "recall": 0.835820895522388,
+          "f1": 0.896,
+          "support": 134
+        },
+        "react": {
+          "precision": 0.9814814814814815,
+          "recall": 0.8548387096774194,
+          "f1": 0.9137931034482759,
+          "support": 62
+        },
+        "sql": {
+          "precision": 0.9642857142857143,
+          "recall": 0.9507042253521126,
+          "f1": 0.9574468085106383,
+          "support": 142
+        }
+      }
+    },
+    "training_seconds": 6.321703399999478,
+    "vectorizer_seconds": 5.911185099999784,
+    "median_inference_ms": 5.837050000081945,
+    "model_size_bytes": 1945048,
+    "thresholds": [
+      -0.30000000000000016,
+      -0.30000000000000016,
+      -0.20000000000000018,
+      -0.5000000000000001,
+      -0.40000000000000013,
+      -0.30000000000000016,
+      -0.40000000000000013,
+      -2.220446049250313e-16
+    ],
+    "explainability": "Exact additive margin weights",
+    "deployment": "CPU scikit-learn + joblib; offline sparse inference"
+  },
+  "test": {
+    "micro_precision": 0.833587786259542,
+    "micro_recall": 0.9176470588235294,
+    "micro_f1": 0.8736,
+    "macro_precision": 0.7997172935767645,
+    "macro_recall": 0.8983759019908565,
+    "macro_f1": 0.8396111856298483,
+    "samples_precision": 0.8465346534653465,
+    "samples_recall": 0.9249174917491749,
+    "samples_f1": 0.8665016501650165,
+    "hamming_loss": 0.04888613861386139,
+    "exact_match_accuracy": 0.6905940594059405,
+    "precision_at_3": 0.48267326732673266,
+    "coverage": 0.9801980198019802,
+    "abstention_count": 8,
+    "covered_micro_f1": 0.8799355358581789,
+    "per_label": {
+      "aggregation": {
+        "precision": 0.6666666666666666,
+        "recall": 0.7083333333333334,
+        "f1": 0.6868686868686869,
+        "support": 48
+      },
+      "async": {
+        "precision": 0.8,
+        "recall": 0.8571428571428571,
+        "f1": 0.8275862068965517,
+        "support": 14
+      },
+      "javascript": {
+        "precision": 0.7456140350877193,
+        "recall": 0.9042553191489362,
+        "f1": 0.8173076923076923,
+        "support": 94
+      },
+      "joins": {
+        "precision": 0.5151515151515151,
+        "recall": 0.9444444444444444,
+        "f1": 0.6666666666666666,
+        "support": 36
+      },
+      "pandas": {
+        "precision": 0.9104477611940298,
+        "recall": 0.9384615384615385,
+        "f1": 0.9242424242424242,
+        "support": 65
+      },
+      "python": {
+        "precision": 0.9411764705882353,
+        "recall": 0.9552238805970149,
+        "f1": 0.9481481481481482,
+        "support": 134
+      },
+      "react": {
+        "precision": 0.8405797101449275,
+        "recall": 0.9354838709677419,
+        "f1": 0.8854961832061069,
+        "support": 62
+      },
+      "sql": {
+        "precision": 0.9781021897810219,
+        "recall": 0.9436619718309859,
+        "f1": 0.9605734767025089,
+        "support": 142
+      }
+    },
+    "default_threshold_metrics": {
+      "micro_precision": 0.9285714285714286,
+      "micro_recall": 0.8084033613445378,
+      "micro_f1": 0.8643306379155435,
+      "macro_precision": 0.9123207809215477,
+      "macro_recall": 0.7055030857169061,
+      "macro_f1": 0.7818558503193478,
+      "samples_precision": 0.872112211221122,
+      "samples_recall": 0.8254950495049505,
+      "samples_f1": 0.8307755775577558,
+      "hamming_loss": 0.04672029702970297,
+      "exact_match_accuracy": 0.6782178217821783,
+      "precision_at_3": 0.48267326732673266,
+      "coverage": 0.9232673267326733,
+      "abstention_count": 31,
+      "covered_micro_f1": 0.8948837209302326,
+      "per_label": {
+        "aggregation": {
+          "precision": 0.7931034482758621,
+          "recall": 0.4791666666666667,
+          "f1": 0.5974025974025974,
+          "support": 48
+        },
+        "async": {
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "f1": 0.6,
+          "support": 14
+        },
+        "javascript": {
+          "precision": 0.8210526315789474,
+          "recall": 0.8297872340425532,
+          "f1": 0.8253968253968254,
+          "support": 94
+        },
+        "joins": {
+          "precision": 0.8095238095238095,
+          "recall": 0.4722222222222222,
+          "f1": 0.5964912280701754,
+          "support": 36
+        },
+        "pandas": {
+          "precision": 0.9818181818181818,
+          "recall": 0.8307692307692308,
+          "f1": 0.9,
+          "support": 65
+        },
+        "python": {
+          "precision": 0.9761904761904762,
+          "recall": 0.917910447761194,
+          "f1": 0.9461538461538461,
+          "support": 134
+        },
+        "react": {
+          "precision": 0.9387755102040817,
+          "recall": 0.7419354838709677,
+          "f1": 0.8288288288288288,
+          "support": 62
+        },
+        "sql": {
+          "precision": 0.9781021897810219,
+          "recall": 0.9436619718309859,
+          "f1": 0.9605734767025089,
+          "support": 142
+        }
+      }
+    },
+    "selected_model": "linear_svm"
+  },
+  "metric_definitions": {
+    "micro_precision": "Correct positive labels / all positive predictions, pooled across labels.",
+    "micro_recall": "Correct positive labels / all true positive labels, pooled across labels.",
+    "micro_f1": "Harmonic mean of pooled precision and recall.",
+    "macro_f1": "Unweighted mean of each label F1; exposes weak minority labels.",
+    "macro_precision": "Unweighted mean of each label precision.",
+    "macro_recall": "Unweighted mean of each label recall.",
+    "samples_f1": "Mean per-question F1; zero division is scored zero.",
+    "hamming_loss": "Fraction of question-label binary decisions that are wrong.",
+    "exact_match_accuracy": "Fraction with the entire label set exactly correct.",
+    "precision_at_3": "Mean relevant labels among top three / 3, before thresholding. Not recall@3.",
+    "coverage": "Fraction of questions receiving at least one recommendation.",
+    "covered_micro_f1": "Micro F1 only on questions receiving recommendations; report with coverage.",
+    "brier_score": "Mean squared error of per-label probability estimates (lower is better).",
+    "default_threshold_metrics": "Counterfactual using 0.5 probabilities or zero SVM margins, with no feature abstention gate."
+  },
+  "limitations": [
+    "Stack Overflow differs from student doubts.",
+    "Only eight technical skills targeted; unsupported tags omitted.",
+    "Probability estimates are uncalibrated, not verified correctness.",
+    "Feature weights are associations, not causes.",
+    "Simple feature-count abstention cannot reliably detect all out-of-domain inputs.",
+    "Tag-specific recent sampling is not representative of all Stack Overflow.",
+    "Approximate near-duplicate detection may miss paraphrases.",
+    "No evidence of improved learning or mentoring success."
+  ]
+}

@@ -1,0 +1,3 @@
+-r ../backend/requirements.txt
+kagglehub==1.0.3
+iterative-stratification==0.1.9

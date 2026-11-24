@@ -13,6 +13,8 @@ from .database import transaction
 from .seed import initialize
 from .config import DOMAINS, SLOT, ALLOWED_ORIGINS, FRONTEND_DIST_DIR
 from .algorithms import benchmark
+from .ml_routes import router as ml_router
+from ml.predictor import predictor
 
 # Centralized Dispatch Coordinator (P0.4)
 class DispatchCoordinator:
@@ -55,6 +57,7 @@ def expire_offers():
 @asynccontextmanager
 async def lifespan(app):
     initialize()
+    await asyncio.to_thread(predictor.load)
     task = asyncio.create_task(expiration_loop())
     yield
     task.cancel()
@@ -62,6 +65,7 @@ async def lifespan(app):
         await task
 
 app = FastAPI(title='Triage15', version='1.0.0', lifespan=lifespan)
+app.include_router(ml_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,

@@ -1,0 +1,31 @@
+{
+  "source_tags": {
+    "python": "python",
+    "python-3.x": "python",
+    "pandas": "pandas",
+    "javascript": "javascript",
+    "reactjs": "react",
+    "react-hooks": "react",
+    "sql": "sql",
+    "mysql": "sql",
+    "postgresql": "sql",
+    "sqlite": "sql",
+    "sql-server": "sql",
+    "join": "joins",
+    "sql-join": "joins",
+    "aggregate-functions": "aggregation",
+    "sql-aggregation": "aggregation",
+    "async-await": "async",
+    "asynchronous": "async"
+  },
+  "label_domains": {
+    "aggregation": "SQL",
+    "async": "JavaScript",
+    "javascript": "JavaScript",
+    "joins": "SQL",
+    "pandas": "Python",
+    "python": "Python",
+    "react": "JavaScript",
+    "sql": "SQL"
+  }
+}

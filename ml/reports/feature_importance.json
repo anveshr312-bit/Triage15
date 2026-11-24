@@ -1,0 +1,1122 @@
+{
+  "aggregation": {
+    "intercept": -0.9088090067161513,
+    "training_examples": 220,
+    "positive": [
+      {
+        "feature": "sum",
+        "weight": 2.311749108163294
+      },
+      {
+        "feature": "group by",
+        "weight": 2.1964325030304437
+      },
+      {
+        "feature": "aggregate",
+        "weight": 2.038796622632637
+      },
+      {
+        "feature": "group",
+        "weight": 2.0264570289709845
+      },
+      {
+        "feature": "by",
+        "weight": 1.513905878374311
+      },
+      {
+        "feature": "max",
+        "weight": 1.2457208215505169
+      },
+      {
+        "feature": "2023",
+        "weight": 1.20589272812644
+      },
+      {
+        "feature": "aggregate function",
+        "weight": 1.1711649828454016
+      },
+      {
+        "feature": "count",
+        "weight": 1.0996371956770934
+      },
+      {
+        "feature": "2022",
+        "weight": 0.9814673241610917
+      },
+      {
+        "feature": "avg",
+        "weight": 0.9569225695810883
+      },
+      {
+        "feature": "select",
+        "weight": 0.9546508312366024
+      },
+      {
+        "feature": "array_agg",
+        "weight": 0.8920816847774298
+      },
+      {
+        "feature": "over",
+        "weight": 0.862960095786378
+      },
+      {
+        "feature": "300",
+        "weight": 0.7796141062424404
+      }
+    ],
+    "negative": [
+      {
+        "feature": "2026",
+        "weight": -0.9519013666653856
+      },
+      {
+        "feature": "pandas",
+        "weight": -0.8774675712653481
+      },
+      {
+        "feature": "2025",
+        "weight": -0.8067972283838488
+      },
+      {
+        "feature": "dataframe",
+        "weight": -0.7121941974754614
+      },
+      {
+        "feature": "df",
+        "weight": -0.7052012029733288
+      },
+      {
+        "feature": "index",
+        "weight": -0.6762803280216438
+      },
+      {
+        "feature": "tables",
+        "weight": -0.6370988127609913
+      },
+      {
+        "feature": "time",
+        "weight": -0.5331058376485506
+      },
+      {
+        "feature": "a",
+        "weight": -0.523651575774398
+      },
+      {
+        "feature": "1 group",
+        "weight": -0.48618280280885173
+      },
+      {
+        "feature": "code",
+        "weight": -0.4838759423708272
+      },
+      {
+        "feature": "match",
+        "weight": -0.48074257286894784
+      },
+      {
+        "feature": "new",
+        "weight": -0.4711278862668405
+      },
+      {
+        "feature": "import",
+        "weight": -0.46952997651881234
+      },
+      {
+        "feature": "2024",
+        "weight": -0.45954994058272214
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.7636363636363637,
+      "recall": 0.8936170212765957,
+      "f1": 0.8235294117647058,
+      "support": 47
+    },
+    "test_metrics": {
+      "precision": 0.6666666666666666,
+      "recall": 0.7083333333333334,
+      "f1": 0.6868686868686869,
+      "support": 48
+    }
+  },
+  "async": {
+    "intercept": -1.0039287976820122,
+    "training_examples": 63,
+    "positive": [
+      {
+        "feature": "async",
+        "weight": 1.8728048639525614
+      },
+      {
+        "feature": "await",
+        "weight": 1.817778985465317
+      },
+      {
+        "feature": "async function",
+        "weight": 1.110436147057755
+      },
+      {
+        "feature": "promise",
+        "weight": 1.048498144115596
+      },
+      {
+        "feature": "console.log",
+        "weight": 1.0117679774878314
+      },
+      {
+        "feature": "async await",
+        "weight": 0.9581149526131472
+      },
+      {
+        "feature": "resolve",
+        "weight": 0.8537831393718182
+      },
+      {
+        "feature": "an async",
+        "weight": 0.7574380167105895
+      },
+      {
+        "feature": "asynchronous",
+        "weight": 0.7219267312734299
+      },
+      {
+        "feature": "wait",
+        "weight": 0.6692433884334764
+      },
+      {
+        "feature": "to wait",
+        "weight": 0.6383008175907703
+      },
+      {
+        "feature": "function",
+        "weight": 0.6365698085910204
+      },
+      {
+        "feature": "settimeout",
+        "weight": 0.5859468230000389
+      },
+      {
+        "feature": "catch",
+        "weight": 0.5780271477474634
+      },
+      {
+        "feature": "new promise",
+        "weight": 0.5754546628503181
+      }
+    ],
+    "negative": [
+      {
+        "feature": "async def",
+        "weight": -0.5145999685088621
+      },
+      {
+        "feature": "import",
+        "weight": -0.45297967055582183
+      },
+      {
+        "feature": "def",
+        "weight": -0.44686039338805966
+      },
+      {
+        "feature": "script",
+        "weight": -0.3606515514630508
+      },
+      {
+        "feature": "python",
+        "weight": -0.3540457553875216
+      },
+      {
+        "feature": "with",
+        "weight": -0.2792973938669461
+      },
+      {
+        "feature": "p",
+        "weight": -0.25914681803869033
+      },
+      {
+        "feature": "response.status",
+        "weight": -0.25567839831207656
+      },
+      {
+        "feature": "component",
+        "weight": -0.2502058550525782
+      },
+      {
+        "feature": "print",
+        "weight": -0.24874252813018224
+      },
+      {
+        "feature": "asyncio",
+        "weight": -0.24387158571009257
+      },
+      {
+        "feature": "synchronous",
+        "weight": -0.23736443693251
+      },
+      {
+        "feature": "select",
+        "weight": -0.23477296343700274
+      },
+      {
+        "feature": "asyncio.run",
+        "weight": -0.23136152999438123
+      },
+      {
+        "feature": "doesn",
+        "weight": -0.23013561531794896
+      }
+    ],
+    "validation_metrics": {
+      "precision": 1.0,
+      "recall": 0.9230769230769231,
+      "f1": 0.96,
+      "support": 13
+    },
+    "test_metrics": {
+      "precision": 0.8,
+      "recall": 0.8571428571428571,
+      "f1": 0.8275862068965517,
+      "support": 14
+    }
+  },
+  "javascript": {
+    "intercept": -0.5049947402418804,
+    "training_examples": 436,
+    "positive": [
+      {
+        "feature": "javascript",
+        "weight": 3.0421058085234165
+      },
+      {
+        "feature": "const",
+        "weight": 2.644411404313365
+      },
+      {
+        "feature": "let",
+        "weight": 1.825763108511141
+      },
+      {
+        "feature": "console.log",
+        "weight": 1.6144458746071266
+      },
+      {
+        "feature": "js",
+        "weight": 1.3688596903199381
+      },
+      {
+        "feature": "script",
+        "weight": 1.3370330241903006
+      },
+      {
+        "feature": "function",
+        "weight": 1.260124970297981
+      },
+      {
+        "feature": "page",
+        "weight": 1.2117233814296464
+      },
+      {
+        "feature": "html",
+        "weight": 1.2002579806772127
+      },
+      {
+        "feature": "node.js",
+        "weight": 1.0201235395349144
+      },
+      {
+        "feature": "await",
+        "weight": 0.9935177219430136
+      },
+      {
+        "feature": "browser",
+        "weight": 0.9746408634526954
+      },
+      {
+        "feature": "var",
+        "weight": 0.9501039385869982
+      },
+      {
+        "feature": "click",
+        "weight": 0.9042678328051006
+      },
+      {
+        "feature": "node",
+        "weight": 0.8987359244340211
+      }
+    ],
+    "negative": [
+      {
+        "feature": "python",
+        "weight": -1.6498758471585524
+      },
+      {
+        "feature": "def",
+        "weight": -1.5721431215616477
+      },
+      {
+        "feature": "sql",
+        "weight": -1.158208954802941
+      },
+      {
+        "feature": "import",
+        "weight": -1.1267191401317198
+      },
+      {
+        "feature": "table",
+        "weight": -1.1132680541951578
+      },
+      {
+        "feature": "select",
+        "weight": -1.0962038932554743
+      },
+      {
+        "feature": "pandas",
+        "weight": -0.9640337789953701
+      },
+      {
+        "feature": "print",
+        "weight": -0.9582859476944059
+      },
+      {
+        "feature": "column",
+        "weight": -0.8777907899772648
+      },
+      {
+        "feature": "join",
+        "weight": -0.7989095998402063
+      },
+      {
+        "feature": "dataframe",
+        "weight": -0.7801695637630047
+      },
+      {
+        "feature": "from",
+        "weight": -0.755540202602758
+      },
+      {
+        "feature": "columns",
+        "weight": -0.7329244225705832
+      },
+      {
+        "feature": "async def",
+        "weight": -0.6961391846641278
+      },
+      {
+        "feature": "1",
+        "weight": -0.6751187261863574
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.8018867924528302,
+      "recall": 0.9139784946236559,
+      "f1": 0.8542713567839196,
+      "support": 93
+    },
+    "test_metrics": {
+      "precision": 0.7456140350877193,
+      "recall": 0.9042553191489362,
+      "f1": 0.8173076923076923,
+      "support": 94
+    }
+  },
+  "joins": {
+    "intercept": -0.9290779944080287,
+    "training_examples": 169,
+    "positive": [
+      {
+        "feature": "join",
+        "weight": 3.701918997645856
+      },
+      {
+        "feature": "tables",
+        "weight": 2.2626058569877046
+      },
+      {
+        "feature": "table",
+        "weight": 1.2410671080285782
+      },
+      {
+        "feature": "2024",
+        "weight": 1.1473419935469629
+      },
+      {
+        "feature": "to join",
+        "weight": 1.0141435636923746
+      },
+      {
+        "feature": "two tables",
+        "weight": 0.9866546270569981
+      },
+      {
+        "feature": "join i",
+        "weight": 0.8726603168912379
+      },
+      {
+        "feature": "rows",
+        "weight": 0.8212248054473384
+      },
+      {
+        "feature": "match",
+        "weight": 0.7730470670574069
+      },
+      {
+        "feature": "records",
+        "weight": 0.7689925702901529
+      },
+      {
+        "feature": "2 tables",
+        "weight": 0.7359593153583591
+      },
+      {
+        "feature": "mysql",
+        "weight": 0.6786806351569729
+      },
+      {
+        "feature": "query",
+        "weight": 0.6766817677340475
+      },
+      {
+        "feature": "left join",
+        "weight": 0.6554952421915763
+      },
+      {
+        "feature": "clause",
+        "weight": 0.6491758038400505
+      }
+    ],
+    "negative": [
+      {
+        "feature": "2026",
+        "weight": -0.5773214839474967
+      },
+      {
+        "feature": "group",
+        "weight": -0.5340839227003948
+      },
+      {
+        "feature": "into",
+        "weight": -0.5180544520509635
+      },
+      {
+        "feature": "sum",
+        "weight": -0.4738328807148898
+      },
+      {
+        "feature": "oracle",
+        "weight": -0.4730428121130391
+      },
+      {
+        "feature": "python",
+        "weight": -0.472088802977647
+      },
+      {
+        "feature": "schema",
+        "weight": -0.4617071866384656
+      },
+      {
+        "feature": "dataframe",
+        "weight": -0.45254885193483296
+      },
+      {
+        "feature": "event_id",
+        "weight": -0.44737936084903324
+      },
+      {
+        "feature": "pandas",
+        "weight": -0.4390199724614302
+      },
+      {
+        "feature": "3 4",
+        "weight": -0.429543533362188
+      },
+      {
+        "feature": "year",
+        "weight": -0.42380369433242343
+      },
+      {
+        "feature": "dataframes",
+        "weight": -0.4101372712170036
+      },
+      {
+        "feature": "should",
+        "weight": -0.40057013775478134
+      },
+      {
+        "feature": "long",
+        "weight": -0.39928315929814084
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.5714285714285714,
+      "recall": 0.8888888888888888,
+      "f1": 0.6956521739130435,
+      "support": 36
+    },
+    "test_metrics": {
+      "precision": 0.5151515151515151,
+      "recall": 0.9444444444444444,
+      "f1": 0.6666666666666666,
+      "support": 36
+    }
+  },
+  "pandas": {
+    "intercept": -0.8311597661623785,
+    "training_examples": 302,
+    "positive": [
+      {
+        "feature": "pandas",
+        "weight": 5.169003261734529
+      },
+      {
+        "feature": "dataframe",
+        "weight": 3.0811944172358054
+      },
+      {
+        "feature": "df",
+        "weight": 2.9078364513809496
+      },
+      {
+        "feature": "pd.dataframe",
+        "weight": 1.4850595715367894
+      },
+      {
+        "feature": "nan",
+        "weight": 1.2968837304683818
+      },
+      {
+        "feature": "a dataframe",
+        "weight": 1.2172659721893198
+      },
+      {
+        "feature": "series",
+        "weight": 1.2148571859764037
+      },
+      {
+        "feature": "import pandas",
+        "weight": 1.1761243812009015
+      },
+      {
+        "feature": "pd",
+        "weight": 1.1756233948147092
+      },
+      {
+        "feature": "data",
+        "weight": 1.1245610467349738
+      },
+      {
+        "feature": "column",
+        "weight": 1.1114908998152946
+      },
+      {
+        "feature": "pandas as",
+        "weight": 1.1038771443594484
+      },
+      {
+        "feature": "as pd",
+        "weight": 1.0952839004982156
+      },
+      {
+        "feature": "index",
+        "weight": 1.056936457652745
+      },
+      {
+        "feature": "dataframes",
+        "weight": 1.0525811036866901
+      }
+    ],
+    "negative": [
+      {
+        "feature": "select",
+        "weight": -1.0009502780766788
+      },
+      {
+        "feature": "query",
+        "weight": -0.8483268468451284
+      },
+      {
+        "feature": "table",
+        "weight": -0.801430797674207
+      },
+      {
+        "feature": "sql",
+        "weight": -0.683791646701392
+      },
+      {
+        "feature": "const",
+        "weight": -0.6066471719863161
+      },
+      {
+        "feature": "a table",
+        "weight": -0.5233516497266254
+      },
+      {
+        "feature": "id",
+        "weight": -0.48980758639554756
+      },
+      {
+        "feature": "null",
+        "weight": -0.48134109891058263
+      },
+      {
+        "feature": "result",
+        "weight": -0.46380063104865416
+      },
+      {
+        "feature": "react",
+        "weight": -0.4514010613756863
+      },
+      {
+        "feature": "text",
+        "weight": -0.4335040715454902
+      },
+      {
+        "feature": "by",
+        "weight": -0.43233739458620646
+      },
+      {
+        "feature": "pyspark",
+        "weight": -0.40672674109385504
+      },
+      {
+        "feature": "width",
+        "weight": -0.40373947661962456
+      },
+      {
+        "feature": "from",
+        "weight": -0.4002524195176484
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.8888888888888888,
+      "recall": 0.9846153846153847,
+      "f1": 0.9343065693430657,
+      "support": 65
+    },
+    "test_metrics": {
+      "precision": 0.9104477611940298,
+      "recall": 0.9384615384615385,
+      "f1": 0.9242424242424242,
+      "support": 65
+    }
+  },
+  "python": {
+    "intercept": -0.2609607148749356,
+    "training_examples": 625,
+    "positive": [
+      {
+        "feature": "python",
+        "weight": 3.8564593533402207
+      },
+      {
+        "feature": "def",
+        "weight": 2.7579179174308512
+      },
+      {
+        "feature": "pandas",
+        "weight": 2.714513183371726
+      },
+      {
+        "feature": "dataframe",
+        "weight": 2.3838958390603144
+      },
+      {
+        "feature": "import",
+        "weight": 2.2434459557273
+      },
+      {
+        "feature": "print",
+        "weight": 2.183559994435157
+      },
+      {
+        "feature": "df",
+        "weight": 1.4078207283964543
+      },
+      {
+        "feature": "str",
+        "weight": 1.3777723776802626
+      },
+      {
+        "feature": "none",
+        "weight": 1.2428982775365556
+      },
+      {
+        "feature": "in python",
+        "weight": 1.2006447432349503
+      },
+      {
+        "feature": "self",
+        "weight": 1.093751034411914
+      },
+      {
+        "feature": "flask",
+        "weight": 0.9726070608835675
+      },
+      {
+        "feature": "a dataframe",
+        "weight": 0.9317516218750599
+      },
+      {
+        "feature": "f",
+        "weight": 0.8790151415915664
+      },
+      {
+        "feature": "dataframes",
+        "weight": 0.8748750889977599
+      }
+    ],
+    "negative": [
+      {
+        "feature": "const",
+        "weight": -2.0963399717837725
+      },
+      {
+        "feature": "table",
+        "weight": -1.7602098413669773
+      },
+      {
+        "feature": "select",
+        "weight": -1.6861311641599868
+      },
+      {
+        "feature": "react",
+        "weight": -1.6653312179180881
+      },
+      {
+        "feature": "query",
+        "weight": -1.4171980270498896
+      },
+      {
+        "feature": "let",
+        "weight": -1.4151978468707649
+      },
+      {
+        "feature": "sql",
+        "weight": -1.360033688067841
+      },
+      {
+        "feature": "javascript",
+        "weight": -1.2738504039919327
+      },
+      {
+        "feature": "null",
+        "weight": -1.0666332869892807
+      },
+      {
+        "feature": "console.log",
+        "weight": -0.9999676418843291
+      },
+      {
+        "feature": "div",
+        "weight": -0.8583622040703867
+      },
+      {
+        "feature": "component",
+        "weight": -0.848341025978321
+      },
+      {
+        "feature": "by",
+        "weight": -0.7930144011718372
+      },
+      {
+        "feature": "function",
+        "weight": -0.7453083918318663
+      },
+      {
+        "feature": "group by",
+        "weight": -0.7332709930054042
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.935251798561151,
+      "recall": 0.9701492537313433,
+      "f1": 0.9523809523809523,
+      "support": 134
+    },
+    "test_metrics": {
+      "precision": 0.9411764705882353,
+      "recall": 0.9552238805970149,
+      "f1": 0.9481481481481482,
+      "support": 134
+    }
+  },
+  "react": {
+    "intercept": -0.6525920504803531,
+    "training_examples": 290,
+    "positive": [
+      {
+        "feature": "react",
+        "weight": 4.933519661465381
+      },
+      {
+        "feature": "component",
+        "weight": 1.7791964776311546
+      },
+      {
+        "feature": "const",
+        "weight": 1.66641794195002
+      },
+      {
+        "feature": "in react",
+        "weight": 1.4726308016391048
+      },
+      {
+        "feature": "usestate",
+        "weight": 1.4169764051944187
+      },
+      {
+        "feature": "useeffect",
+        "weight": 1.3995200417112696
+      },
+      {
+        "feature": "classname",
+        "weight": 1.2276514858481276
+      },
+      {
+        "feature": "export",
+        "weight": 1.19131925715897
+      },
+      {
+        "feature": "next.js",
+        "weight": 1.1312674054671783
+      },
+      {
+        "feature": "a react",
+        "weight": 1.0206840042068817
+      },
+      {
+        "feature": "app",
+        "weight": 0.9081098430323942
+      },
+      {
+        "feature": "from react",
+        "weight": 0.8799494509415132
+      },
+      {
+        "feature": "components",
+        "weight": 0.843178460903116
+      },
+      {
+        "feature": "onclick",
+        "weight": 0.8063291455015955
+      },
+      {
+        "feature": "tailwind",
+        "weight": 0.8054774513182322
+      }
+    ],
+    "negative": [
+      {
+        "feature": "script",
+        "weight": -0.9042623920616473
+      },
+      {
+        "feature": "class",
+        "weight": -0.8983569299476776
+      },
+      {
+        "feature": "javascript",
+        "weight": -0.6689842999344168
+      },
+      {
+        "feature": "sql",
+        "weight": -0.6467057083573788
+      },
+      {
+        "feature": "python",
+        "weight": -0.5985780542431886
+      },
+      {
+        "feature": "def",
+        "weight": -0.5511011320161298
+      },
+      {
+        "feature": "print",
+        "weight": -0.5161909893604899
+      },
+      {
+        "feature": "pandas",
+        "weight": -0.4607713349278417
+      },
+      {
+        "feature": "id",
+        "weight": -0.45753603221743205
+      },
+      {
+        "feature": "table",
+        "weight": -0.45310998030117444
+      },
+      {
+        "feature": "template",
+        "weight": -0.44713304110775315
+      },
+      {
+        "feature": "all",
+        "weight": -0.43636356400751464
+      },
+      {
+        "feature": "column",
+        "weight": -0.434602153765643
+      },
+      {
+        "feature": "body",
+        "weight": -0.43130968096812655
+      },
+      {
+        "feature": "div id",
+        "weight": -0.4298637715483981
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.953125,
+      "recall": 0.9838709677419355,
+      "f1": 0.9682539682539683,
+      "support": 62
+    },
+    "test_metrics": {
+      "precision": 0.8405797101449275,
+      "recall": 0.9354838709677419,
+      "f1": 0.8854961832061069,
+      "support": 62
+    }
+  },
+  "sql": {
+    "intercept": -0.42208387652166274,
+    "training_examples": 661,
+    "positive": [
+      {
+        "feature": "table",
+        "weight": 3.0546123183768272
+      },
+      {
+        "feature": "select",
+        "weight": 3.0058943049221543
+      },
+      {
+        "feature": "sql",
+        "weight": 2.964535297466773
+      },
+      {
+        "feature": "query",
+        "weight": 2.3026563420107458
+      },
+      {
+        "feature": "join",
+        "weight": 1.3798444553924676
+      },
+      {
+        "feature": "by",
+        "weight": 1.3505797596492486
+      },
+      {
+        "feature": "tables",
+        "weight": 1.2846442486692984
+      },
+      {
+        "feature": "null",
+        "weight": 1.2428101346683196
+      },
+      {
+        "feature": "postgresql",
+        "weight": 1.2305095154446646
+      },
+      {
+        "feature": "where",
+        "weight": 1.1104225602957618
+      },
+      {
+        "feature": "from",
+        "weight": 1.1039795826209864
+      },
+      {
+        "feature": "a table",
+        "weight": 1.088961612270399
+      },
+      {
+        "feature": "mysql",
+        "weight": 1.0099619397667163
+      },
+      {
+        "feature": "order by",
+        "weight": 0.9842885769877688
+      },
+      {
+        "feature": "queries",
+        "weight": 0.9517459662910822
+      }
+    ],
+    "negative": [
+      {
+        "feature": "pandas",
+        "weight": -1.9426247039188254
+      },
+      {
+        "feature": "dataframe",
+        "weight": -1.6374553117610748
+      },
+      {
+        "feature": "import",
+        "weight": -1.40714968192979
+      },
+      {
+        "feature": "df",
+        "weight": -1.2874492475650945
+      },
+      {
+        "feature": "react",
+        "weight": -1.2435271660955174
+      },
+      {
+        "feature": "python",
+        "weight": -1.2213669353062795
+      },
+      {
+        "feature": "true",
+        "weight": -1.1804450191872962
+      },
+      {
+        "feature": "const",
+        "weight": -1.1287350630400663
+      },
+      {
+        "feature": "javascript",
+        "weight": -0.9487722040121938
+      },
+      {
+        "feature": "def",
+        "weight": -0.9218512129976856
+      },
+      {
+        "feature": "dataframes",
+        "weight": -0.7898370720981098
+      },
+      {
+        "feature": "index",
+        "weight": -0.7485375296237207
+      },
+      {
+        "feature": "code",
+        "weight": -0.7425618617650235
+      },
+      {
+        "feature": "a dataframe",
+        "weight": -0.7247311182429402
+      },
+      {
+        "feature": "print",
+        "weight": -0.7243552261999125
+      }
+    ],
+    "validation_metrics": {
+      "precision": 0.9642857142857143,
+      "recall": 0.9507042253521126,
+      "f1": 0.9574468085106383,
+      "support": 142
+    },
+    "test_metrics": {
+      "precision": 0.9781021897810219,
+      "recall": 0.9436619718309859,
+      "f1": 0.9605734767025089,
+      "support": 142
+    }
+  }
+}

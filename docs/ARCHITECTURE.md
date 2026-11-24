@@ -4,6 +4,8 @@
 
 Triage15 is an autonomous peer-to-peer micro-skill and doubt bounty board designed for college campuses. It matches technical doubt requests to available peer mentors within 15-minute grid intervals using deterministic maximum-weight bipartite optimization.
 
+The optional ML stage now suggests eight existing technical tags from title/description using a locally trained TF-IDF + One-vs-Rest Linear SVM. Students explicitly accept or edit tags before the existing doubt API and Hungarian workflow. `/api/ml/*` is read-only and returns unavailable safely when disabled or missing. SQLite, eligibility, utility weights and the single-process dispatch coordinator are unchanged. See [ML architecture](ML_ARCHITECTURE.md) for training, mathematical explanations, measured evaluation and reproduction commands.
+
 ### Core Stack
 - **Backend:** FastAPI (Python 3.14 / 3.12+), Pydantic v2 for strict schema validation.
 - **Persistence:** SQLite in Write-Ahead Logging (`WAL`) mode with `foreign_keys=ON` and `busy_timeout=15000`.

@@ -1,0 +1,1871 @@
+{
+  "summary": {
+    "scenarios": 30,
+    "seed": 42,
+    "fields": "Real question text/tags; all profiles, skills, scheduling, and urgency simulated.",
+    "interpretation": "Utility measures the existing heuristic objective, not academic learning outcomes.",
+    "hungarian": {
+      "total_utility": 16874.578654,
+      "assignments": 235,
+      "unassigned": 130,
+      "persisted_assignments": 235,
+      "invalid_assignments": 0,
+      "cross_role_booking_conflicts": 0,
+      "final_validation_rejections": 16,
+      "mean_dispatch_runtime_ms": 264.97858000000934,
+      "mean_scenario_urgent_assignment_rate": 0.7914614121510674,
+      "shared_matrix_total_utility": 17521.0394,
+      "mean_solver_runtime_ms": 0.60078
+    },
+    "greedy": {
+      "total_utility": 14641.778018,
+      "assignments": 200,
+      "unassigned": 165,
+      "persisted_assignments": 200,
+      "invalid_assignments": 0,
+      "cross_role_booking_conflicts": 0,
+      "final_validation_rejections": 12,
+      "mean_dispatch_runtime_ms": 243.90569999997447,
+      "mean_scenario_urgent_assignment_rate": 0.7160919540229884,
+      "shared_matrix_total_utility": 14901.9776,
+      "mean_solver_runtime_ms": 0.06075666666666667
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": 0,
+      "request_count": 8,
+      "mentor_count": 3,
+      "source_question_ids": [
+        "79858203",
+        "79806769",
+        "79681809",
+        "79845055",
+        "78963173",
+        "79844959",
+        "79812377",
+        "79877724"
+      ],
+      "hungarian": {
+        "total_utility": 86.200952,
+        "assignments": 1,
+        "unassigned": 7,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 1,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 70.16050000038376,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 2,
+          "assignment_count": 1,
+          "total_utility": 86.201,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 7,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.2369
+        },
+        "greedy": {
+          "candidate_count": 2,
+          "assignment_count": 1,
+          "total_utility": 86.201,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 7,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0135
+        }
+      },
+      "greedy": {
+        "total_utility": 86.200952,
+        "assignments": 1,
+        "unassigned": 7,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 1,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 50.65160000003743,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 1,
+      "request_count": 12,
+      "mentor_count": 5,
+      "source_question_ids": [
+        "79780171",
+        "79950261",
+        "79601671",
+        "80009122",
+        "78013128",
+        "79999624",
+        "79375537",
+        "79995465",
+        "78506776",
+        "79254606",
+        "79937573",
+        "79947724"
+      ],
+      "hungarian": {
+        "total_utility": 251.141389,
+        "assignments": 3,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 3,
+        "urgent_assignment_rate": 0.75,
+        "dispatch_runtime_ms": 192.873999999847,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 19,
+          "assignment_count": 3,
+          "total_utility": 251.1414,
+          "urgent_assignment_rate": 0.75,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.4444
+        },
+        "greedy": {
+          "candidate_count": 19,
+          "assignment_count": 3,
+          "total_utility": 251.1414,
+          "urgent_assignment_rate": 0.75,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0246
+        }
+      },
+      "greedy": {
+        "total_utility": 251.141389,
+        "assignments": 3,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 3,
+        "urgent_assignment_rate": 0.75,
+        "dispatch_runtime_ms": 165.73280000011437,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 2,
+      "request_count": 14,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "80016294",
+        "79822584",
+        "79998729",
+        "79926148",
+        "79895350",
+        "76687433",
+        "79970144",
+        "80011495",
+        "79794140",
+        "79949167",
+        "78647069",
+        "79980164",
+        "80005511",
+        "79817882"
+      ],
+      "hungarian": {
+        "total_utility": 724.073134,
+        "assignments": 10,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 10,
+        "urgent_assignment_rate": 0.8333333333333334,
+        "dispatch_runtime_ms": 470.76890000016647,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 73,
+          "assignment_count": 11,
+          "total_utility": 797.0241,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.835
+        },
+        "greedy": {
+          "candidate_count": 73,
+          "assignment_count": 7,
+          "total_utility": 575.1562,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 7,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0995
+        }
+      },
+      "greedy": {
+        "total_utility": 575.1562289999999,
+        "assignments": 7,
+        "unassigned": 7,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 7,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 354.87620000003517,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 3,
+      "request_count": 15,
+      "mentor_count": 10,
+      "source_question_ids": [
+        "75329085",
+        "75291918",
+        "77367249",
+        "79763274",
+        "79989345",
+        "79889680",
+        "79911170",
+        "79838660",
+        "79841426",
+        "79744978",
+        "79879085",
+        "79406779",
+        "79512060",
+        "80005112",
+        "78807473"
+      ],
+      "hungarian": {
+        "total_utility": 862.559286,
+        "assignments": 13,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 13,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 434.89309999995385,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 104,
+          "assignment_count": 14,
+          "total_utility": 932.1571,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.9973
+        },
+        "greedy": {
+          "candidate_count": 104,
+          "assignment_count": 12,
+          "total_utility": 834.7327,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0949
+        }
+      },
+      "greedy": {
+        "total_utility": 834.732698,
+        "assignments": 12,
+        "unassigned": 3,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 12,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 630.1986999997098,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 4,
+      "request_count": 5,
+      "mentor_count": 11,
+      "source_question_ids": [
+        "79923244",
+        "79869711",
+        "80002181",
+        "79873518",
+        "79999620"
+      ],
+      "hungarian": {
+        "total_utility": 384.507222,
+        "assignments": 5,
+        "unassigned": 0,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 290.7009000000471,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 36,
+          "assignment_count": 5,
+          "total_utility": 384.5072,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 0,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.3643
+        },
+        "greedy": {
+          "candidate_count": 36,
+          "assignment_count": 5,
+          "total_utility": 382.8072,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 0,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0565
+        }
+      },
+      "greedy": {
+        "total_utility": 382.807222,
+        "assignments": 5,
+        "unassigned": 0,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 277.30879999990066,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 5,
+      "request_count": 11,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "80014639",
+        "79854081",
+        "79597480",
+        "78387448",
+        "80003505",
+        "79980489",
+        "79837366",
+        "80005862",
+        "79958578",
+        "79901372",
+        "79875860"
+      ],
+      "hungarian": {
+        "total_utility": 721.464444,
+        "assignments": 10,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 10,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 476.6714000002139,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 63,
+          "assignment_count": 10,
+          "total_utility": 721.4644,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.6658
+        },
+        "greedy": {
+          "candidate_count": 63,
+          "assignment_count": 7,
+          "total_utility": 527.1384,
+          "urgent_assignment_rate": 0.75,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0791
+        }
+      },
+      "greedy": {
+        "total_utility": 527.138372,
+        "assignments": 7,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 7,
+        "urgent_assignment_rate": 0.75,
+        "dispatch_runtime_ms": 542.9843000001711,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 6,
+      "request_count": 15,
+      "mentor_count": 12,
+      "source_question_ids": [
+        "79804072",
+        "75667182",
+        "79980725",
+        "76133339",
+        "79963677",
+        "79951862",
+        "78560140",
+        "75820613",
+        "80001292",
+        "79800340",
+        "80017256",
+        "79894257",
+        "80017193",
+        "80005171",
+        "79759475"
+      ],
+      "hungarian": {
+        "total_utility": 984.477661,
+        "assignments": 13,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 13,
+        "urgent_assignment_rate": 0.8,
+        "dispatch_runtime_ms": 743.1491999996069,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 105,
+          "assignment_count": 14,
+          "total_utility": 1067.7377,
+          "urgent_assignment_rate": 0.9,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 1.3725
+        },
+        "greedy": {
+          "candidate_count": 105,
+          "assignment_count": 12,
+          "total_utility": 953.4895,
+          "urgent_assignment_rate": 0.9,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1723
+        }
+      },
+      "greedy": {
+        "total_utility": 875.27393,
+        "assignments": 11,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 11,
+        "urgent_assignment_rate": 0.8,
+        "dispatch_runtime_ms": 372.98120000014023,
+        "final_validation_rejections": 2
+      }
+    },
+    {
+      "scenario": 7,
+      "request_count": 8,
+      "mentor_count": 10,
+      "source_question_ids": [
+        "80007351",
+        "76514703",
+        "79829887",
+        "80011706",
+        "78661405",
+        "79888482",
+        "80017210",
+        "79791602"
+      ],
+      "hungarian": {
+        "total_utility": 432.45385,
+        "assignments": 6,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 6,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 288.91939999994065,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 40,
+          "assignment_count": 6,
+          "total_utility": 432.4538,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.2047
+        },
+        "greedy": {
+          "candidate_count": 40,
+          "assignment_count": 5,
+          "total_utility": 347.9127,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0498
+        }
+      },
+      "greedy": {
+        "total_utility": 347.912739,
+        "assignments": 5,
+        "unassigned": 3,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 287.48389999964274,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 8,
+      "request_count": 14,
+      "mentor_count": 3,
+      "source_question_ids": [
+        "76558099",
+        "79809683",
+        "77565703",
+        "79996198",
+        "80016481",
+        "79072554",
+        "79888914",
+        "77565893",
+        "79863627",
+        "79775605",
+        "79822358",
+        "76155529",
+        "80013401",
+        "79246810"
+      ],
+      "hungarian": {
+        "total_utility": 376.079881,
+        "assignments": 5,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 0.75,
+        "dispatch_runtime_ms": 239.19759999989765,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 38,
+          "assignment_count": 6,
+          "total_utility": 437.666,
+          "urgent_assignment_rate": 0.75,
+          "unassigned_requests": 8,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.8047
+        },
+        "greedy": {
+          "candidate_count": 38,
+          "assignment_count": 4,
+          "total_utility": 304.3606,
+          "urgent_assignment_rate": 0.5,
+          "unassigned_requests": 10,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0492
+        }
+      },
+      "greedy": {
+        "total_utility": 304.360596,
+        "assignments": 4,
+        "unassigned": 10,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 4,
+        "urgent_assignment_rate": 0.5,
+        "dispatch_runtime_ms": 182.44479999975738,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 9,
+      "request_count": 17,
+      "mentor_count": 13,
+      "source_question_ids": [
+        "76133339",
+        "80010106",
+        "79311643",
+        "79512060",
+        "79835416",
+        "78483437",
+        "79790365",
+        "79747317",
+        "80007239",
+        "79746239",
+        "78835718",
+        "79954777",
+        "77237715",
+        "80001008",
+        "79833386",
+        "79919551",
+        "79457003"
+      ],
+      "hungarian": {
+        "total_utility": 916.207778,
+        "assignments": 12,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 12,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 434.48499999976775,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 81,
+          "assignment_count": 12,
+          "total_utility": 916.2078,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 1.0324
+        },
+        "greedy": {
+          "candidate_count": 81,
+          "assignment_count": 11,
+          "total_utility": 834.0821,
+          "urgent_assignment_rate": 0.8571428571428571,
+          "unassigned_requests": 6,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0733
+        }
+      },
+      "greedy": {
+        "total_utility": 834.082064,
+        "assignments": 11,
+        "unassigned": 6,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 11,
+        "urgent_assignment_rate": 0.8571428571428571,
+        "dispatch_runtime_ms": 332.72790000000896,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 10,
+      "request_count": 7,
+      "mentor_count": 6,
+      "source_question_ids": [
+        "79841501",
+        "79731292",
+        "79747287",
+        "79949616",
+        "80011886",
+        "79910407",
+        "80001437"
+      ],
+      "hungarian": {
+        "total_utility": 290.073056,
+        "assignments": 4,
+        "unassigned": 3,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 4,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 181.27000000004045,
+        "final_validation_rejections": 3
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 33,
+          "assignment_count": 7,
+          "total_utility": 486.5583,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 0,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1385
+        },
+        "greedy": {
+          "candidate_count": 33,
+          "assignment_count": 5,
+          "total_utility": 371.5489,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0287
+        }
+      },
+      "greedy": {
+        "total_utility": 350.837223,
+        "assignments": 5,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 223.192200000085,
+        "final_validation_rejections": 5
+      }
+    },
+    {
+      "scenario": 11,
+      "request_count": 15,
+      "mentor_count": 12,
+      "source_question_ids": [
+        "80013732",
+        "79927467",
+        "79976686",
+        "80009812",
+        "79809810",
+        "80014319",
+        "79981958",
+        "79168642",
+        "77625183",
+        "79411448",
+        "79848545",
+        "79891094",
+        "79949230",
+        "79922604",
+        "79187103"
+      ],
+      "hungarian": {
+        "total_utility": 913.529603,
+        "assignments": 13,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 13,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 441.9880000000376,
+        "final_validation_rejections": 2
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 103,
+          "assignment_count": 13,
+          "total_utility": 921.6903,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.7558
+        },
+        "greedy": {
+          "candidate_count": 103,
+          "assignment_count": 10,
+          "total_utility": 744.3217,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.088
+        }
+      },
+      "greedy": {
+        "total_utility": 742.535953,
+        "assignments": 10,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 10,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 411.57239999984085,
+        "final_validation_rejections": 1
+      }
+    },
+    {
+      "scenario": 12,
+      "request_count": 10,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "79005730",
+        "79914683",
+        "79658301",
+        "75378994",
+        "79266085",
+        "79828440",
+        "76405556",
+        "79830743",
+        "79835988",
+        "79965903"
+      ],
+      "hungarian": {
+        "total_utility": 664.435992,
+        "assignments": 9,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 277.71190000021306,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 67,
+          "assignment_count": 9,
+          "total_utility": 667.3503,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.2156
+        },
+        "greedy": {
+          "candidate_count": 67,
+          "assignment_count": 9,
+          "total_utility": 667.3503,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0708
+        }
+      },
+      "greedy": {
+        "total_utility": 664.435992,
+        "assignments": 9,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 312.337700000171,
+        "final_validation_rejections": 1
+      }
+    },
+    {
+      "scenario": 13,
+      "request_count": 14,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "79954837",
+        "79874335",
+        "79809810",
+        "79835988",
+        "79838144",
+        "79964760",
+        "79949972",
+        "74820537",
+        "79957012",
+        "79962682",
+        "79980725",
+        "79812940",
+        "79895203",
+        "79998676"
+      ],
+      "hungarian": {
+        "total_utility": 960.899724,
+        "assignments": 13,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 13,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 345.4501999999593,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 78,
+          "assignment_count": 13,
+          "total_utility": 960.8997,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.8897
+        },
+        "greedy": {
+          "candidate_count": 78,
+          "assignment_count": 9,
+          "total_utility": 725.9429,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0961
+        }
+      },
+      "greedy": {
+        "total_utility": 724.514326,
+        "assignments": 9,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 326.1655999999675,
+        "final_validation_rejections": 1
+      }
+    },
+    {
+      "scenario": 14,
+      "request_count": 18,
+      "mentor_count": 5,
+      "source_question_ids": [
+        "78226712",
+        "79956654",
+        "76105005",
+        "80004082",
+        "80002375",
+        "79919551",
+        "79877249",
+        "79311643",
+        "79785397",
+        "79996189",
+        "79978519",
+        "79805789",
+        "79984257",
+        "79709226",
+        "79874094",
+        "80015811",
+        "79997128",
+        "79810856"
+      ],
+      "hungarian": {
+        "total_utility": 146.320873,
+        "assignments": 2,
+        "unassigned": 16,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 2,
+        "urgent_assignment_rate": 0.2,
+        "dispatch_runtime_ms": 79.38869999998133,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 12,
+          "assignment_count": 2,
+          "total_utility": 146.3209,
+          "urgent_assignment_rate": 0.2,
+          "unassigned_requests": 16,
+          "invalid_assignments": 0,
+          "runtime_ms": 1.1423
+        },
+        "greedy": {
+          "candidate_count": 12,
+          "assignment_count": 2,
+          "total_utility": 146.3209,
+          "urgent_assignment_rate": 0.2,
+          "unassigned_requests": 16,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0215
+        }
+      },
+      "greedy": {
+        "total_utility": 146.320873,
+        "assignments": 2,
+        "unassigned": 16,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 2,
+        "urgent_assignment_rate": 0.2,
+        "dispatch_runtime_ms": 73.19069999994099,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 15,
+      "request_count": 16,
+      "mentor_count": 5,
+      "source_question_ids": [
+        "78411281",
+        "79847996",
+        "80011446",
+        "80013705",
+        "79841501",
+        "78424438",
+        "79799123",
+        "76036929",
+        "78306237",
+        "78565243",
+        "80015853",
+        "79679445",
+        "79762507",
+        "76477588",
+        "79769512",
+        "79887806"
+      ],
+      "hungarian": {
+        "total_utility": 496.726389,
+        "assignments": 7,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 7,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 167.98130000006495,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 41,
+          "assignment_count": 7,
+          "total_utility": 496.7264,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.9419
+        },
+        "greedy": {
+          "candidate_count": 41,
+          "assignment_count": 7,
+          "total_utility": 469.2598,
+          "urgent_assignment_rate": 0.5,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0466
+        }
+      },
+      "greedy": {
+        "total_utility": 469.259762,
+        "assignments": 7,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 7,
+        "urgent_assignment_rate": 0.5,
+        "dispatch_runtime_ms": 176.71900000004825,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 16,
+      "request_count": 10,
+      "mentor_count": 8,
+      "source_question_ids": [
+        "79903131",
+        "79822358",
+        "79329464",
+        "79977920",
+        "79858812",
+        "79440121",
+        "79873611",
+        "79858753",
+        "79965903",
+        "79852851"
+      ],
+      "hungarian": {
+        "total_utility": 591.549127,
+        "assignments": 8,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 8,
+        "urgent_assignment_rate": 0.8333333333333334,
+        "dispatch_runtime_ms": 197.71639999999024,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 42,
+          "assignment_count": 8,
+          "total_utility": 592.4598,
+          "urgent_assignment_rate": 0.8333333333333334,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.2488
+        },
+        "greedy": {
+          "candidate_count": 42,
+          "assignment_count": 6,
+          "total_utility": 451.726,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0537
+        }
+      },
+      "greedy": {
+        "total_utility": 451.725991,
+        "assignments": 6,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 6,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 175.96679999996923,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 17,
+      "request_count": 14,
+      "mentor_count": 6,
+      "source_question_ids": [
+        "79896992",
+        "79794345",
+        "79780171",
+        "79926871",
+        "79814548",
+        "79898023",
+        "79835416",
+        "79997408",
+        "80003122",
+        "79920633",
+        "79946355",
+        "79774453",
+        "80002375",
+        "77894359"
+      ],
+      "hungarian": {
+        "total_utility": 363.46500100000003,
+        "assignments": 5,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 0.2857142857142857,
+        "dispatch_runtime_ms": 115.49449999984063,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 25,
+          "assignment_count": 5,
+          "total_utility": 363.465,
+          "urgent_assignment_rate": 0.2857142857142857,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 1.0151
+        },
+        "greedy": {
+          "candidate_count": 25,
+          "assignment_count": 5,
+          "total_utility": 363.393,
+          "urgent_assignment_rate": 0.2857142857142857,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1297
+        }
+      },
+      "greedy": {
+        "total_utility": 363.39297799999997,
+        "assignments": 5,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 0.2857142857142857,
+        "dispatch_runtime_ms": 129.73239999973885,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 18,
+      "request_count": 16,
+      "mentor_count": 10,
+      "source_question_ids": [
+        "79911170",
+        "79901699",
+        "79438303",
+        "80004115",
+        "79892823",
+        "79957083",
+        "79809915",
+        "79997549",
+        "79954791",
+        "80010512",
+        "79942774",
+        "75734394",
+        "80008271",
+        "80004341",
+        "79905400",
+        "79987599"
+      ],
+      "hungarian": {
+        "total_utility": 702.405238,
+        "assignments": 10,
+        "unassigned": 6,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 10,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 261.2024999998539,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 54,
+          "assignment_count": 10,
+          "total_utility": 718.8861,
+          "urgent_assignment_rate": 0.8333333333333334,
+          "unassigned_requests": 6,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.6589
+        },
+        "greedy": {
+          "candidate_count": 54,
+          "assignment_count": 10,
+          "total_utility": 706.6844,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 6,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0469
+        }
+      },
+      "greedy": {
+        "total_utility": 618.769127,
+        "assignments": 9,
+        "unassigned": 7,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": 0.5,
+        "dispatch_runtime_ms": 201.6830999996273,
+        "final_validation_rejections": 1
+      }
+    },
+    {
+      "scenario": 19,
+      "request_count": 6,
+      "mentor_count": 5,
+      "source_question_ids": [
+        "80006948",
+        "78532569",
+        "79966689",
+        "76532681",
+        "79946208",
+        "79980493"
+      ],
+      "hungarian": {
+        "total_utility": 147.982777,
+        "assignments": 2,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 2,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 38.10070000008636,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 3,
+          "assignment_count": 2,
+          "total_utility": 147.9828,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0954
+        },
+        "greedy": {
+          "candidate_count": 3,
+          "assignment_count": 2,
+          "total_utility": 147.9828,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0166
+        }
+      },
+      "greedy": {
+        "total_utility": 147.982777,
+        "assignments": 2,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 2,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 37.847900000087975,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 20,
+      "request_count": 6,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "79510451",
+        "78279269",
+        "79904573",
+        "79998969",
+        "79997408",
+        "79749580"
+      ],
+      "hungarian": {
+        "total_utility": 296.076389,
+        "assignments": 4,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 4,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 102.8958000001694,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 21,
+          "assignment_count": 4,
+          "total_utility": 296.0764,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1333
+        },
+        "greedy": {
+          "candidate_count": 21,
+          "assignment_count": 3,
+          "total_utility": 218.4144,
+          "urgent_assignment_rate": 0.3333333333333333,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0201
+        }
+      },
+      "greedy": {
+        "total_utility": 218.414445,
+        "assignments": 3,
+        "unassigned": 3,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 3,
+        "urgent_assignment_rate": 0.3333333333333333,
+        "dispatch_runtime_ms": 97.07819999994172,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 21,
+      "request_count": 17,
+      "mentor_count": 8,
+      "source_question_ids": [
+        "80004052",
+        "80006046",
+        "79970521",
+        "79972525",
+        "79713620",
+        "79989760",
+        "79299529",
+        "79886882",
+        "78764875",
+        "79845096",
+        "79886754",
+        "79689145",
+        "80007804",
+        "79883151",
+        "79891186",
+        "75227622",
+        "76413685"
+      ],
+      "hungarian": {
+        "total_utility": 535.08726,
+        "assignments": 8,
+        "unassigned": 9,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 8,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 231.89170000023296,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 52,
+          "assignment_count": 8,
+          "total_utility": 535.0873,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 9,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.7594
+        },
+        "greedy": {
+          "candidate_count": 52,
+          "assignment_count": 6,
+          "total_utility": 418.3399,
+          "urgent_assignment_rate": 0.6666666666666666,
+          "unassigned_requests": 11,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0441
+        }
+      },
+      "greedy": {
+        "total_utility": 418.339881,
+        "assignments": 6,
+        "unassigned": 11,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 6,
+        "urgent_assignment_rate": 0.6666666666666666,
+        "dispatch_runtime_ms": 205.5875000000924,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 22,
+      "request_count": 15,
+      "mentor_count": 11,
+      "source_question_ids": [
+        "79924525",
+        "80009030",
+        "80017238",
+        "75913234",
+        "79793610",
+        "79481850",
+        "80000338",
+        "78686501",
+        "80009471",
+        "78940940",
+        "79949134",
+        "79494649",
+        "79897359",
+        "79877631",
+        "79899006"
+      ],
+      "hungarian": {
+        "total_utility": 963.578692,
+        "assignments": 14,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 14,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 474.72800000014104,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 126,
+          "assignment_count": 15,
+          "total_utility": 1024.6637,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 0,
+          "invalid_assignments": 0,
+          "runtime_ms": 1.2911
+        },
+        "greedy": {
+          "candidate_count": 126,
+          "assignment_count": 12,
+          "total_utility": 851.7725,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 3,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1254
+        }
+      },
+      "greedy": {
+        "total_utility": 851.77254,
+        "assignments": 12,
+        "unassigned": 3,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 12,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 438.38289999985136,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 23,
+      "request_count": 12,
+      "mentor_count": 11,
+      "source_question_ids": [
+        "79791602",
+        "79956264",
+        "79794886",
+        "80005112",
+        "79984301",
+        "80015811",
+        "75041439",
+        "79276942",
+        "74859975",
+        "79702768",
+        "79085720",
+        "74899535"
+      ],
+      "hungarian": {
+        "total_utility": 713.772463,
+        "assignments": 11,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 11,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 235.76989999992293,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 68,
+          "assignment_count": 11,
+          "total_utility": 713.7725,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.3042
+        },
+        "greedy": {
+          "candidate_count": 68,
+          "assignment_count": 10,
+          "total_utility": 665.5562,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0521
+        }
+      },
+      "greedy": {
+        "total_utility": 665.556192,
+        "assignments": 10,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 10,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 240.22289999993518,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 24,
+      "request_count": 7,
+      "mentor_count": 5,
+      "source_question_ids": [
+        "79871999",
+        "79974316",
+        "80013760",
+        "79958652",
+        "80013931",
+        "78345106",
+        "79847951"
+      ],
+      "hungarian": {
+        "total_utility": 205.306111,
+        "assignments": 3,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 3,
+        "urgent_assignment_rate": 0.5,
+        "dispatch_runtime_ms": 63.79530000003797,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 9,
+          "assignment_count": 3,
+          "total_utility": 211.1067,
+          "urgent_assignment_rate": 0.5,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1154
+        },
+        "greedy": {
+          "candidate_count": 9,
+          "assignment_count": 2,
+          "total_utility": 142.6821,
+          "urgent_assignment_rate": 0.5,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0138
+        }
+      },
+      "greedy": {
+        "total_utility": 142.68210299999998,
+        "assignments": 2,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 2,
+        "urgent_assignment_rate": 0.5,
+        "dispatch_runtime_ms": 55.469500000072,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 25,
+      "request_count": 19,
+      "mentor_count": 13,
+      "source_question_ids": [
+        "79791533",
+        "75817464",
+        "78580763",
+        "80014740",
+        "79818999",
+        "80013905",
+        "79956234",
+        "80016823",
+        "79809810",
+        "79889177",
+        "79940262",
+        "79996959",
+        "80009812",
+        "80002830",
+        "79758014",
+        "79536325",
+        "78500334",
+        "79822021",
+        "79888914"
+      ],
+      "hungarian": {
+        "total_utility": 1016.031428,
+        "assignments": 14,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 14,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 382.9587000000174,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 70,
+          "assignment_count": 14,
+          "total_utility": 1016.0314,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.833
+        },
+        "greedy": {
+          "candidate_count": 70,
+          "assignment_count": 14,
+          "total_utility": 1000.0736,
+          "urgent_assignment_rate": 0.8571428571428571,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0577
+        }
+      },
+      "greedy": {
+        "total_utility": 1000.07361,
+        "assignments": 14,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 14,
+        "urgent_assignment_rate": 0.8571428571428571,
+        "dispatch_runtime_ms": 304.593400000158,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 26,
+      "request_count": 9,
+      "mentor_count": 4,
+      "source_question_ids": [
+        "80014856",
+        "79102036",
+        "76314315",
+        "80006598",
+        "79839016",
+        "80003350",
+        "79814464",
+        "79956654",
+        "79865969"
+      ],
+      "hungarian": {
+        "total_utility": 290.255555,
+        "assignments": 4,
+        "unassigned": 5,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 4,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 122.18620000021474,
+        "final_validation_rejections": 1
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 18,
+          "assignment_count": 5,
+          "total_utility": 357.4839,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1753
+        },
+        "greedy": {
+          "candidate_count": 18,
+          "assignment_count": 4,
+          "total_utility": 298.5103,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 5,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.02
+        }
+      },
+      "greedy": {
+        "total_utility": 231.281944,
+        "assignments": 3,
+        "unassigned": 6,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 3,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 112.69050000009884,
+        "final_validation_rejections": 1
+      }
+    },
+    {
+      "scenario": 27,
+      "request_count": 6,
+      "mentor_count": 12,
+      "source_question_ids": [
+        "79769512",
+        "79840052",
+        "80006558",
+        "79829887",
+        "79890677",
+        "80017256"
+      ],
+      "hungarian": {
+        "total_utility": 366.529007,
+        "assignments": 5,
+        "unassigned": 1,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 5,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 98.85519999988901,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 13,
+          "assignment_count": 5,
+          "total_utility": 366.529,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 1,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1536
+        },
+        "greedy": {
+          "candidate_count": 13,
+          "assignment_count": 4,
+          "total_utility": 297.2439,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 2,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0262
+        }
+      },
+      "greedy": {
+        "total_utility": 297.243889,
+        "assignments": 4,
+        "unassigned": 2,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 4,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 84.53000000008615,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 28,
+      "request_count": 16,
+      "mentor_count": 9,
+      "source_question_ids": [
+        "79870046",
+        "80018056",
+        "80013112",
+        "79892624",
+        "80014774",
+        "78602130",
+        "80016255",
+        "80015734",
+        "77625183",
+        "79952383",
+        "79899165",
+        "79265015",
+        "76235492",
+        "79748930",
+        "79847996",
+        "79989960"
+      ],
+      "hungarian": {
+        "total_utility": 884.052262,
+        "assignments": 12,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 12,
+        "urgent_assignment_rate": 1.0,
+        "dispatch_runtime_ms": 308.8191000001643,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 88,
+          "assignment_count": 12,
+          "total_utility": 884.0523,
+          "urgent_assignment_rate": 1.0,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.7555
+        },
+        "greedy": {
+          "candidate_count": 88,
+          "assignment_count": 9,
+          "total_utility": 655.7119,
+          "urgent_assignment_rate": 0.6,
+          "unassigned_requests": 7,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.1114
+        }
+      },
+      "greedy": {
+        "total_utility": 655.711944,
+        "assignments": 9,
+        "unassigned": 7,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": 0.6,
+        "dispatch_runtime_ms": 315.5876000000717,
+        "final_validation_rejections": 0
+      }
+    },
+    {
+      "scenario": 29,
+      "request_count": 13,
+      "mentor_count": 7,
+      "source_question_ids": [
+        "75815373",
+        "79747926",
+        "79972485",
+        "79854660",
+        "79927336",
+        "80017193",
+        "79945291",
+        "79867312",
+        "79822322",
+        "79972826",
+        "79957319",
+        "79038627",
+        "79893717"
+      ],
+      "hungarian": {
+        "total_utility": 587.33611,
+        "assignments": 9,
+        "unassigned": 4,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 9,
+        "urgent_assignment_rate": null,
+        "dispatch_runtime_ms": 179.33329999959824,
+        "final_validation_rejections": 0
+      },
+      "shared_matrix": {
+        "hungarian": {
+          "candidate_count": 43,
+          "assignment_count": 9,
+          "total_utility": 587.3361,
+          "urgent_assignment_rate": null,
+          "unassigned_requests": 4,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.4426
+        },
+        "greedy": {
+          "candidate_count": 43,
+          "assignment_count": 7,
+          "total_utility": 462.1203,
+          "urgent_assignment_rate": null,
+          "unassigned_requests": 6,
+          "invalid_assignments": 0,
+          "runtime_ms": 0.0406
+        }
+      },
+      "greedy": {
+        "total_utility": 462.120277,
+        "assignments": 7,
+        "unassigned": 6,
+        "invalid_assignments": 0,
+        "cross_role_booking_conflicts": 0,
+        "persisted_assignments": 7,
+        "urgent_assignment_rate": null,
+        "dispatch_runtime_ms": 197.23049999993236,
+        "final_validation_rejections": 0
+      }
+    }
+  ]
+}

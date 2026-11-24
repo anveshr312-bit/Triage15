@@ -22,7 +22,7 @@ FROM python:3.12-slim AS runtime
 # Prevent Python from writing .pyc files and buffer stdout/stderr
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app/backend \
+    PYTHONPATH=/app/backend:/app \
     FRONTEND_DIST_DIR=/app/frontend/dist \
     DATABASE_URL=sqlite:////data/triage15.db \
     ENVIRONMENT=production \
@@ -42,6 +42,7 @@ RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 
 # Copy backend application code
 COPY backend/ /app/backend/
+COPY ml/ /app/ml/
 
 # Copy compiled frontend assets from builder stage
 COPY --from=frontend-builder /build/frontend/dist /app/frontend/dist

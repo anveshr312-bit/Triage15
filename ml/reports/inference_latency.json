@@ -1,0 +1,6 @@
+{
+  "measurement": "Warm local predictor including cleaning, transform, scoring and explanations; illustrative inputs; excludes HTTP",
+  "median_ms": 71.8352500000492,
+  "p95_ms": 91.70670000003156,
+  "calls": 100
+}

@@ -5,6 +5,7 @@ import { DoubtBoard } from './components/DoubtBoard';
 import { Sessions } from './components/Sessions';
 import { Assessment } from './components/Assessment';
 import { Benchmark } from './components/Benchmark';
+import { ModelEvaluation } from './components/ModelEvaluation';
 
 export default function App() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -125,7 +126,7 @@ export default function App() {
         )}
 
         <nav>
-          {['Doubt board', 'My sessions', 'Profile & availability', 'Assessments', 'Benchmark'].map((t) => (
+          {['Doubt board', 'My sessions', 'Profile & availability', 'Assessments', 'Benchmark', 'ML evaluation'].map((t) => (
             <button aria-pressed={tab === t} key={t} onClick={() => setTab(t)}>
               {t}
             </button>
@@ -205,6 +206,7 @@ export default function App() {
             {tab === 'Benchmark' && (
               <Benchmark actor={actor} run={run} />
             )}
+            {tab === 'ML evaluation' && <ModelEvaluation />}
           </fieldset>
         )}
       </main>

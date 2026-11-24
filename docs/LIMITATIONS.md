@@ -2,6 +2,14 @@
 
 Honest engineering requires transparent disclosure of prototype assumptions, constraints, and operational trade-offs.
 
+## Optional ML skill suggestions (November 24, 2026)
+
+The new classifier is trained on 2,675 real Stack Overflow questions, not campus mentoring sessions. It covers eight existing tags across Python, JavaScript and SQL; CAD, Design, Mathematics and other tags remain manual. The selected Linear SVM achieved held-out micro F1 0.8736 and macro F1 0.8396. Joins F1 is only 0.6667; aggregation F1 is 0.6869. Scores are margins, not probabilities. No calibration or campus outcome study was performed.
+
+Sampling by tag and recent creation time, historical tagging noise, truncated descriptions, and approximate near-duplicate detection limit generalization. Feature-count/threshold abstention is not reliable general out-of-domain detection. The 30 real-question allocation scenarios use simulated students, mentors, urgency and schedules; utility does not measure learning. The separate ML benchmark records actual persisted assignments and conflicts; the legacy benchmark's illustrative conflict estimates are not used as measured evidence.
+
+Manual confirmation is mandatory before tags reach the existing doubt API. Missing artifacts/dependencies or `ML_ENABLED=false` retain manual operation. Joblib artifacts must come from the controlled local training pipeline. See [model card](MODEL_CARD.md), [dataset card](../data/DATASET_CARD.md), and [verification](ML_VERIFICATION.md). The latest full regression run passed 94 tests; older counts below describe the pre-ML documentation snapshot.
+
 ---
 
 ## 1. Classification of Current Boundaries

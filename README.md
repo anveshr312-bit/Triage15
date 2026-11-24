@@ -2,9 +2,13 @@
 
 ### Peer-to-Peer Micro-Skill and Doubt Bounty Board (15-Minute Sessions)
 
+**Explainable ML is ready:** Use **Suggest Skills** in the doubt form, review actual feature contributions, and accept/remove/add tags before posting. Open **ML evaluation** for measured results. A local TF-IDF + Linear SVM model uses eight existing tags; final held-out micro F1 is **0.8736** on 404 questions. The Hungarian engine remains independent and unchanged. Set `ML_ENABLED=false` for manual-only operation.
+
+[ML architecture and reproduction](docs/ML_ARCHITECTURE.md) · [Model card](docs/MODEL_CARD.md) · [Dataset and attribution](data/DATASET_CARD.md) · [Judge Q&A](docs/ML_JUDGE_QA.md) · [15-minute guide](docs/ML_15_MINUTE_GUIDE.md) · [Verification](docs/ML_VERIFICATION.md)
+
 **Event:** MLH HackDay  
 **Stack:** React 19 + TypeScript + Vite | FastAPI + SQLAlchemy 2.0 + SQLite (WAL) | Rectangular Kuhn-Munkres Hungarian Matching  
-**Test Suite:** 50 automated tests passing (100%) | Zero external cloud or API dependencies
+**Test Suite:** 94 automated tests passing (56 original + 38 ML checks) | Offline inference; network only for optional dataset acquisition
 
 ---
 
@@ -24,7 +28,7 @@ Instead of sequential first-come first-served queueing or unreliable chat bots, 
 ## 2. Quickstart Instructions (Windows PowerShell)
 
 ### Prerequisites
-- Python 3.11+ (tested with Python 3.14.5)
+- Python 3.12+ (tested with Python 3.14.5; Docker uses 3.12)
 - Node.js 18+ (tested with Node 22.x)
 
 ### Setup & Installation
@@ -44,7 +48,7 @@ cd ..
 
 ### Initialize Database & Demo Data
 ```powershell
-$env:PYTHONPATH="backend"
+$env:PYTHONPATH=".;backend"
 .\.venv\Scripts\python.exe -m app.seed --reset
 ```
 *Initializes 12 synthetic students, 7 mentors, academic skill domain banks, availability windows, sample doubts with bounties, and historical feedback records.*
@@ -53,7 +57,7 @@ $env:PYTHONPATH="backend"
 
 **Terminal 1 (Backend API):**
 ```powershell
-$env:PYTHONPATH="backend"
+$env:PYTHONPATH=".;backend"
 .\.venv\Scripts\uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
@@ -70,12 +74,12 @@ npm run dev
 
 ## 3. Running Verification & Benchmarks
 
-### Execute Full Automated Test Suite (50 Tests)
+### Execute Full Automated Test Suite (94 Tests)
 ```powershell
 $env:PYTHONPATH="backend"
 .\.venv\Scripts\pytest -v backend\tests
 ```
-*Runs all 50 tests across algorithm verification, API contracts, P0 bounty/messaging/timer/claiming features, and end-to-end multi-role workflows.*
+*Runs 94 tests across algorithm verification, API contracts, bounty/messaging/timer/claiming, end-to-end workflows, ML attribution and fallback. See docs/ML_VERIFICATION.md for the executed results.*
 
 ### Verify Frontend Production Build
 ```powershell
@@ -115,7 +119,7 @@ Detailed technical documents are available in `docs/`:
 - [`docs/ALGORITHM.md`](docs/ALGORITHM.md): Mathematical formulations, Kuhn-Munkres matching, suitability scoring, and benchmarks.
 - [`docs/API.md`](docs/API.md): Comprehensive REST API contract reference with status codes and schemas.
 - [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md): Step-by-step 90-second judge demonstration walkthrough and test scenarios.
-- [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md): Complete automated test and verification results (50 passed tests).
+- [`docs/ML_VERIFICATION.md`](docs/ML_VERIFICATION.md): Current automated and browser verification (94 passing tests); older results remain in `docs/TEST_REPORT.md`.
 - [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md): Transparent engineering boundaries and production scaling roadmap.
 - [`docs/JUDGE_QA.md`](docs/JUDGE_QA.md): 45+ comprehensive technical defense questions and answers.
 - [`docs/LEARN_THE_PROJECT.md`](docs/LEARN_THE_PROJECT.md): 8-level comprehensive study guide for technical evaluation.
