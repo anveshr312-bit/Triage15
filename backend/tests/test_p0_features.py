@@ -281,3 +281,33 @@ def test_doubt_editing_with_bounty_adjustment(clean):
 
     # Unrelated student cannot edit
     assert clean.patch(f"/api/doubts/{doubt['id']}", headers=headers('student-09'), json=edit_payload).status_code == 403
+
+def test_profile_update_strict_schema_validation(clean):
+    """Test that profile update rejects extra fields like id or student_id, and succeeds with clean skill objects."""
+    # Attempting to send GET serialized skills with extra fields 'id' or 'student_id' fails with 422 extra_forbidden
+    forbidden_payload = {
+        'mentoring': True,
+        'skills': [
+            {'id': 'dummy-id', 'student_id': 'student-03', 'domain': 'Python', 'tag': 'python', 'level': 4}
+        ]
+    }
+    res_forbidden = clean.put('/api/students/student-03/profile', headers=headers('student-03'), json=forbidden_payload)
+    assert res_forbidden.status_code == 422
+    err_detail = res_forbidden.json()['detail']
+    assert any('extra_forbidden' in str(e) for e in err_detail)
+
+    # Clean payload with only domain, tag, level succeeds and updates skills
+    clean_payload = {
+        'mentoring': True,
+        'skills': [
+            {'domain': 'Python', 'tag': 'python', 'level': 4},
+            {'domain': 'Python', 'tag': 'pandas', 'level': 4},
+            {'domain': 'Python', 'tag': 'loops', 'level': 4}
+        ]
+    }
+    res_clean = clean.put('/api/students/student-03/profile', headers=headers('student-03'), json=clean_payload)
+    assert res_clean.status_code == 200
+    s_obj = clean.get('/api/students/student-03').json()
+    assert s_obj['mentoring'] is True
+    skill_tags = [sk['tag'] for sk in s_obj['skills']]
+    assert 'python' in skill_tags and 'pandas' in skill_tags and 'loops' in skill_tags
