@@ -188,6 +188,8 @@ export interface MentorProfile {
   feedback_count: number;
   average_rating: number | null;
   bounties_earned: number;
+  base_rewards_earned?: number;
+  total_rewards_earned?: number;
   smoothed_reliability_heuristic: number;
 }
 

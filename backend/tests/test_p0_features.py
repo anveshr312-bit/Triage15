@@ -69,7 +69,7 @@ def test_bounty_awarded_on_resolution_and_no_duplicate(clean):
     assert res_resolve.status_code == 200
 
     mentor_after = clean.get(f'/api/students/{mentor_id}').json()
-    assert mentor_after['points_balance'] == mentor_points_before + 50
+    assert mentor_after['points_balance'] == mentor_points_before + 60  # 50 bounty + 10 base platform reward
 
     # Verify ledger entry
     mentor_ledger = clean.get(f'/api/students/{mentor_id}/ledger').json()
@@ -84,7 +84,7 @@ def test_bounty_awarded_on_resolution_and_no_duplicate(clean):
         json={'resolved': True, 'rating': 5, 'notes': 'Duplicate'}
     )
     assert res_repeat.status_code == 409
-    assert clean.get(f'/api/students/{mentor_id}').json()['points_balance'] == mentor_points_before + 50
+    assert clean.get(f'/api/students/{mentor_id}').json()['points_balance'] == mentor_points_before + 60
 
 def test_cancellation_refunds_bounty(clean):
     # Seeker creates doubt with 30 bounty

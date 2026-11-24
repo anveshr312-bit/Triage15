@@ -144,7 +144,7 @@ def test_new_user_registration_safe_provisioning(client):
     assert res.status_code == 200
     data = res.json()
     assert data["name"] == "Brand New Student"
-    assert data["points_balance"] == 100
+    assert data["points_balance"] == 0  # Newly registered students start with 0 points
     assert data["mentoring"] is False  # Does not receive fabricated mentor credentials
 
     # Verify identity mapping exists in SQLite

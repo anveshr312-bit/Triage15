@@ -25,6 +25,7 @@ load_dotenv()
 
 DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///./triage15.db')
 OFFER_TTL_SECONDS = int(os.getenv('OFFER_TTL_SECONDS', '300'))
+RESOLUTION_BASE_REWARD = int(os.getenv('RESOLUTION_BASE_REWARD', '10'))
 URGENCY = {'Urgent': 1.25, 'Normal': 1.0, 'Flexible': 0.85}
 SLOT = 900
 DOMAINS = {

@@ -115,9 +115,9 @@ def test_complete_peer_help_workflow_with_bounty_and_messaging(clean):
     assert final_session['state'] == 'RESOLVED'
     assert final_session['resolved'] is True
 
-    # 10. Verify bounty award to mentor
+    # 10. Verify bounty award + base reward to mentor (40 bounty + 10 base platform reward)
     mentor_balance_after = clean.get(f'/api/students/{mentor_id}').json()['points_balance']
-    assert mentor_balance_after == mentor_balance_before + 40
+    assert mentor_balance_after == mentor_balance_before + 50
 
     # Seeker points balance remains 110 (already deducted upon reservation)
     assert clean.get(f'/api/students/{seeker_id}').json()['points_balance'] == 110
