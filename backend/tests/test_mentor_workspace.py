@@ -325,7 +325,7 @@ def test_structured_resolution_and_bounty_settlement(clean):
     )
     assert res_confirm.status_code == 200
     mentor_after = client.get(f'/api/students/{mentor_id}').json()['points_balance']
-    assert mentor_after == mentor_before + 40  # 40 bounty awarded!
+    assert mentor_after == mentor_before + 50  # 40 bounty + 10 base platform reward!
 
     # Verify resolution record status updated to CONFIRMED_RESOLVED
     final_res = client.get(f'/api/sessions/{sess_id}/resolution', headers={'X-Demo-Student-ID': req_id}).json()

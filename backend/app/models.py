@@ -15,7 +15,7 @@ class Student(Base):
     id: Mapped[str] = mapped_column(String, primary_key=True, default=uid)
     name: Mapped[str] = mapped_column(String(80))
     mentoring: Mapped[bool] = mapped_column(Boolean, default=False)
-    points_balance: Mapped[int] = mapped_column(Integer, default=100)
+    points_balance: Mapped[int] = mapped_column(Integer, default=0)
     skills: Mapped[list['StudentSkill']] = relationship(cascade='all, delete-orphan')
     availability: Mapped[list['AvailabilityWindow']] = relationship(cascade='all, delete-orphan')
     __table_args__ = (
@@ -35,7 +35,7 @@ class PointLedger(Base):
     created_at: Mapped[int] = mapped_column(default=now)
     notes: Mapped[str | None] = mapped_column(String(255), nullable=True)
     __table_args__ = (
-        CheckConstraint("transaction_type IN ('INITIAL_GRANT','BOUNTY_RESERVED','BOUNTY_AWARDED','BOUNTY_REFUNDED','BOUNTY_ADJUSTED')"),
+        CheckConstraint("transaction_type IN ('INITIAL_GRANT','BOUNTY_RESERVED','BOUNTY_AWARDED','BOUNTY_REFUNDED','BOUNTY_ADJUSTED','BASE_REWARD')"),
     )
 
 class StudentSkill(Base):

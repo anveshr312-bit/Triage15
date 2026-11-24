@@ -4,6 +4,7 @@ from time import perf_counter
 from fastapi import HTTPException
 from sqlalchemy import select, and_, or_
 from . import models as m
+from . import config as cfg
 from .algorithms import maximum_weight, greedy, summarize
 from .config import SLOT, OFFER_TTL_SECONDS, URGENCY
 
@@ -100,25 +101,42 @@ def reserve_bounty(db, student, doubt_id, amount):
     db.flush()
 
 def award_bounty(db, mentor, session, doubt):
-    if not doubt.bounty or doubt.bounty <= 0:
-        return
-    ref = f'award:{session.id}'
-    existing = db.scalar(select(m.PointLedger.id).where(m.PointLedger.reference_id == ref))
-    if existing:
-        return  # Prevent duplicate award
-    mentor.points_balance += doubt.bounty
-    ledger = m.PointLedger(
-        student_id=mentor.id,
-        amount=doubt.bounty,
-        transaction_type='BOUNTY_AWARDED',
-        doubt_id=doubt.id,
-        session_id=session.id,
-        reference_id=ref,
-        balance_after=mentor.points_balance,
-        notes=f'Awarded {doubt.bounty} points for resolving doubt'
-    )
-    db.add(ledger)
-    db.flush()
+    """Award platform base reward (10 pts) and transfer any optional requester-funded bounty."""
+    base_amount = getattr(cfg, 'RESOLUTION_BASE_REWARD', 10)
+    base_ref = f'base_reward:{session.id}'
+    existing_base = db.scalar(select(m.PointLedger.id).where(m.PointLedger.reference_id == base_ref))
+    if not existing_base:
+        mentor.points_balance += base_amount
+        ledger_base = m.PointLedger(
+            student_id=mentor.id,
+            amount=base_amount,
+            transaction_type='BASE_REWARD',
+            doubt_id=doubt.id,
+            session_id=session.id,
+            reference_id=base_ref,
+            balance_after=mentor.points_balance,
+            notes=f'Base platform reward of {base_amount} points for confirmed resolution'
+        )
+        db.add(ledger_base)
+        db.flush()
+
+    if doubt.bounty and doubt.bounty > 0:
+        ref = f'award:{session.id}'
+        existing = db.scalar(select(m.PointLedger.id).where(m.PointLedger.reference_id == ref))
+        if not existing:
+            mentor.points_balance += doubt.bounty
+            ledger = m.PointLedger(
+                student_id=mentor.id,
+                amount=doubt.bounty,
+                transaction_type='BOUNTY_AWARDED',
+                doubt_id=doubt.id,
+                session_id=session.id,
+                reference_id=ref,
+                balance_after=mentor.points_balance,
+                notes=f'Awarded {doubt.bounty} points for resolving doubt'
+            )
+            db.add(ledger)
+            db.flush()
 
 def refund_bounty(db, doubt, reason='cancelled'):
     if not doubt.bounty or doubt.bounty <= 0:

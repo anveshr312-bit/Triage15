@@ -8,13 +8,15 @@ export function DoubtBoard({
   domains,
   students,
   revision,
-  run
+  run,
+  onNavigateToSessions
 }: {
   actor: string;
   domains: Domains;
   students: Student[];
   revision: number;
   run: Run;
+  onNavigateToSessions?: () => void;
 }) {
   const [items, setItems] = useState<Doubt[]>([]);
   const [domain, setDomain] = useState('Python');
@@ -130,7 +132,10 @@ export function DoubtBoard({
   const handleClaim = (doubtId: string) => {
     void run(async () => {
       await api(`/doubts/${doubtId}/claim`, actor, 'POST');
-    }, 'Doubt claimed successfully! Session is now accepted.');
+      if (onNavigateToSessions) {
+        onNavigateToSessions();
+      }
+    }, 'Doubt claimed successfully! Session is now active. Opening sessions…');
   };
 
   return (
@@ -215,7 +220,15 @@ export function DoubtBoard({
               value={bounty}
               onChange={(e) => setBounty(Number(e.target.value))}
             />
-            <small>Points are reserved upon posting and awarded only upon confirmed resolution.</small>
+            {pointsAvailable === 0 ? (
+              <small style={{ color: '#096c60', fontWeight: 500 }}>
+                💡 You have 0 points. Bounties are optional — you can post your doubt with 0 points, and the mentor will still receive the 10-point base platform reward!
+              </small>
+            ) : bounty > pointsAvailable ? (
+              <small className="error">Cannot offer {bounty} points; your available balance is {pointsAvailable} points.</small>
+            ) : (
+              <small>Points are reserved upon posting and awarded only upon confirmed resolution. (Zero bounty is completely supported).</small>
+            )}
           </label>
 
           <label>
@@ -292,10 +305,28 @@ export function DoubtBoard({
         <div className="doubt-cards">
           {items.map((d) => {
             const isOwner = d.requester_id === actor;
-            const canClaim =
-              !isOwner &&
-              (d.status === 'OPEN' || d.status === 'UNMATCHED') &&
-              currentStudent?.mentoring;
+            const isWaiting = d.status === 'OPEN' || d.status === 'UNMATCHED';
+            const mentorSkillsInDomain = currentStudent?.skills?.filter((s) => s.domain === d.domain).map((s) => s.tag) || [];
+            const hasMatchingSkill = d.skills.some((tag) => mentorSkillsInDomain.includes(tag));
+            const hasAvailability = (currentStudent?.availability?.length ?? 0) > 0;
+            const isMentor = Boolean(currentStudent?.mentoring);
+
+            let canClaim = false;
+            let ineligibleReason = '';
+
+            if (isOwner) {
+              ineligibleReason = 'Your own doubt';
+            } else if (!isWaiting) {
+              ineligibleReason = d.status === 'MATCHED' ? 'Assigned to another mentor' : `Doubt is ${d.status.toLowerCase()}`;
+            } else if (!isMentor) {
+              ineligibleReason = 'Enable mentoring in Profile to volunteer';
+            } else if (!hasMatchingSkill) {
+              ineligibleReason = `Requires ${d.domain} skills (${d.skills.join(', ')})`;
+            } else if (!hasAvailability) {
+              ineligibleReason = 'Add availability in Profile to volunteer';
+            } else {
+              canClaim = true;
+            }
 
             return (
               <article key={d.id} className="doubt-card">
@@ -303,7 +334,11 @@ export function DoubtBoard({
                   <span className={`badge status-${d.status.toLowerCase()}`}>
                     {d.status === 'UNMATCHED' ? 'Waiting / Unmatched' : d.status}
                   </span>
-                  {d.bounty > 0 && <span className="badge bounty">★ {d.bounty} pts bounty</span>}
+                  {d.bounty > 0 ? (
+                    <span className="badge bounty">★ {d.bounty} pts bounty</span>
+                  ) : (
+                    <span className="badge" style={{ background: '#e2e8f0', color: '#475569' }}>Zero bounty (+10 base)</span>
+                  )}
                   <span className={`badge urgency-${d.urgency.toLowerCase()}`}>{d.urgency}</span>
                 </div>
 
@@ -320,13 +355,19 @@ export function DoubtBoard({
                 </div>
 
                 <div className="card-actions">
-                  {canClaim && (
+                  {canClaim ? (
                     <button className="primary claim-btn" onClick={() => handleClaim(d.id)}>
-                      Claim this Doubt
+                      🤝 Volunteer to Help
                     </button>
+                  ) : (
+                    !isOwner && isWaiting && (
+                      <span className="badge ineligible-badge" title={ineligibleReason} style={{ background: '#fef2f2', color: '#991b1b', border: '1px solid #fee2e2' }}>
+                        ℹ️ {ineligibleReason}
+                      </span>
+                    )
                   )}
 
-                  {isOwner && (d.status === 'OPEN' || d.status === 'UNMATCHED') && (
+                  {isOwner && isWaiting && (
                     <>
                       <button onClick={() => setEditingDoubt(d)}>Edit Doubt</button>
                       <button

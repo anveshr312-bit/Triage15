@@ -23,6 +23,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [metrics, setMetrics] = useState<any>();
   const [dispatch, setDispatch] = useState<any>();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const refresh = useCallback(() => setRevision((x) => x + 1), []);
 
@@ -159,14 +160,14 @@ export default function App() {
               <span className="badge bounty">★ {student.points_balance} pts</span>
             </div>
           )}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #666)' }}>
+          <div className="user-auth-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="user-email-tag" style={{ fontSize: '0.8rem', color: '#cee0eb' }}>
               {session.user.email}
             </span>
             <button
               type="button"
               className="secondary"
-              style={{ padding: '4px 10px', fontSize: '0.8rem' }}
+              style={{ padding: '6px 12px', fontSize: '0.85rem', minHeight: '38px' }}
               onClick={async () => {
                 await supabase.auth.signOut();
                 setSession(null);
@@ -175,6 +176,14 @@ export default function App() {
               }}
             >
               Sign Out
+            </button>
+            <button
+              type="button"
+              className="mobile-nav-toggle"
+              aria-label="Toggle navigation menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? '✕ Close' : '☰ Menu'}
             </button>
           </div>
         </div>
@@ -205,10 +214,17 @@ export default function App() {
           </div>
         )}
 
-        <nav>
+        <nav className={`main-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           {['Doubt board', 'My sessions', 'Profile & availability', 'Assessments', 'Benchmark', 'ML evaluation', 'Solution history'].map((t) => (
-            <button aria-pressed={tab === t} key={t} onClick={() => setTab(t)}>
-              {t}
+            <button
+              aria-pressed={tab === t}
+              key={t}
+              onClick={() => {
+                setTab(t);
+                setMobileMenuOpen(false);
+              }}
+            >
+              {t === 'My sessions' && (metrics?.sessions?.OFFERED || 0) > 0 ? `🔔 ${t} (${metrics.sessions.OFFERED})` : t}
             </button>
           ))}
         </nav>
@@ -267,7 +283,14 @@ export default function App() {
                   </section>
                 )}
 
-                <DoubtBoard actor={actor} domains={domains} students={students} revision={revision} run={run} />
+                <DoubtBoard
+                  actor={actor}
+                  domains={domains}
+                  students={students}
+                  revision={revision}
+                  run={run}
+                  onNavigateToSessions={() => setTab('My sessions')}
+                />
               </>
             )}
 

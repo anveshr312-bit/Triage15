@@ -136,7 +136,7 @@ def get_or_create_student_mapping(db: Session, sub: str, payload: dict) -> m.Stu
     student = m.Student(
         id=student_id,
         name=name,
-        points_balance=100,  # Standard starter virtual bounty balance
+        points_balance=0,    # All newly registered students start with zero points
         mentoring=False      # Regular new signups start as non-mentors without fabricated skills
     )
     db.add(student)

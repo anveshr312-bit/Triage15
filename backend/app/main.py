@@ -146,19 +146,8 @@ def students(db=Depends(database)):
 
 @app.post('/api/students', status_code=201)
 def register(body: s.StudentInput, db=Depends(database)):
-    student = m.Student(name=body.name, points_balance=100)
+    student = m.Student(name=body.name, points_balance=0)
     db.add(student)
-    db.flush()
-    # Record initial points grant in ledger
-    ledger = m.PointLedger(
-        student_id=student.id,
-        amount=100,
-        transaction_type='INITIAL_GRANT',
-        reference_id=f'grant:{student.id}',
-        balance_after=100,
-        notes='Initial demo points grant'
-    )
-    db.add(ledger)
     db.flush()
     return svc.serialize(student)
 
@@ -198,6 +187,11 @@ def mentor_profile(id: str, db=Depends(database)):
         .where(m.PointLedger.student_id == id, m.PointLedger.transaction_type == 'BOUNTY_AWARDED')
     ) or 0
 
+    base_rewards_earned = db.scalar(
+        select(func.coalesce(func.sum(m.PointLedger.amount), 0))
+        .where(m.PointLedger.student_id == id, m.PointLedger.transaction_type == 'BASE_REWARD')
+    ) or 0
+
     attempts = db.scalars(
         select(m.AssessmentAttempt)
         .where(m.AssessmentAttempt.student_id == id)
@@ -221,6 +215,8 @@ def mentor_profile(id: str, db=Depends(database)):
         'feedback_count': len(ratings),
         'average_rating': avg_rating,
         'bounties_earned': bounties_earned,
+        'base_rewards_earned': base_rewards_earned,
+        'total_rewards_earned': bounties_earned + base_rewards_earned,
         'smoothed_reliability_heuristic': round(15 * (resolved + 2) / (completed + 4), 2)
     }
 
