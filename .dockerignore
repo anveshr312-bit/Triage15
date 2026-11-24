@@ -32,6 +32,14 @@ data/
 # Environment and sensitive files
 .env
 .env.*
+.env*.local
+*.env.local
+frontend/.env.local
+frontend/.env*.local
+!.env.example
+!frontend/.env.example
+!.env.*.example
+.private/
 .tmp
 .uv-cache
 .npm-cache

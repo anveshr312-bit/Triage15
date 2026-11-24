@@ -8,6 +8,13 @@ node_modules/
 dist/
 *.log
 .env
+.env.*
+.env*.local
+*.env.local
+!.env.example
+!frontend/.env.example
+!.env.*.example
+.private/
 .tmp/
 .uv-cache/
 .npm-cache/
